@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "463634238299",
+    "firebase_url": "https://ergo-64cc4.firebaseio.com",
+    "project_id": "ergo-64cc4",
+    "storage_bucket": "ergo-64cc4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:463634238299:android:7c3da3daee8f611b",
+        "android_client_info": {
+          "package_name": "com.washedup.anagnosti.ergo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "463634238299-s9edrfl09jmvhi9859snlh0mnmenq43f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.washedup.anagnosti.ergo",
+            "certificate_hash": "022c73b1851563c63d6371f987d4bade612d59fd"
+          }
+        },
+        {
+          "client_id": "463634238299-ikd326vnt73hvk9m868c409udlupbb74.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlu33S43Q5XRKxBeIOhjsDAuOHIUfhzlM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "463634238299-ikd326vnt73hvk9m868c409udlupbb74.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

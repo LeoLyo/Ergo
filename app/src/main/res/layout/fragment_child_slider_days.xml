@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginEnd="40dp"
+        android:layout_marginStart="40dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/child_slider_days_tv_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:fontFamily="@font/roboto_light"
+                android:text=""
+                android:textColor="@color/dirtyWhite"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/child_slider_days_img_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/ic_add_circle_dirty_white_24dp" />
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_light"
+                android:paddingEnd="0dp"
+                android:paddingStart="20dp"
+                android:text="@string/child_slider_days_s_time"
+                android:textColor="@color/ergoBlue"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/child_slider_days_s_time"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/et_bg_eb"
+                android:fontFamily="@font/roboto_light"
+                android:inputType="time"
+                android:paddingEnd="15dp"
+                android:paddingStart="15dp"
+                android:textColor="@color/ergoBlue"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_light"
+                android:paddingEnd="0dp"
+                android:paddingStart="20dp"
+                android:text="@string/child_slider_days_e_time"
+                android:textColor="@color/ergoBlue"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/child_slider_days_e_time"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/et_bg_eb"
+                android:fontFamily="@font/roboto_light"
+                android:inputType="time"
+                android:paddingEnd="15dp"
+                android:paddingStart="15dp"
+                android:textColor="@color/ergoBlue"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

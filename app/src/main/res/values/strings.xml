@@ -1,0 +1,47 @@
+<resources>
+    <string name="app_name">ERGO</string>
+    <string name="api_key">AIzaSyCK_BEVRilRqGGhcHWYAmUY76O8Nu87YUE</string>
+    <string name="event_perspective">Event Perspective</string>
+    <string name="event_perspective_description">Open an event you are a part of</string>
+    <string name="create_event">Create Event</string>
+    <string name="create_event_description">Create a new event\n(for organisers)</string>
+    <string name="join_event">Join Event</string>
+    <string name="join_event_description">Join an event you have been invited to</string>
+    <string name="user_profile">Profile</string>
+    <string name="user_profile_description">View your personal information</string>
+    <string name="logout_button">Log out</string>
+    <string name="log_in_title">Login</string>
+    <string name="email_title">EMAIL</string>
+    <string name="password_title">PASSWORD</string>
+    <string name="log_in_sign_up">Sign Up Now</string>
+    <string name="log_in_forgot_password">Forgot Password?</string>
+    <string name="register_email_title">Email</string>
+    <string name="register_first_name_title">First Name</string>
+    <string name="register_last_name_title">Last Name</string>
+    <string name="register_address_title">Address</string>
+    <string name="register_phone_number_title">Phone Number</string>
+    <string name="register_password_title">Password</string>
+    <string name="register_confirm_password_title">Confirm Password</string>
+    <string name="register_button_title">Register</string>
+    <string name="email_verification_message">You have not verified your email yet. Please click the verification button, then check your inbox and verify your email address.</string>
+    <string name="email_verification_button_text">Click to Verify</string>
+    <string name="forgot_password_button_text">Reset Password</string>
+    <string name="forgot_password_email_text">Email</string>
+    <string name="forgot_password_message">Please enter your registered email, then press the forgot password button. An email will be send to you with further instructions.</string>
+    <string name="slider_info_event_name">Event name</string>
+    <string name="slider_info_organiser">Organiser</string>
+    <string name="slider_info_description">Event description</string>
+    <string name="slider_info_btn_save">Save inputs</string>
+    <string name="slider_links_first_day">First day</string>
+    <string name="slider_links_last_day">Last day</string>
+    <string name="slider_links_location">Location</string>
+    <string name="slider_links_event_image">Event image</string>
+    <string name="create_event_prevb">Back</string>
+    <string name="create_event_nextb">Next</string>
+    <string name="create_event_finishb">Finish</string>
+    <string name="child_slider_days_s_time">Starting time</string>
+    <string name="child_slider_days_e_time">Ending time</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

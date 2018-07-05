@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".createEvent.SliderLinksFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginEnd="40dp"
+        android:layout_marginStart="40dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_light"
+                android:paddingEnd="0dp"
+                android:paddingStart="20dp"
+                android:text="@string/slider_links_first_day"
+                android:textColor="@color/ergoBlue"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/slider_links_first_day"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/et_bg_eb"
+                android:fontFamily="@font/roboto_light"
+                android:focusable="false"
+                android:paddingEnd="15dp"
+                android:paddingStart="15dp"
+                android:textColor="@color/ergoBlue"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_light"
+                android:paddingEnd="0dp"
+                android:paddingStart="20dp"
+                android:text="@string/slider_links_last_day"
+                android:textColor="@color/ergoBlue"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/slider_links_last_day"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/et_bg_eb"
+                android:fontFamily="@font/roboto_light"
+                android:focusable="false"
+                android:paddingEnd="15dp"
+                android:paddingStart="15dp"
+                android:textColor="@color/ergoBlue"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_light"
+                android:paddingEnd="0dp"
+                android:paddingStart="20dp"
+                android:text="@string/slider_links_location"
+                android:textColor="@color/ergoBlue"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/slider_links_location"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/et_bg_eb"
+                android:fontFamily="@font/roboto_light"
+                android:focusable="false"
+                android:paddingEnd="15dp"
+                android:paddingStart="15dp"
+                android:textColor="@color/ergoBlue"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_light"
+                android:paddingEnd="0dp"
+                android:paddingStart="20dp"
+                android:text="@string/slider_links_event_image"
+                android:textColor="@color/ergoBlue"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/slider_links_event_image"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/et_bg_eb"
+                android:fontFamily="@font/roboto_light"
+                android:focusable="false"
+                android:paddingEnd="15dp"
+                android:paddingStart="15dp"
+                android:textColor="@color/ergoBlue"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/slider_links_btn_save"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/btn_bg"
+                android:fontFamily="@font/roboto_light"
+                android:paddingEnd="70dp"
+                android:paddingStart="70dp"
+                android:text="@string/slider_info_btn_save"
+                android:textColor="@color/dirtyWhite"
+                android:textSize="16sp" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
