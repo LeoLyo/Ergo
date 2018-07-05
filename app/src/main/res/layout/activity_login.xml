@@ -47,9 +47,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_light"
-                        android:text="@string/email_title"
-                        android:paddingStart="20dp"
                         android:paddingEnd="0dp"
+                        android:paddingStart="20dp"
+                        android:text="@string/email_title"
                         android:textColor="@color/dirtyWhite"
                         android:textSize="15sp" />
 
@@ -58,14 +58,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:background="@drawable/et_bg"
-                        android:inputType="textEmailAddress"
                         android:fontFamily="@font/roboto_light"
+                        android:inputType="textEmailAddress"
+                        android:nextFocusForward="@+id/log_in_et_password"
                         android:paddingEnd="15dp"
                         android:paddingStart="15dp"
-                        android:textColor="@color/dirtyWhite"
-                        android:textSize="15sp"
                         android:text="7ainotesuna7@gmail.com"
-                        android:nextFocusForward="@+id/log_in_et_password"/>
+                        android:textColor="@color/dirtyWhite"
+                        android:textCursorDrawable="@color/dirtyWhite"
+                        android:textSize="15sp" />
 
                 </LinearLayout>
 
@@ -79,9 +80,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_light"
-                        android:text="@string/password_title"
-                        android:paddingStart="20dp"
                         android:paddingEnd="0dp"
+                        android:paddingStart="20dp"
+                        android:text="@string/password_title"
                         android:textColor="@color/dirtyWhite"
                         android:textSize="15sp" />
 
@@ -90,12 +91,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:background="@drawable/et_bg"
-                        android:inputType="textPassword"
                         android:fontFamily="@font/roboto_light"
+                        android:inputType="textPassword"
                         android:paddingEnd="15dp"
                         android:paddingStart="15dp"
                         android:text="ergo5678"
                         android:textColor="@color/dirtyWhite"
+                        android:textCursorDrawable="@color/dirtyWhite"
                         android:textSize="15sp" />
 
                 </LinearLayout>
@@ -109,7 +111,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/log_in_linlay1"
                 android:layout_centerHorizontal="true"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/log_in_btn_log_in"

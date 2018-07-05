@@ -10,14 +10,14 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 
     public PagerAdapter(FragmentManager fm, int numberOfPages) {
         super(fm);
-        this.mNoOfPages=numberOfPages;
+        this.mNoOfPages = numberOfPages;
     }
 
     @Override
     public Fragment getItem(int position) {
-        switch(position){
+        switch (position) {
             case 0:
-                SliderInfoFragment sif=new SliderInfoFragment();
+                SliderInfoFragment sif = new SliderInfoFragment();
                 return sif;
             case 1:
                 SliderLinksFragment slf = new SliderLinksFragment();

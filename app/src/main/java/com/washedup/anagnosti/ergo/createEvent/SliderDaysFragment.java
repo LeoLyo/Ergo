@@ -3,11 +3,15 @@ package com.washedup.anagnosti.ergo.createEvent;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.washedup.anagnosti.ergo.R;
 
@@ -20,6 +24,14 @@ import com.washedup.anagnosti.ergo.R;
  * create an instance of this fragment.
  */
 public class SliderDaysFragment extends Fragment {
+    private static final String TAG = "SliderDaysFragment";
+
+    private FloatingActionButton reloadDates;
+    private RecyclerView recyclerView;
+    private RecyclerView.LayoutManager rLayoutManager;
+    private SliderDaysRecyclerAdapter sliderDaysRecyclerAdapter;
+
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -65,7 +77,32 @@ public class SliderDaysFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_slider_days, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_slider_days, container, false);
+
+        reloadDates = rootView.findViewById(R.id.slider_days_btn_reload);
+        recyclerView = rootView.findViewById(R.id.slider_days_rv);
+
+        final CESingleton singleton = CESingleton.Instance();
+
+        reloadDates.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (singleton.currentEventDaysChanged) {
+
+                    rLayoutManager = new LinearLayoutManager(getActivity());
+                    recyclerView.setLayoutManager(rLayoutManager);
+                    sliderDaysRecyclerAdapter = new SliderDaysRecyclerAdapter(getContext(), singleton.mCEDays);
+                    recyclerView.setAdapter(sliderDaysRecyclerAdapter);
+                    singleton.currentEventDaysChanged = false;
+
+                } else {
+                    Toast.makeText(getContext(), R.string.vlada_je_peder, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
+        return rootView;
 
     }
 

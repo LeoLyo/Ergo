@@ -59,27 +59,27 @@ public class CreateEventActivity extends AppCompatActivity implements SliderInfo
         create_event_nextb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String compBtn=create_event_nextb.getText().toString();
-                if(compBtn.matches("Finish")){
+                String compBtn = create_event_nextb.getText().toString();
+                if (compBtn.matches("Finish")) {
                     Toast.makeText(CreateEventActivity.this, "FINISHED", Toast.LENGTH_SHORT).show();
                 }
 
-                create_event_vp.setCurrentItem(mCurrentPage+1);
+                create_event_vp.setCurrentItem(mCurrentPage + 1);
             }
         });
         create_event_prevb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                create_event_vp.setCurrentItem(mCurrentPage-1);
+                create_event_vp.setCurrentItem(mCurrentPage - 1);
             }
         });
     }
 
-    public void addDotsIndicator(int position){
+    public void addDotsIndicator(int position) {
         mDots = new TextView[5];
         create_event_linlay.removeAllViews();
 
-        for(int i=0;i< mDots.length;i++){
+        for (int i = 0; i < mDots.length; i++) {
             mDots[i] = new TextView(this);
             mDots[i].setText(Html.fromHtml("&#8226;"));
             mDots[i].setTextSize(35);
@@ -87,7 +87,7 @@ public class CreateEventActivity extends AppCompatActivity implements SliderInfo
 
             create_event_linlay.addView(mDots[i]);
         }
-        if(mDots.length>0){
+        if (mDots.length > 0) {
             mDots[position].setTextColor(getResources().getColor(R.color.dirtyWhite));
         }
     }
@@ -102,9 +102,9 @@ public class CreateEventActivity extends AppCompatActivity implements SliderInfo
         public void onPageSelected(int position) {
             addDotsIndicator(position);
 
-            mCurrentPage=position;
+            mCurrentPage = position;
 
-            if(position==0){
+            if (position == 0) {
                 create_event_nextb.setEnabled(true);
                 create_event_prevb.setEnabled(false);
                 create_event_prevb.setVisibility(View.INVISIBLE);
@@ -112,7 +112,7 @@ public class CreateEventActivity extends AppCompatActivity implements SliderInfo
                 create_event_nextb.setText(R.string.create_event_nextb);
                 create_event_prevb.setText("");
 
-            } else if(position==mDots.length-1){
+            } else if (position == mDots.length - 1) {
                 create_event_nextb.setEnabled(true);
                 create_event_prevb.setEnabled(true);
                 create_event_prevb.setVisibility(View.VISIBLE);
@@ -120,7 +120,7 @@ public class CreateEventActivity extends AppCompatActivity implements SliderInfo
                 create_event_nextb.setText(R.string.create_event_finishb);
                 create_event_prevb.setText(R.string.create_event_prevb);
 
-            }else{
+            } else {
                 create_event_nextb.setEnabled(true);
                 create_event_prevb.setEnabled(true);
                 create_event_prevb.setVisibility(View.VISIBLE);

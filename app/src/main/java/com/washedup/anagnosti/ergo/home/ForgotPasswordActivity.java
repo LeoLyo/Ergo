@@ -27,10 +27,10 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
 
-        forgot_password_et_email=findViewById(R.id.forgot_password_et_email);
-        forgot_password_btn_reset_password=findViewById(R.id.forgot_password_btn_reset_password);
+        forgot_password_et_email = findViewById(R.id.forgot_password_et_email);
+        forgot_password_btn_reset_password = findViewById(R.id.forgot_password_btn_reset_password);
 
-        firebaseAuth=FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
 
         forgot_password_btn_reset_password.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,10 +50,10 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 firebaseAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             Toast.makeText(ForgotPasswordActivity.this, "Password reset email successfully sent.", Toast.LENGTH_SHORT).show();
                             finish();
-                        }else{
+                        } else {
                             Toast.makeText(ForgotPasswordActivity.this, "Error in sending password reset email. The entered email is not registered in the database.", Toast.LENGTH_SHORT).show();
                         }
                     }

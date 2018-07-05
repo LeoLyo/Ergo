@@ -11,21 +11,21 @@ public class CEPerson {
     private ArrayList<Integer> previousPositions;
     private int depth;
 
-    public CEPerson( String email, CERole roleOfIndividual, int depth, CEPerson parentOfIndividual) {
+    public CEPerson(String email, CERole roleOfIndividual, int depth, CEPerson parentOfIndividual) {
         this.email = email;
         this.roleOfIndividual = roleOfIndividual;
         this.subordinates = new ArrayList<>();
-        this.depth=depth;
-        this.previousPositions=new ArrayList<>();
-        this.parentOfIndividual=parentOfIndividual;
+        this.depth = depth;
+        this.previousPositions = new ArrayList<>();
+        this.parentOfIndividual = parentOfIndividual;
     }
 
-    public CEPerson( String email, CERole roleOfIndividual, int depth) {
+    public CEPerson(String email, CERole roleOfIndividual, int depth) {
         this.email = email;
         this.roleOfIndividual = roleOfIndividual;
         this.subordinates = new ArrayList<>();
-        this.depth=depth;
-        this.previousPositions=new ArrayList<>();
+        this.depth = depth;
+        this.previousPositions = new ArrayList<>();
     }
 
 

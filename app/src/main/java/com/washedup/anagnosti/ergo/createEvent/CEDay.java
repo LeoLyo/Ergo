@@ -9,11 +9,11 @@ public class CEDay {
     private String timeEnd;
     private boolean isFilled;
 
-    public CEDay(){
-        this.date=new Date();
-        this.timeStart="00:00";
-        this.timeEnd="00:00";
-        this.isFilled=false;
+    public CEDay() {
+        this.date = new Date();
+        this.timeStart = "00:00";
+        this.timeEnd = "00:00";
+        this.isFilled = false;
     }
 
     public Date getDate() {

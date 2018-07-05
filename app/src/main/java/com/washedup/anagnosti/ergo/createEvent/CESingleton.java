@@ -29,51 +29,52 @@ public class CESingleton {
     public String organiserName;
     public String descriptionOfEvent;
 
-    private CESingleton(){
+    private CESingleton() {
         mCEDays = new ArrayList<>();
-        mCERoles= new ArrayList<>();
-        mCEPeople= new ArrayList<>();
+        mCERoles = new ArrayList<>();
+        mCEPeople = new ArrayList<>();
         mUsedEmails = new ArrayList<>();
         dates = new ArrayList<>();
         somethingDoneInEveryPart = new boolean[5];
-        currentNumberOfDays=-7;
-        currentEventDaysChanged=false;
-        dateStartChanged=false;
-        dateEndChanged=false;
-        eventName="";
-        organiserName="";
-        descriptionOfEvent="";
-        locationName="";
-        locationAddress="";
-        locationCoordinates=new GeoPoint(0,0);
+        currentNumberOfDays = -7;
+        currentEventDaysChanged = false;
+        dateStartChanged = false;
+        dateEndChanged = false;
+        eventName = "";
+        organiserName = "";
+        descriptionOfEvent = "";
+        locationName = "";
+        locationAddress = "";
+        locationCoordinates = new GeoPoint(0, 0);
 
     }
-    public static CESingleton Instance(){
-        if(mInstance==null){
-            mInstance=new CESingleton();
+
+    public static CESingleton Instance() {
+        if (mInstance == null) {
+            mInstance = new CESingleton();
         }
         return mInstance;
     }
 
-    public void destroyS(){
+    public void destroyS() {
         //mInstance=null;
         mCEDays.clear();
         mCERoles.clear();
         mCEPeople.clear();
         mUsedEmails.clear();
         dates.clear();
-        somethingDoneInEveryPart=new boolean[0];
-        currentNumberOfDays=-7;
-        currentEventDaysChanged=false;
-        dateStartChanged=false;
-        dateEndChanged=false;
-        mInstance=null;
-        eventName="";
-        organiserName="";
-        descriptionOfEvent="";
-        locationName="";
-        locationAddress="";
-        locationCoordinates=new GeoPoint(0,0);
+        somethingDoneInEveryPart = new boolean[0];
+        currentNumberOfDays = -7;
+        currentEventDaysChanged = false;
+        dateStartChanged = false;
+        dateEndChanged = false;
+        mInstance = null;
+        eventName = "";
+        organiserName = "";
+        descriptionOfEvent = "";
+        locationName = "";
+        locationAddress = "";
+        locationCoordinates = new GeoPoint(0, 0);
 
     }
 }

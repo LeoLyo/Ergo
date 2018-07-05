@@ -41,6 +41,14 @@
     <string name="create_event_finishb">Finish</string>
     <string name="child_slider_days_s_time">Starting time</string>
     <string name="child_slider_days_e_time">Ending time</string>
+    <string name="vlada_je_peder">Vlada je peder.</string>
+    <string name="child_slider_roles_btn_edit">Edit</string>
+    <string name="child_slider_roles_btn_subordinates">Subordinates</string>
+    <string name="child_slider_roles_tv_title">Title</string>
+    <string name="child_slider_roles_tv_description">Description</string>
+    <string name="child_slider_roles_edit_btn_confirm">Confirm</string>
+    <string name="child_slider_roles_remove_message">Are you sure you want to remove the following role?</string>
+    <string name="child_slider_roles_remove_btn_remove">Remove</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

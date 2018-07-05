@@ -54,6 +54,7 @@
                         android:paddingEnd="15dp"
                         android:paddingStart="15dp"
                         android:textColor="@color/dirtyWhite"
+                        android:textCursorDrawable="@color/dirtyWhite"
                         android:textSize="15sp" />
 
                 </LinearLayout>
@@ -84,6 +85,7 @@
                         android:paddingEnd="15dp"
                         android:paddingStart="15dp"
                         android:textColor="@color/dirtyWhite"
+                        android:textCursorDrawable="@color/dirtyWhite"
                         android:textSize="15sp" />
 
                 </LinearLayout>
@@ -114,6 +116,7 @@
                         android:paddingEnd="15dp"
                         android:paddingStart="15dp"
                         android:textColor="@color/dirtyWhite"
+                        android:textCursorDrawable="@color/dirtyWhite"
                         android:textSize="15sp" />
 
                 </LinearLayout>
@@ -144,6 +147,7 @@
                         android:paddingEnd="15dp"
                         android:paddingStart="15dp"
                         android:textColor="@color/dirtyWhite"
+                        android:textCursorDrawable="@color/dirtyWhite"
                         android:textSize="15sp" />
 
                 </LinearLayout>
@@ -174,6 +178,7 @@
                         android:paddingEnd="15dp"
                         android:paddingStart="15dp"
                         android:textColor="@color/dirtyWhite"
+                        android:textCursorDrawable="@color/dirtyWhite"
                         android:textSize="15sp" />
 
                 </LinearLayout>
@@ -204,6 +209,7 @@
                         android:paddingEnd="15dp"
                         android:paddingStart="15dp"
                         android:textColor="@color/dirtyWhite"
+                        android:textCursorDrawable="@color/dirtyWhite"
                         android:textSize="15sp" />
 
                 </LinearLayout>
@@ -234,6 +240,7 @@
                         android:paddingEnd="15dp"
                         android:paddingStart="15dp"
                         android:textColor="@color/dirtyWhite"
+                        android:textCursorDrawable="@color/dirtyWhite"
                         android:textSize="15sp" />
 
                 </LinearLayout>

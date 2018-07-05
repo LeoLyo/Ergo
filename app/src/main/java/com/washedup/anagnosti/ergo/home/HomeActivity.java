@@ -66,7 +66,8 @@ public class HomeActivity extends Activity {
                             }
                         });
                     } else {
-                        firebaseAuth.signOut();;
+                        firebaseAuth.signOut();
+                        ;
                         Intent intent = new Intent(getApplicationContext(), EmailVerificationActivity.class);
                         startActivity(intent);
                     }

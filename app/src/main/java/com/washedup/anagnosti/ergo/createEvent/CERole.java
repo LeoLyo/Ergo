@@ -8,25 +8,24 @@ public class CERole {
     private ArrayList<CERole> subordinates;
     private boolean isChecked;
 
-    public CERole(String name, long uniqueId){
+    public CERole(String name, long uniqueId) {
         this.name = name;
         this.uniqueId = uniqueId;
-        this.description="";
-        this.isChecked=false;
+        this.description = "";
+        this.isChecked = false;
     }
 
-    public String getAllSubordinatesInString(){
-        String sSubs="";
-        if(subordinates.size()==0){
+    public String getAllSubordinatesInString() {
+        String sSubs = "";
+        if (subordinates.size() == 0) {
             return "No subordinates.";
+        } else if (subordinates.size() == 1) {
+            return subordinates.get(subordinates.size() - 1).getName() + ".";
         }
-        else if(subordinates.size()==1){
-            return subordinates.get(subordinates.size()-1).getName()+".";
+        for (int i = 0; i < subordinates.size() - 1; i++) {
+            sSubs += sSubs + subordinates.get(i).getName() + ", ";
         }
-        for(int i=0;i<subordinates.size()-1;i++){
-            sSubs+=sSubs+subordinates.get(i).getName()+", ";
-        }
-        sSubs+=subordinates.get(subordinates.size()-1).getName()+".";
+        sSubs += subordinates.get(subordinates.size() - 1).getName() + ".";
         return sSubs;
 
     }
@@ -72,7 +71,7 @@ public class CERole {
         isChecked = checked;
     }
 
-    public void removeSubordinates(){
+    public void removeSubordinates() {
         subordinates.clear();
     }
 

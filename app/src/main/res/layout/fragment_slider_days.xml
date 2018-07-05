@@ -5,34 +5,23 @@
     android:layout_height="match_parent"
     tools:context=".createEvent.SliderDaysFragment">
 
-    <ListView
-        android:id="@+id/slider_days_lv"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/slider_days_rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:paddingBottom="1dp" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/slider_days_btn_reload"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/slider_days_lv">
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/ic_refresh_dirty_white_24dp" />
 
-        <Button
-            android:id="@+id/slider_days_btn_save"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/btn_bg"
-            android:fontFamily="@font/roboto_light"
-            android:paddingEnd="70dp"
-            android:paddingStart="70dp"
-            android:text="@string/slider_info_btn_save"
-            android:textColor="@color/dirtyWhite"
-            android:textSize="16sp" />
-
-    </RelativeLayout>
 
 </RelativeLayout>

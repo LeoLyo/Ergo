@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <android.support.v7.widget.CardView
+        android:id="@+id/child_slider_roles_cv_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -13,46 +15,23 @@
         android:layout_marginTop="8dp"
         app:cardBackgroundColor="@color/colorAccent">
 
-
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="40dp"
-            android:layout_marginStart="40dp"
-            android:orientation="vertical">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/child_slider_days_tv_day"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:fontFamily="@font/roboto_light"
-                    android:text=""
-                    android:textColor="@color/dirtyWhite"
-                    android:textSize="18sp" />
-
-                <ImageView
-                    android:id="@+id/child_slider_days_img_edit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentTop="true"
-                    android:background="@drawable/ic_edit_dirty_white_24dp" />
-
-            </RelativeLayout>
-
+            android:paddingBottom="10dp"
+            android:paddingEnd="10dp"
+            android:paddingStart="10dp"
+            android:paddingTop="10dp">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:id="@+id/child_slider_roles_linlay1"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="0dp"
+                android:layout_toLeftOf="@id/child_slider_roles_btn_edit"
                 android:orientation="vertical">
 
                 <TextView
@@ -61,12 +40,48 @@
                     android:fontFamily="@font/roboto_light"
                     android:paddingEnd="0dp"
                     android:paddingStart="20dp"
-                    android:text="@string/child_slider_days_s_time"
+                    android:text="@string/child_slider_roles_tv_title"
                     android:textColor="@color/dirtyWhite"
                     android:textSize="15sp" />
 
                 <EditText
-                    android:id="@+id/child_slider_days_s_time"
+                    android:id="@+id/child_slider_roles_ed_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/et_bg"
+                    android:focusable="false"
+                    android:fontFamily="@font/roboto_light"
+                    android:inputType="textCapWords|textAutoCorrect"
+                    android:paddingEnd="15dp"
+                    android:paddingStart="15dp"
+                    android:textColor="@color/dirtyWhite"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/child_slider_roles_linlay1"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="0dp"
+                android:layout_toStartOf="@id/child_slider_roles_btn_subordinates"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_light"
+                    android:paddingEnd="0dp"
+                    android:paddingStart="20dp"
+                    android:text="@string/child_slider_roles_tv_description"
+                    android:textColor="@color/dirtyWhite"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/child_slider_roles_ed_description"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="@drawable/et_bg"
@@ -75,47 +90,38 @@
                     android:paddingEnd="15dp"
                     android:paddingStart="15dp"
                     android:textColor="@color/dirtyWhite"
-                    android:textCursorDrawable="@color/dirtyWhite"
                     android:textSize="15sp" />
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <Button
+                android:id="@+id/child_slider_roles_btn_edit"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
                 android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:orientation="vertical">
+                android:layout_marginTop="15dp"
+                android:background="@drawable/btn_bg"
+                android:fontFamily="@font/roboto_light"
+                android:text="@string/child_slider_roles_btn_edit"
+                android:textAllCaps="true"
+                android:textColor="@color/dirtyWhite"
+                android:textSize="16sp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto_light"
-                    android:paddingEnd="0dp"
-                    android:paddingStart="20dp"
-                    android:text="@string/child_slider_days_e_time"
-                    android:textColor="@color/dirtyWhite"
-                    android:textSize="15sp" />
-
-                <EditText
-                    android:id="@+id/child_slider_days_e_time"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="@drawable/et_bg"
-                    android:focusable="false"
-                    android:fontFamily="@font/roboto_light"
-                    android:paddingEnd="15dp"
-                    android:paddingStart="15dp"
-                    android:textColor="@color/dirtyWhite"
-                    android:textCursorDrawable="@color/dirtyWhite"
-                    android:textSize="15sp" />
-
-            </LinearLayout>
-
-
-        </LinearLayout>
+            <Button
+                android:id="@+id/child_slider_roles_btn_subordinates"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/child_slider_roles_btn_edit"
+                android:background="@color/transparent"
+                android:fontFamily="@font/roboto_light"
+                android:text="@string/child_slider_roles_btn_subordinates"
+                android:textAllCaps="true"
+                android:textColor="@color/dirtyWhite"
+                android:textSize="16sp" />
+        </RelativeLayout>
 
     </android.support.v7.widget.CardView>
-
-
 </RelativeLayout>

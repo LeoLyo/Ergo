@@ -28,7 +28,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/child_slider_days_tv_day"
+                    android:id="@+id/child_slider_days_edit_tv_day"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
@@ -39,12 +39,12 @@
                     android:textSize="18sp" />
 
                 <ImageView
-                    android:id="@+id/child_slider_days_img_edit"
+                    android:id="@+id/child_slider_days_edit_img_add"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentTop="true"
-                    android:background="@drawable/ic_edit_dirty_white_24dp" />
+                    android:background="@drawable/ic_add_circle_dirty_white_24dp" />
 
             </RelativeLayout>
 
@@ -62,20 +62,20 @@
                     android:paddingEnd="0dp"
                     android:paddingStart="20dp"
                     android:text="@string/child_slider_days_s_time"
-                    android:textColor="@color/dirtyWhite"
+                    android:textColor="@color/ergoBlue"
                     android:textSize="15sp" />
 
                 <EditText
-                    android:id="@+id/child_slider_days_s_time"
+                    android:id="@+id/child_slider_days_edit_s_time"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:background="@drawable/et_bg"
+                    android:background="@drawable/et_bg_eb"
                     android:focusable="false"
                     android:fontFamily="@font/roboto_light"
                     android:paddingEnd="15dp"
                     android:paddingStart="15dp"
-                    android:textColor="@color/dirtyWhite"
-                    android:textCursorDrawable="@color/dirtyWhite"
+                    android:textColor="@color/ergoBlue"
+                    android:textCursorDrawable="@color/ergoBlue"
                     android:textSize="15sp" />
 
             </LinearLayout>
@@ -94,20 +94,20 @@
                     android:paddingEnd="0dp"
                     android:paddingStart="20dp"
                     android:text="@string/child_slider_days_e_time"
-                    android:textColor="@color/dirtyWhite"
+                    android:textColor="@color/ergoBlue"
                     android:textSize="15sp" />
 
                 <EditText
-                    android:id="@+id/child_slider_days_e_time"
+                    android:id="@+id/child_slider_days_edit_e_time"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:background="@drawable/et_bg"
+                    android:background="@drawable/et_bg_eb"
                     android:focusable="false"
                     android:fontFamily="@font/roboto_light"
                     android:paddingEnd="15dp"
                     android:paddingStart="15dp"
-                    android:textColor="@color/dirtyWhite"
-                    android:textCursorDrawable="@color/dirtyWhite"
+                    android:textColor="@color/ergoBlue"
+                    android:textCursorDrawable="@color/ergoBlue"
                     android:textSize="15sp" />
 
             </LinearLayout>

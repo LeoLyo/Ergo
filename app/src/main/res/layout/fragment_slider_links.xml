@@ -33,11 +33,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@drawable/et_bg_eb"
-                android:fontFamily="@font/roboto_light"
                 android:focusable="false"
+                android:fontFamily="@font/roboto_light"
                 android:paddingEnd="15dp"
                 android:paddingStart="15dp"
                 android:textColor="@color/ergoBlue"
+                android:textCursorDrawable="@color/ergoBlue"
                 android:textSize="15sp" />
 
         </LinearLayout>
@@ -62,11 +63,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@drawable/et_bg_eb"
-                android:fontFamily="@font/roboto_light"
                 android:focusable="false"
+                android:fontFamily="@font/roboto_light"
                 android:paddingEnd="15dp"
                 android:paddingStart="15dp"
                 android:textColor="@color/ergoBlue"
+                android:textCursorDrawable="@color/ergoBlue"
                 android:textSize="15sp" />
 
         </LinearLayout>
@@ -91,11 +93,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@drawable/et_bg_eb"
-                android:fontFamily="@font/roboto_light"
                 android:focusable="false"
+                android:fontFamily="@font/roboto_light"
                 android:paddingEnd="15dp"
                 android:paddingStart="15dp"
                 android:textColor="@color/ergoBlue"
+                android:textCursorDrawable="@color/ergoBlue"
                 android:textSize="15sp" />
 
         </LinearLayout>
@@ -120,11 +123,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@drawable/et_bg_eb"
-                android:fontFamily="@font/roboto_light"
                 android:focusable="false"
+                android:fontFamily="@font/roboto_light"
                 android:paddingEnd="15dp"
                 android:paddingStart="15dp"
                 android:textColor="@color/ergoBlue"
+                android:textCursorDrawable="@color/ergoBlue"
                 android:textSize="15sp" />
 
         </LinearLayout>

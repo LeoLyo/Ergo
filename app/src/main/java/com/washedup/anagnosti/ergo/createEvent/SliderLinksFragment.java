@@ -176,7 +176,14 @@ public class SliderLinksFragment extends Fragment {
                             singleton.currentNumberOfDays = dayOfEventCounter;
                             if (singleton.dateStartChanged && singleton.dateEndChanged) {
                                 singleton.currentEventDaysChanged = true;
+                                singleton.dateStartChanged = false;
+                                singleton.dateEndChanged = false;
+
+                                for (int i = 0; i < singleton.currentNumberOfDays; i++) {
+                                    singleton.mCEDays.add(new CEDay());
+                                }
                             }
+
 
                             Calendar calS = Calendar.getInstance();
                             calS.setTime(dateStart);
@@ -189,7 +196,7 @@ public class SliderLinksFragment extends Fragment {
                                 calS.add(Calendar.DATE, 1);
                             }
                             Toast.makeText(getActivity(), "Information successfully entered.", Toast.LENGTH_SHORT).show();
-
+                            Toast.makeText(getActivity(), "Number of days: " + singleton.mCEDays.size(), Toast.LENGTH_SHORT).show();
                             //singleton.mEventDays.remove(2);
                             //singleton.mEventDays.add(ev);
                         }

@@ -11,7 +11,7 @@
         android:id="@+id/create_event_vp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="82dp"/>
+        android:layout_marginBottom="82dp" />
 
     <LinearLayout
         android:id="@+id/create_event_linlay1"
@@ -32,11 +32,11 @@
         android:layout_alignParentStart="true"
         android:background="@color/transparent"
         android:fontFamily="@font/roboto_light"
-        android:textAllCaps="true"
         android:text="@string/create_event_prevb"
+        android:textAllCaps="true"
         android:textColor="@color/dirtyWhite"
         android:textSize="16sp"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/create_event_nextb"
@@ -46,8 +46,8 @@
         android:layout_alignParentEnd="true"
         android:background="@color/transparent"
         android:fontFamily="@font/roboto_light"
-        android:textAllCaps="true"
         android:text="@string/create_event_nextb"
+        android:textAllCaps="true"
         android:textColor="@color/dirtyWhite"
-        android:textSize="16sp"  />
+        android:textSize="16sp" />
 </RelativeLayout>
