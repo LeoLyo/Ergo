@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorAccent"
+    tools:context=".home.EmailVerificationActivity">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginEnd="40dp"
+        android:layout_marginStart="40dp">
+
+        <ImageView
+            android:id="@+id/child_slider_people_remove_launcher_icon"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_centerHorizontal="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_launcher_logo" />
+
+        <TextView
+            android:id="@+id/child_slider_people_remove_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/child_slider_people_remove_launcher_icon"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/roboto"
+            android:text="@string/child_slider_people_remove_message"
+            android:textAlignment="center"
+            android:textColor="@color/dirtyWhite"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/child_slider_people_remove_tv_role"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/child_slider_people_remove_message"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/roboto"
+            android:text=""
+            android:textAlignment="center"
+            android:textColor="@color/dirtyWhite"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/child_slider__people_remove_btn_remove"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_below="@+id/child_slider_people_remove_tv_role"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_bg"
+            android:fontFamily="@font/roboto_light"
+            android:paddingEnd="70dp"
+            android:paddingStart="70dp"
+            android:text="@string/child_slider_people_remove_btn_remove"
+            android:textColor="@color/dirtyWhite"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

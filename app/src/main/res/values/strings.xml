@@ -49,6 +49,14 @@
     <string name="child_slider_roles_edit_btn_confirm">Confirm</string>
     <string name="child_slider_roles_remove_message">Are you sure you want to remove the following role?</string>
     <string name="child_slider_roles_remove_btn_remove">Remove</string>
+    <string name="child_slider_people_tv_event_role">Event role</string>
+    <string name="child_slider_people_tv_email">Email</string>
+    <string name="child_slider_people_tv_parent_email">Parent email</string>
+    <string name="child_slider_people_remove_message">Are you sure you want to remove the following person?</string>
+    <string name="child_slider_people_remove_btn_remove">Remove</string>
+
+
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
