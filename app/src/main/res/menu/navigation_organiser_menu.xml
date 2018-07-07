@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_list_of_people"
+            android:icon="@drawable/ic_list_of_people"
+            android:title="List Of People" />
+
+        <item
+            android:id="@+id/nav_about_event"
+            android:icon="@drawable/ic_about_event"
+            android:title="About Event" />
+
+        <item
+            android:id="@+id/nav_event_schedule"
+            android:icon="@drawable/ic_event_schedule"
+            android:title="Event Schedule" />
+
+        <item
+            android:id="@+id/nav_my_obligations"
+            android:icon="@drawable/ic_my_obligations"
+            android:title="My Obligations" />
+
+        <item
+            android:id="@+id/nav_assign_obligations"
+            android:icon="@drawable/ic_assign_obligations"
+            android:title="Assign Obligations" />
+
+        <item
+            android:id="@+id/nav_break_centre"
+            android:icon="@drawable/ic_break_centre"
+            android:title="Break Centre" />
+
+
+    </group>
+</menu>
