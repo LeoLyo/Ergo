@@ -41,8 +41,8 @@ public class HomeActivity extends Activity {
         home_create_event.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent cintent = new Intent(getApplicationContext(), CreateEventActivity.class);
-                startActivity(cintent);
+                Intent content = new Intent(getApplicationContext(), CreateEventActivity.class);
+                startActivity(content);
             }
         });
 
@@ -67,7 +67,6 @@ public class HomeActivity extends Activity {
                         });
                     } else {
                         firebaseAuth.signOut();
-                        ;
                         Intent intent = new Intent(getApplicationContext(), EmailVerificationActivity.class);
                         startActivity(intent);
                     }

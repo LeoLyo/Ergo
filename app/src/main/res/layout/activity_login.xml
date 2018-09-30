@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
     android:background="@color/background"
-    tools:context=".home.LoginActivity">
+    tools:context=".authentication.YLoginActivity">
 
     <RelativeLayout
         android:layout_width="wrap_content"

@@ -12,7 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".home.HomeActivity">
+        <activity
+            android:name=".authentication.YLoginActivity"
+            android:isScrollContainer="true"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,11 +23,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".home.LoginActivity"
-            android:isScrollContainer="true"
-            android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".home.RegisterActivity" />
+        android:name=".home.LoginActivity"
+        android:isScrollContainer="true"
+        android:windowSoftInputMode="adjustPan" />
 
+        <activity android:name=".home.RegisterActivity" />
+        <activity android:name=".authentication.YForgotPasswordActivity"/>
+        <activity android:name=".authentication.YHomeActivity"/>
+        <activity android:name=".authentication.YRegisterActivity"/>
+        <activity android:name=".authentication.YNotVerifiedActivity"/>
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
@@ -33,9 +40,9 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/api_key" />
 
-        <activity android:name=".home.EmailVerificationActivity" />
+        <activity android:name=".home.EmailVerificationActivity" android:noHistory="true"/>
         <activity android:name=".home.ForgotPasswordActivity" />
-        <activity android:name=".createEvent.CreateEventActivity"></activity>
+        <activity android:name=".createEvent.CreateEventActivity"/>
     </application>
 
 </manifest>

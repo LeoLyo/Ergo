@@ -39,14 +39,20 @@ public class EmailVerificationActivity extends Activity {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             Toast.makeText(EmailVerificationActivity.this, "Verification email sent.", Toast.LENGTH_SHORT).show();
-                            finish();
                         } else {
                             Toast.makeText(EmailVerificationActivity.this, "Error in sending verification email. The entered email is not registered in the database.", Toast.LENGTH_SHORT).show();
-                        }
+                            }
 
                     }
                 });
             }
         });
+        finish();
     }
+
+    /*@Override
+    protected void onDestroy() {
+        super.onDestroy();
+        finish();
+    }*/
 }

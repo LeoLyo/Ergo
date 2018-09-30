@@ -31,10 +31,10 @@ import static android.content.ContentValues.TAG;
 public class RegisterActivity extends Activity {
 
     public static final String EMAIL_KEY = "Email";
-    public static final String FIRST_NAME_KEY = "First name";
-    public static final String LAST_NAME_KEY = "Last name";
+    public static final String FIRST_NAME_KEY = "First_Name";
+    public static final String LAST_NAME_KEY = "Last_Name";
     public static final String ADDRESS_KEY = "Address";
-    public static final String PHONE_NUMBER_KEY = "Phone number";
+    public static final String PHONE_NUMBER_KEY = "Phone_Number";
     public static final String PASSWORD_KEY = "Password";
 
     EditText register_et_email, register_et_first_name, register_et_last_name, register_et_address, register_et_phone_number, register_et_password, register_et_confirm_password;
@@ -43,6 +43,7 @@ public class RegisterActivity extends Activity {
 
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore db;
+    private FirebaseUser firebaseUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +62,10 @@ public class RegisterActivity extends Activity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
+        /*FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
+                .setTimestampsInSnapshotsEnabled(true)
+                .build();
+        db.setFirestoreSettings(settings);*/
 
         register_btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,12 +133,38 @@ public class RegisterActivity extends Activity {
 
                 register_pb.setVisibility(View.VISIBLE);
 
-                firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                 firebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        register_pb.setVisibility(View.GONE);
+                        Toast.makeText(getApplicationContext(), "Just before unauthenticator", Toast.LENGTH_SHORT).show();
+                        if(task.isSuccessful()){
+                            registerUser(email,firstName,lastName,address,phoneNumber,password);
+
+                        }else{
+                            if(task.getException() instanceof FirebaseAuthUserCollisionException){
+                                Toast.makeText(getApplicationContext(),"This email is already registered",Toast.LENGTH_SHORT).show();
+                            }
+                            else{
+                                Toast.makeText(getApplicationContext(),task.getException().getMessage(),Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+
+                });
+
+
+
+
+               //firebaseAuth.signOut();
+
+
+                /*firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         register_pb.setVisibility(View.GONE);
                         if (task.isSuccessful()) {
-                            FirebaseUser current_user = firebaseAuth.getCurrentUser();
+                            final FirebaseUser current_user = firebaseAuth.getCurrentUser();
                             if (current_user != null) {
                                 //Inputting user info into database
                                 Map<String, Object> user = new HashMap<>();
@@ -147,6 +178,7 @@ public class RegisterActivity extends Activity {
                                 db.collection("users").document(current_user.getUid()).set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
+                                        Toast.makeText(getApplicationContext(), "User" + current_user.getUid() + "Registered successfully", Toast.LENGTH_SHORT).show();
                                         Log.d(TAG, "User successfully written in database!");
 
                                     }
@@ -154,7 +186,7 @@ public class RegisterActivity extends Activity {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
                                         Log.w(TAG, "Error writing user", e);
-
+                                        Toast.makeText(getApplicationContext(), "User" + current_user.getUid() + "not registered." + e.getMessage(), Toast.LENGTH_SHORT).show();
                                     }
                                 });
 
@@ -174,9 +206,76 @@ public class RegisterActivity extends Activity {
                             }
                         }
                     }
-                });
+                });*/
+
+
             }
         });
+
+    }
+
+    private void registerUser(String email, String firstName, String lastName, String address, String phoneNumber, String password) {
+        //Inputting user info into database
+        Toast.makeText(getApplicationContext(), "Entered unauthenticator", Toast.LENGTH_SHORT).show();
+        Map<String, Object> unauthenticatedUser = new HashMap<>();
+        unauthenticatedUser.put(EMAIL_KEY,email);
+        unauthenticatedUser.put(FIRST_NAME_KEY,firstName);
+        unauthenticatedUser.put(LAST_NAME_KEY,lastName);
+        unauthenticatedUser.put(ADDRESS_KEY,address);
+        unauthenticatedUser.put(PHONE_NUMBER_KEY,phoneNumber);
+        unauthenticatedUser.put(PASSWORD_KEY,password);
+        FirebaseFirestore.setLoggingEnabled(true);
+
+        Toast.makeText(getApplicationContext(),"Just before db.collection",Toast.LENGTH_SHORT).show();
+        db.collection("UnauthenticatedUsers").document(email)
+                .set(unauthenticatedUser)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(getApplicationContext(), "[INSIDE] You have successfully registered your account!", Toast.LENGTH_SHORT).show();
+                        Log.d(TAG, "User successfully written in database!");
+                        firebaseUser = firebaseAuth.getCurrentUser();
+                        firebaseUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(RegisterActivity.this, "[QQ]  Verification email sent.", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(RegisterActivity.this, "[EE] Error in sending verification email. The entered email is not registered in the database.", Toast.LENGTH_SHORT).show();
+                                }
+
+                            }
+                        });
+                        Intent intent = new Intent(getApplicationContext(), TestActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                        //finish();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(RegisterActivity.this, "[INSIDE] Ops! An error has occurred while registering your account!", Toast.LENGTH_SHORT).show();
+                        Log.w(TAG, "Error writing new user", e);
+                    }
+                });
+
+                        /*db.collection("Users")
+                        .add(user)
+                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG,"Error adding document",e);
+                            }
+                        });*/
+        //Informing user that the registration was successful
+        Toast.makeText(getApplicationContext(), "[LAST] User has been successfully registered!", Toast.LENGTH_SHORT).show();
 
     }
 }

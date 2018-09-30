@@ -127,7 +127,7 @@ public class LoginActivity extends Activity {
             }
         });
 
-        log_in_btn_sign_up.setOnClickListener(new View.OnClickListener() {
+        log_in_btn_sign_up.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), RegisterActivity.class);

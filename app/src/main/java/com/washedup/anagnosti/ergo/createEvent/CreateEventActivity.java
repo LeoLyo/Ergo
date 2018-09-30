@@ -61,6 +61,7 @@ public class CreateEventActivity extends AppCompatActivity implements SliderInfo
             public void onClick(View view) {
                 String compBtn = create_event_nextb.getText().toString();
                 if (compBtn.matches("Finish")) {
+
                     Toast.makeText(CreateEventActivity.this, "FINISHED", Toast.LENGTH_SHORT).show();
                 }
 

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
     android:background="@color/background"
-    tools:context=".home.LoginActivity">
+    tools:context=".authentication.YRegisterActivity">
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -55,7 +55,8 @@
                         android:paddingStart="15dp"
                         android:textColor="@color/dirtyWhite"
                         android:textCursorDrawable="@color/dirtyWhite"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        android:text="rakomir.utvarodizach@gmail.com"/>
 
                 </LinearLayout>
 
@@ -86,7 +87,8 @@
                         android:paddingStart="15dp"
                         android:textColor="@color/dirtyWhite"
                         android:textCursorDrawable="@color/dirtyWhite"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        android:text="Rakomir"/>
 
                 </LinearLayout>
 
@@ -117,7 +119,8 @@
                         android:paddingStart="15dp"
                         android:textColor="@color/dirtyWhite"
                         android:textCursorDrawable="@color/dirtyWhite"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        android:text="Utvarodizach"/>
 
                 </LinearLayout>
 
@@ -148,7 +151,8 @@
                         android:paddingStart="15dp"
                         android:textColor="@color/dirtyWhite"
                         android:textCursorDrawable="@color/dirtyWhite"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        android:text="ToG"/>
 
                 </LinearLayout>
 
@@ -179,7 +183,8 @@
                         android:paddingStart="15dp"
                         android:textColor="@color/dirtyWhite"
                         android:textCursorDrawable="@color/dirtyWhite"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        android:text="756689043"/>
 
                 </LinearLayout>
 
@@ -210,7 +215,8 @@
                         android:paddingStart="15dp"
                         android:textColor="@color/dirtyWhite"
                         android:textCursorDrawable="@color/dirtyWhite"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        android:text="ergo5678"/>
 
                 </LinearLayout>
 
@@ -241,7 +247,8 @@
                         android:paddingStart="15dp"
                         android:textColor="@color/dirtyWhite"
                         android:textCursorDrawable="@color/dirtyWhite"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        android:text="ergo5678"/>
 
                 </LinearLayout>
 
