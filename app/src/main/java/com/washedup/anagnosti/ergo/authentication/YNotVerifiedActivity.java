@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -15,6 +16,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.washedup.anagnosti.ergo.R;
 
 public class YNotVerifiedActivity extends Activity implements View.OnClickListener{
+
+    ProgressBar email_verification_pb;
 
     FirebaseAuth mAuth;
 
@@ -27,6 +30,8 @@ public class YNotVerifiedActivity extends Activity implements View.OnClickListen
         mAuth = FirebaseAuth.getInstance();
 
         findViewById(R.id.email_verification_btn_verify).setOnClickListener(this);
+
+        email_verification_pb = findViewById(R.id.email_verification_pb);
     }
 
     @Override
@@ -34,30 +39,45 @@ public class YNotVerifiedActivity extends Activity implements View.OnClickListen
         switch(view.getId()){
             case R.id.email_verification_btn_verify:
 
-                FirebaseUser user = mAuth.getCurrentUser();
+                sendVerificationEmail();
 
-                if(!(user.isEmailVerified())){
-                    user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            mAuth.signOut();
-                            Toast.makeText(YNotVerifiedActivity.this, "Verification email sent.", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(YNotVerifiedActivity.this, YLoginActivity.class));
-                            finish();
-
-                        }
-                    });
-
-
-                }else{
-                    mAuth.signOut();
-                    Toast.makeText(this, "User is already verified.", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(this, YHomeActivity.class));
-                    finish();
-
-                }
                 break;
 
+        }
+    }
+
+    private void sendVerificationEmail() {
+        FirebaseUser user = mAuth.getCurrentUser();
+        email_verification_pb.setVisibility(View.VISIBLE);
+        if (user != null) {
+            if(!(user.isEmailVerified())){
+                user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        email_verification_pb.setVisibility(View.GONE);
+                        mAuth.signOut();
+                        Toast.makeText(YNotVerifiedActivity.this, "Verification email sent.", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(YNotVerifiedActivity.this, YLoginActivity.class));
+                        finish();
+
+                    }
+                });
+
+
+            }else{
+                email_verification_pb.setVisibility(View.GONE);
+                mAuth.signOut();
+                Toast.makeText(YNotVerifiedActivity.this, "User is already verified.", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(YNotVerifiedActivity.this, YHomeActivity.class));
+                finish();
+
+            }
+        }else{
+            email_verification_pb.setVisibility(View.GONE);
+            mAuth.signOut();
+            Toast.makeText(YNotVerifiedActivity.this, "[ERROR] User is null.", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(YNotVerifiedActivity.this, YHomeActivity.class));
+            finish();
         }
     }
 }

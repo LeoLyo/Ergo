@@ -63,7 +63,7 @@
                         android:nextFocusForward="@+id/log_in_et_password"
                         android:paddingEnd="15dp"
                         android:paddingStart="15dp"
-                        android:text="7ainotesuna7@gmail.com"
+                        android:text="rakomir.utvarodizach@gmail.com"
                         android:textColor="@color/dirtyWhite"
                         android:textCursorDrawable="@color/dirtyWhite"
                         android:textSize="15sp" />

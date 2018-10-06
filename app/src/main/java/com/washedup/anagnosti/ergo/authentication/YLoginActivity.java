@@ -35,7 +35,7 @@ public class YLoginActivity extends Activity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        //Toast.makeText(this, "THIS IS CREATED", Toast.LENGTH_SHORT).show();
         log_in_et_email = findViewById(R.id.log_in_et_email);
         log_in_et_password = findViewById(R.id.log_in_et_password);
         log_in_pb = findViewById(R.id.log_in_pb);
@@ -61,15 +61,22 @@ public class YLoginActivity extends Activity implements View.OnClickListener{
         handler.postDelayed(runnable, 1500);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //Toast.makeText(this, "THIS IS RESUMED", Toast.LENGTH_SHORT).show();
+    }
 
     @Override
     protected void onStart() {
         super.onStart();
         if(mAuth.getCurrentUser() != null){
-
+            //Toast.makeText(this, "NOT NULL USER", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(this, YHomeActivity.class));
             finish();
 
+        }else{
+            //Toast.makeText(this, "NULL USER HERE", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -129,19 +136,23 @@ public class YLoginActivity extends Activity implements View.OnClickListener{
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 log_in_pb.setVisibility(View.GONE);
+                //Toast.makeText(YLoginActivity.this, "JEBO MATER VISE", Toast.LENGTH_SHORT).show();
                 if(task.isSuccessful()){
 
+                    Toast.makeText(YLoginActivity.this, "Logging in...", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(YLoginActivity.this,YHomeActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                     finish();
 
                 }else {
-
+                    //Toast.makeText(YLoginActivity.this, "QI", Toast.LENGTH_SHORT).show();
                     Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
 
                 }
             }
+            
+            
         });
     }
 }
