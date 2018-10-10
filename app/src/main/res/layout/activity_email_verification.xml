@@ -14,13 +14,13 @@
         android:layout_marginEnd="40dp"
         android:layout_marginStart="40dp">
 
-        <ImageView
+        <android.support.v7.widget.AppCompatImageView
             android:id="@+id/verification_launcher_icon"
             android:layout_width="110dp"
             android:layout_height="110dp"
             android:layout_centerHorizontal="true"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_launcher_logo" />
+            app:srcCompat="@drawable/ic_launcher_logo" />
 
         <TextView
             android:id="@+id/email_verification_tv_message"

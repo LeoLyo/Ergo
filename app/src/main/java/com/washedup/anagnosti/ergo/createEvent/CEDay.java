@@ -47,4 +47,9 @@ public class CEDay {
     public void setFilled(boolean filled) {
         isFilled = filled;
     }
+
+    @Override
+    public String toString() {
+        return "Date: " + date + ", timeStart: " + timeStart +", timeEnd: " + timeEnd;
+    }
 }

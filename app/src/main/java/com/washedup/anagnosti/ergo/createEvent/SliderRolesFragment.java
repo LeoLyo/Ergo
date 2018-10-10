@@ -196,7 +196,7 @@ public class SliderRolesFragment extends Fragment {
 
     private void refreshRoleList(ArrayList<CERole> roleListForRefreshing) {
         for (int i = 0; i < roleListForRefreshing.size(); i++) {
-            if (roleListForRefreshing.get(i).isChecked() == true) {
+            if (roleListForRefreshing.get(i).isChecked()) {
                 roleListForRefreshing.get(i).setChecked(false);
             }
         }

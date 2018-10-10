@@ -7,6 +7,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +30,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -56,6 +59,9 @@ public class SliderLinksFragment extends Fragment {
 
     EditText createEventFirstDay, createEventLastDay, createEventLocation, createEventImageView;
     Button createEventButtonConfirmInputsPage2;
+
+
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -103,7 +109,7 @@ public class SliderLinksFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_slider_links, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_slider_links, container, false);
 
         createEventFirstDay = rootView.findViewById(R.id.slider_links_first_day);
         createEventLastDay = rootView.findViewById(R.id.slider_links_last_day);
@@ -179,24 +185,38 @@ public class SliderLinksFragment extends Fragment {
                                 singleton.dateStartChanged = false;
                                 singleton.dateEndChanged = false;
 
+                                singleton.dates.clear();
+                                singleton.mCEDays.clear();
+                                singleton.isDayAdded.clear();
+                                singleton.mCEDaysY.clear();
+
+
+
+                                Calendar calS = Calendar.getInstance();
+                                calS.setTime(dateStart);
+
+                                Calendar calE = Calendar.getInstance();
+                                calE.setTime(dateEnd);
+                                Calendar cal = new GregorianCalendar();
+
+                                while (!calS.after(calE)) {
+
+                                    singleton.dates.add(calS.getTime());
+                                    calS.add(Calendar.DATE, 1);
+                                }
+
                                 for (int i = 0; i < singleton.currentNumberOfDays; i++) {
                                     singleton.mCEDays.add(new CEDay());
+                                    singleton.mCEDays.get(i).setDate(singleton.dates.get(i));
+                                    singleton.isDayAdded.add(false);
                                 }
+
                             }
 
 
-                            Calendar calS = Calendar.getInstance();
-                            calS.setTime(dateStart);
 
-                            Calendar calE = Calendar.getInstance();
-                            calE.setTime(dateEnd);
-
-                            while (!calS.after(calE)) {
-                                singleton.dates.add(calS.getTime());
-                                calS.add(Calendar.DATE, 1);
-                            }
-                            Toast.makeText(getActivity(), "Information successfully entered.", Toast.LENGTH_SHORT).show();
-                            Toast.makeText(getActivity(), "Number of days: " + singleton.mCEDays.size(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "Information successfully entered.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "Number of days: " + singleton.mCEDays.size() + " | Number of dates: " + singleton.dates.size(), Toast.LENGTH_SHORT).show();
                             //singleton.mEventDays.remove(2);
                             //singleton.mEventDays.add(ev);
                         }

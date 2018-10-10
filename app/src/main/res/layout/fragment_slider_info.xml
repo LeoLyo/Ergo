@@ -39,7 +39,7 @@
                 android:paddingEnd="15dp"
                 android:paddingStart="15dp"
                 android:textColor="@color/dirtyWhite"
-                android:textCursorDrawable="@color/dirtyWhite"
+                android:textCursorDrawable="@drawable/dirty_white_cursor_drawable"
                 android:textSize="15sp" />
 
         </LinearLayout>
@@ -70,7 +70,7 @@
                 android:paddingEnd="15dp"
                 android:paddingStart="15dp"
                 android:textColor="@color/dirtyWhite"
-                android:textCursorDrawable="@color/dirtyWhite"
+                android:textCursorDrawable="@drawable/dirty_white_cursor_drawable"
                 android:textSize="15sp" />
 
         </LinearLayout>
@@ -100,7 +100,7 @@
                 android:paddingEnd="15dp"
                 android:paddingStart="15dp"
                 android:textColor="@color/dirtyWhite"
-                android:textCursorDrawable="@color/dirtyWhite"
+                android:textCursorDrawable="@drawable/dirty_white_cursor_drawable"
                 android:textSize="15sp" />
 
         </LinearLayout>

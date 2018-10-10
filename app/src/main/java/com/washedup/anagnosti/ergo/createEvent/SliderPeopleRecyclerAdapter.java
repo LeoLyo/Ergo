@@ -182,7 +182,7 @@ public class SliderPeopleRecyclerAdapter extends RecyclerView.Adapter<SliderPeop
                         else if(menuItem.getTitle().equals("DELETE")){
 
                             popUpDialog.setContentView(R.layout.fragment_child_slider_people_remove);
-                            removeButton=popUpDialog.findViewById(R.id.child_slider__people_remove_btn_remove);
+                            removeButton=popUpDialog.findViewById(R.id.child_slider_people_remove_btn_remove);
                             messageText=popUpDialog.findViewById(R.id.child_slider_people_remove_message);
                             personTV=popUpDialog.findViewById(R.id.child_slider_people_remove_tv_role);
                             personTV.setText(singleton.mCEPeople.get(holdersPosition).getEmail());

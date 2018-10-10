@@ -13,7 +13,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:cardBackgroundColor="@color/colorAccent">
+        app:cardBackgroundColor="@color/colorAccent"
+        app:cardCornerRadius="16dp">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -56,9 +57,9 @@
                     android:inputType="textAutoCorrect|textEmailAddress"
                     android:paddingEnd="15dp"
                     android:paddingStart="15dp"
-                    android:textColor="@color/dirtyWhite"
-                    android:textSize="15sp" />
-
+                    android:textCursorDrawable="@drawable/dirty_white_cursor_drawable"
+                    android:textSize="15sp"
+                    android:textColor="@color/dirtyWhite" />
             </LinearLayout>
 
             <Spinner
@@ -73,7 +74,7 @@
                 app:layout_constraintStart_toStartOf="parent" />
             <Spinner
                 android:id="@+id/child_slider_people_edit_parent_spinner"
-                               android:layout_width="0dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="64dp"

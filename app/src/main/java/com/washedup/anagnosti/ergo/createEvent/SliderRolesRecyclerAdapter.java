@@ -141,7 +141,7 @@ public class SliderRolesRecyclerAdapter extends RecyclerView.Adapter<SliderRoles
                                 Toast.makeText(recyclerContext, "A position with this title already exists. Please select another title.", Toast.LENGTH_SHORT).show();
                             } else {
 
-                                ArrayList<CERole> selectedSubs = new ArrayList<CERole>();
+                                ArrayList<CERole> selectedSubs = new ArrayList<>();
                                 for (int j = 0; j < eRoleList.size(); j++) {
                                     if (eRoleList.get(j).isChecked()) {
                                         selectedSubs.add(eRoleList.get(j));

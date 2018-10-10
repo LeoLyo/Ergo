@@ -57,7 +57,7 @@
     <string name="child_slider_people_tv_parent_email">Parent email</string>
     <string name="child_slider_people_remove_message">Are you sure you want to remove the following person?</string>
     <string name="child_slider_people_remove_btn_remove">Remove</string>
-
+    <string name="create_event_pop_up_dialog_message">Are you sure you want to create the following event?</string>
 
 
 

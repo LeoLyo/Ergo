@@ -15,7 +15,8 @@
         app:cardBackgroundColor="@color/colorAccent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:cardCornerRadius="16dp">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -94,7 +95,7 @@
                     android:paddingEnd="15dp"
                     android:paddingStart="15dp"
                     android:textColor="@color/dirtyWhite"
-                    android:textCursorDrawable="@color/dirtyWhite"
+                    android:textCursorDrawable="@drawable/dirty_white_cursor_drawable"
                     android:textSize="15sp" />
 
             </LinearLayout>
@@ -135,7 +136,7 @@
                     android:paddingEnd="15dp"
                     android:paddingStart="15dp"
                     android:textColor="@color/dirtyWhite"
-                    android:textCursorDrawable="@color/dirtyWhite"
+                    android:textCursorDrawable="@drawable/dirty_white_cursor_drawable"
                     android:textSize="15sp" />
 
             </LinearLayout>

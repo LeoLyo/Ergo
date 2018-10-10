@@ -23,7 +23,7 @@ public class CERole {
             return subordinates.get(subordinates.size() - 1).getName() + ".";
         }
         for (int i = 0; i < subordinates.size() - 1; i++) {
-            sSubs += sSubs + subordinates.get(i).getName() + ", ";
+            sSubs += subordinates.get(i).getName() + ", ";
         }
         sSubs += subordinates.get(subordinates.size() - 1).getName() + ".";
         return sSubs;
