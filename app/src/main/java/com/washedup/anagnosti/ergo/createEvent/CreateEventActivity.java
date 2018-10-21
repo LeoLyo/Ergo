@@ -239,7 +239,6 @@ public class CreateEventActivity extends AppCompatActivity implements SliderInfo
 
     public void uploadAndCreateEvent(){
         db=FirebaseFirestore.getInstance();
-
         final Map<String, Object> event = new HashMap<>();
         event.put("event_name", singleton.eventName);
         event.put("organiser_name",singleton.organiserName);
@@ -254,17 +253,18 @@ public class CreateEventActivity extends AppCompatActivity implements SliderInfo
             public void onSuccess(final DocumentReference documentReference) {
                 Log.d(TAG,"Event successfully added! "+documentReference.getId());
 
-                final String eventId=documentReference.getId();
+                final String eventId = documentReference.getId();
+                final String timeOfUpload = String.valueOf(System.currentTimeMillis());
 
                 //Adding event picture to storage
-                StorageReference eventImageRef = FirebaseStorage.getInstance().getReference("event_images/"+eventId+System.currentTimeMillis()+".jpg");
+                StorageReference eventImageRef = FirebaseStorage.getInstance().getReference("events/"+eventId+"/event_images/current_event_image/"+singleton.eventName+timeOfUpload+".jpg");
                 if(singleton.uriEventImage!=null){
                     eventImageRef.putFile(singleton.uriEventImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            String eventImageUrl = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
+                            String eventImageName = singleton.eventName + timeOfUpload;
                             DocumentReference thisEvent = db.collection("events").document(eventId);
-                            thisEvent.update("event image url",eventImageUrl).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            thisEvent.update("current_event_image",eventImageName).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     Log.d(TAG, "Event picture successfully updated!");

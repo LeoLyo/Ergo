@@ -289,6 +289,17 @@ public class SliderDaysFragment extends Fragment {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        final CESingleton singleton = CESingleton.Instance();
+        rLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(rLayoutManager);
+        sliderDaysRecyclerAdapter = new SliderDaysRecyclerAdapter(getContext(), singleton.mCEDays);
+        recyclerView.setAdapter(sliderDaysRecyclerAdapter);
+
+    }
+
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
