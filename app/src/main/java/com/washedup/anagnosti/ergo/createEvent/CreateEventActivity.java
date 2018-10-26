@@ -101,17 +101,17 @@ public class CreateEventActivity extends AppCompatActivity implements SliderInfo
             @Override
             public void onClick(View view) {
                 String compBtn = create_event_nextb.getText().toString();
-                Toast.makeText(CreateEventActivity.this, "SingletonCheckDays: " + singleton.mCEDays.size(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(CreateEventActivity.this, "SingletonCheckDays: " + singleton.mCEDays.size(), Toast.LENGTH_SHORT).show();
                 for(int w=0;w<singleton.mCEDays.size();w++){
-                    Toast.makeText(CreateEventActivity.this, "Every day check: " + singleton.mCEDays.get(w).toString(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(CreateEventActivity.this, "Every day check: " + singleton.mCEDays.get(w).toString(), Toast.LENGTH_SHORT).show();
                 }
                 String allz = "";
                 for(int z=0;z<singleton.somethingDoneInEveryPart.length;z++){
                     allz+=singleton.somethingDoneInEveryPart[z] + ", ";
                 }
-                Toast.makeText(CreateEventActivity.this, "[JEB]: " + allz, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(CreateEventActivity.this, "[JEB]: " + allz, Toast.LENGTH_SHORT).show();
                 if (compBtn.matches("Finish")) {
-                    Toast.makeText(CreateEventActivity.this, "FINISHED", Toast.LENGTH_SHORT).show();
+                   //Toast.makeText(CreateEventActivity.this, "FINISHED", Toast.LENGTH_SHORT).show();
                     boolean everythingOk=true;
                     String notFilledParts="";
                     for(int i=0;i<singleton.somethingDoneInEveryPart.length;i++){
@@ -180,9 +180,7 @@ public class CreateEventActivity extends AppCompatActivity implements SliderInfo
                             @Override
                             public void onClick(View view) {
                                 progressBar.setVisibility(View.VISIBLE);
-                                uploadAndCreateEvent();
-                                progressBar.setVisibility(View.GONE);
-                                popUpDialog.dismiss();
+                                uploadAndCreateEvent(popUpDialog,progressBar);
                             }
                         });
                         Objects.requireNonNull(popUpDialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -237,7 +235,7 @@ public class CreateEventActivity extends AppCompatActivity implements SliderInfo
 
     }*/
 
-    public void uploadAndCreateEvent(){
+    public void uploadAndCreateEvent(final Dialog popUpDialog, final ProgressBar progressBar){
         db=FirebaseFirestore.getInstance();
         final Map<String, Object> event = new HashMap<>();
         event.put("event_name", singleton.eventName);
@@ -257,7 +255,15 @@ public class CreateEventActivity extends AppCompatActivity implements SliderInfo
                 final String timeOfUpload = String.valueOf(System.currentTimeMillis());
 
                 //Adding event picture to storage
-                StorageReference eventImageRef = FirebaseStorage.getInstance().getReference("events/"+eventId+"/event_images/current_event_image/"+singleton.eventName+timeOfUpload+".jpg");
+
+                String path = "events/"+eventId+"/event_images/current_event_image/"+singleton.eventName+timeOfUpload+".jpg";
+                String path1 = "events/"+singleton.eventName+timeOfUpload+".jpg";
+                String path2 = "events/testing1.jpg";
+                Toast.makeText(CreateEventActivity.this, "PATH : " + path, Toast.LENGTH_SHORT).show();
+                Toast.makeText(CreateEventActivity.this, "PATH 1: " + path1, Toast.LENGTH_SHORT).show();
+                StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+                StorageReference eventImageRef = storageRef.child(path2);
+                Toast.makeText(CreateEventActivity.this, "AFSFA: " + singleton.uriEventImage, Toast.LENGTH_SHORT).show();
                 if(singleton.uriEventImage!=null){
                     eventImageRef.putFile(singleton.uriEventImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -268,12 +274,16 @@ public class CreateEventActivity extends AppCompatActivity implements SliderInfo
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     Log.d(TAG, "Event picture successfully updated!");
+                                    Toast.makeText(CreateEventActivity.this, "Event image added!", Toast.LENGTH_SHORT).show();
+
+
 
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
                                     Log.w(TAG, "Error updating event picture", e);
+                                    Toast.makeText(CreateEventActivity.this, "Error adding event image :(", Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }
@@ -295,12 +305,15 @@ public class CreateEventActivity extends AppCompatActivity implements SliderInfo
                     db.collection("events").document(eventId).collection("days").add(day).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
+                            Toast.makeText(CreateEventActivity.this, "Days successfully added", Toast.LENGTH_SHORT).show();
                             Log.d(TAG,"Day successfully added into event! "+documentReference.getId());
 
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(CreateEventActivity.this, "Error adding days", Toast.LENGTH_SHORT).show();
+
                             Log.w(TAG,"Error adding day.",e);
 
                         }
@@ -327,12 +340,15 @@ public class CreateEventActivity extends AppCompatActivity implements SliderInfo
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
                             Log.d(TAG,"Role successfully added into event! "+documentReference.getId());
+                            Toast.makeText(CreateEventActivity.this, "Roles successfully added", Toast.LENGTH_SHORT).show();
+
 
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             Log.w(TAG,"Error adding role.",e);
+                            Toast.makeText(CreateEventActivity.this, "Error adding roles", Toast.LENGTH_SHORT).show();
 
                         }
                     });
@@ -349,12 +365,13 @@ public class CreateEventActivity extends AppCompatActivity implements SliderInfo
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
+                                    Toast.makeText(CreateEventActivity.this, "People successfully added", Toast.LENGTH_SHORT).show();
                                     Log.d(TAG,"Person successfully added into event! "+documentReference.getId());
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-
+                            Toast.makeText(CreateEventActivity.this, "Error adding people", Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -372,6 +389,10 @@ public class CreateEventActivity extends AppCompatActivity implements SliderInfo
                 }
 
                 //Toast.makeText(CreateEventActivity.this, "Successfully added the event! :D", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CreateEventActivity.this, "Congratulations! Event has been successfully added!", Toast.LENGTH_SHORT).show();
+                popUpDialog.dismiss();
+                progressBar.setVisibility(View.GONE);
+                startActivity(new Intent(CreateEventActivity.this, YHomeActivity.class));
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -381,9 +402,6 @@ public class CreateEventActivity extends AppCompatActivity implements SliderInfo
             }
         });
 
-        Toast.makeText(this, "Congratulations! Event has been successfully added!", Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(this, YHomeActivity.class));
-        finish();
     }
 
 

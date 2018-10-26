@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context=".otherHomePossibilities.ChooseEventForPerspectiveActivity">
 
     <android.support.v7.widget.RecyclerView
@@ -13,6 +14,23 @@
         android:layout_alignParentTop="true"
         android:paddingBottom="1dp" />
 
+    <TextView
+        android:id="@+id/activity_cefp_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:fontFamily="@font/roboto_light"
+        android:textColor="@color/dirtyWhite"
+        android:textSize="30sp"
+        android:text="@string/loading_events"/>
 
+    <ProgressBar
+        android:id="@+id/activity_cefp_pb"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/activity_cefp_tv"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone" />
 
 </RelativeLayout>

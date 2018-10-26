@@ -1,6 +1,7 @@
 package com.washedup.anagnosti.ergo.eventPerspective;
 
 import com.google.firebase.firestore.Exclude;
+import com.google.firebase.firestore.GeoPoint;
 
 import java.util.ArrayList;
 
@@ -10,7 +11,7 @@ public class Event {
     private String event_name;
     private String organiser_name;
     private String description_of_event;
-    private String location_coordinates;
+    private GeoPoint location_coordinates;
     private String location_address;
     private String location_name;
     private ArrayList<String> emails_of_people;
@@ -19,13 +20,21 @@ public class Event {
     private ArrayList<Role> roles;
     private ArrayList<Person> people;
 
+    /**
+     * Neophodan prazan konstruktor.
+     */
+
+    public Event() {
+
+    }
+
     public Event(String event_id, String event_name, String current_event_image){
         this.event_id=event_id;
         this.event_name=event_name;
         this.current_event_image=current_event_image;
     }
 
-    public Event(String event_id, String event_name,String organiser_name, String description_of_event, String location_coordinates, String location_address, String location_name, ArrayList<String> emails_of_people, String current_event_image){
+    public Event(String event_id, String event_name,String organiser_name, String description_of_event, GeoPoint location_coordinates, String location_address, String location_name, ArrayList<String> emails_of_people, String current_event_image){
         this.event_id=event_id;
         this.event_name=event_name;
         this.organiser_name=organiser_name;
@@ -70,11 +79,11 @@ public class Event {
         this.description_of_event = description_of_event;
     }
 
-    public String getLocation_coordinates() {
+    public GeoPoint getLocation_coordinates() {
         return location_coordinates;
     }
 
-    public void setLocation_coordinates(String location_coordinates) {
+    public void setLocation_coordinates(GeoPoint location_coordinates) {
         this.location_coordinates = location_coordinates;
     }
 

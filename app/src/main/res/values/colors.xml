@@ -5,6 +5,7 @@
     <color name="colorAccent">#303030</color>
     <color name="background">#212121</color>
     <color name="dirtyWhite"> #ebebeb</color>
+    <color name="dirtierWhite">#ababab</color>
     <color name="ergoBlue">#1FAFDC</color>
     <color name="transparent">#00000000</color>
     <color name="translucent_black">#80000000</color>

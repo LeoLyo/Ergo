@@ -39,12 +39,12 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <ImageView
+                <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/imageView2"
                     android:layout_width="64dp"
                     android:layout_height="64dp"
                     android:layout_marginTop="16dp"
-                    android:src="@drawable/ic_event_dirty_white_24dp" />
+                    app:srcCompat="@drawable/ic_event_dirty_white_24dp" />
 
                 <TextView
                     android:id="@+id/textView4"
@@ -95,10 +95,10 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <ImageView
+                <android.support.v7.widget.AppCompatImageView
                     android:layout_width="64dp"
                     android:layout_height="64dp"
-                    android:src="@drawable/ic_attach_file_dirty_white_24dp" />
+                    app:srcCompat="@drawable/ic_attach_file_dirty_white_24dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -159,10 +159,10 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <ImageView
+                <android.support.v7.widget.AppCompatImageView
                     android:layout_width="64dp"
                     android:layout_height="64dp"
-                    android:src="@drawable/ic_add_circle_outline_dirty_white_24dp" />
+                    app:srcCompat="@drawable/ic_add_circle_outline_dirty_white_24dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -209,10 +209,10 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <ImageView
+                <android.support.v7.widget.AppCompatImageView
                     android:layout_width="64dp"
                     android:layout_height="64dp"
-                    android:src="@drawable/ic_person_outline_dirty_white_24dp" />
+                    app:srcCompat="@drawable/ic_person_outline_dirty_white_24dp" />
 
                 <TextView
                     android:layout_width="wrap_content"

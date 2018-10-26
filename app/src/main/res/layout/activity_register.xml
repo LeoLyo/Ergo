@@ -6,6 +6,7 @@
     android:animateLayoutChanges="true"
     android:background="@color/background"
     tools:context=".authentication.YRegisterActivity">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -14,8 +15,8 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="40dp"
-            android:layout_marginStart="40dp">
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp">
 
 
             <RelativeLayout
@@ -40,8 +41,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto_light"
-                            android:paddingEnd="0dp"
                             android:paddingStart="20dp"
+                            android:paddingEnd="0dp"
                             android:text="@string/register_email_title"
                             android:textColor="@color/dirtyWhite"
                             android:textSize="15sp" />
@@ -54,11 +55,11 @@
                             android:fontFamily="@font/roboto_light"
                             android:inputType="textEmailAddress"
                             android:nextFocusForward="@+id/log_in_et_password"
-                            android:paddingEnd="15dp"
                             android:paddingStart="15dp"
+                            android:paddingEnd="15dp"
                             android:textColor="@color/dirtyWhite"
                             android:textCursorDrawable="@drawable/dirty_white_cursor_drawable"
-                            android:textSize="15sp"/>
+                            android:textSize="15sp" />
 
                     </LinearLayout>
 
@@ -72,10 +73,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto_light"
-                            android:paddingEnd="0dp"
                             android:paddingStart="20dp"
+                            android:paddingEnd="0dp"
                             android:text="@string/register_first_name_title"
                             android:textColor="@color/dirtyWhite"
+
                             android:textSize="15sp" />
 
                         <EditText
@@ -85,11 +87,11 @@
                             android:background="@drawable/et_bg"
                             android:fontFamily="@font/roboto_light"
                             android:inputType="textPersonName|textCapWords|textAutoCorrect"
-                            android:paddingEnd="15dp"
                             android:paddingStart="15dp"
+                            android:paddingEnd="15dp"
                             android:textColor="@color/dirtyWhite"
                             android:textCursorDrawable="@drawable/dirty_white_cursor_drawable"
-                            android:textSize="15sp"/>
+                            android:textSize="15sp" />
 
                     </LinearLayout>
 
@@ -103,8 +105,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto_light"
-                            android:paddingEnd="0dp"
                             android:paddingStart="20dp"
+                            android:paddingEnd="0dp"
                             android:text="@string/register_nickname_title"
                             android:textColor="@color/dirtyWhite"
                             android:textSize="15sp" />
@@ -116,11 +118,11 @@
                             android:background="@drawable/et_bg"
                             android:fontFamily="@font/roboto_light"
                             android:inputType="textPersonName|textCapWords|textAutoCorrect"
-                            android:paddingEnd="15dp"
                             android:paddingStart="15dp"
+                            android:paddingEnd="15dp"
                             android:textColor="@color/dirtyWhite"
                             android:textCursorDrawable="@drawable/dirty_white_cursor_drawable"
-                            android:textSize="15sp"/>
+                            android:textSize="15sp" />
 
                     </LinearLayout>
 
@@ -134,8 +136,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto_light"
-                            android:paddingEnd="0dp"
                             android:paddingStart="20dp"
+                            android:paddingEnd="0dp"
                             android:text="@string/register_last_name_title"
                             android:textColor="@color/dirtyWhite"
                             android:textSize="15sp" />
@@ -147,11 +149,11 @@
                             android:background="@drawable/et_bg"
                             android:fontFamily="@font/roboto_light"
                             android:inputType="textPersonName|textCapWords|textAutoCorrect"
-                            android:paddingEnd="15dp"
                             android:paddingStart="15dp"
+                            android:paddingEnd="15dp"
                             android:textColor="@color/dirtyWhite"
                             android:textCursorDrawable="@drawable/dirty_white_cursor_drawable"
-                            android:textSize="15sp"/>
+                            android:textSize="15sp" />
 
                     </LinearLayout>
 
@@ -165,8 +167,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto_light"
-                            android:paddingEnd="0dp"
                             android:paddingStart="20dp"
+                            android:paddingEnd="0dp"
                             android:text="@string/register_address_title"
                             android:textColor="@color/dirtyWhite"
                             android:textSize="15sp" />
@@ -178,11 +180,11 @@
                             android:background="@drawable/et_bg"
                             android:fontFamily="@font/roboto_light"
                             android:inputType="textPostalAddress|textCapWords"
-                            android:paddingEnd="15dp"
                             android:paddingStart="15dp"
+                            android:paddingEnd="15dp"
                             android:textColor="@color/dirtyWhite"
                             android:textCursorDrawable="@drawable/dirty_white_cursor_drawable"
-                            android:textSize="15sp"/>
+                            android:textSize="15sp" />
 
                     </LinearLayout>
 
@@ -196,8 +198,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto_light"
-                            android:paddingEnd="0dp"
                             android:paddingStart="20dp"
+                            android:paddingEnd="0dp"
                             android:text="@string/register_phone_number_title"
                             android:textColor="@color/dirtyWhite"
                             android:textSize="15sp" />
@@ -209,11 +211,11 @@
                             android:background="@drawable/et_bg"
                             android:fontFamily="@font/roboto_light"
                             android:inputType="phone"
-                            android:paddingEnd="15dp"
                             android:paddingStart="15dp"
+                            android:paddingEnd="15dp"
                             android:textColor="@color/dirtyWhite"
                             android:textCursorDrawable="@drawable/dirty_white_cursor_drawable"
-                            android:textSize="15sp"/>
+                            android:textSize="15sp" />
 
                     </LinearLayout>
 
@@ -227,8 +229,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto_light"
-                            android:paddingEnd="0dp"
                             android:paddingStart="20dp"
+                            android:paddingEnd="0dp"
                             android:text="@string/register_password_title"
                             android:textColor="@color/dirtyWhite"
                             android:textSize="15sp" />
@@ -240,11 +242,11 @@
                             android:background="@drawable/et_bg"
                             android:fontFamily="@font/roboto_light"
                             android:inputType="textPassword"
-                            android:paddingEnd="15dp"
                             android:paddingStart="15dp"
+                            android:paddingEnd="15dp"
                             android:textColor="@color/dirtyWhite"
                             android:textCursorDrawable="@drawable/dirty_white_cursor_drawable"
-                            android:textSize="15sp"/>
+                            android:textSize="15sp" />
 
                     </LinearLayout>
 
@@ -258,8 +260,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto_light"
-                            android:paddingEnd="0dp"
                             android:paddingStart="20dp"
+                            android:paddingEnd="0dp"
                             android:text="@string/register_confirm_password_title"
                             android:textColor="@color/dirtyWhite"
                             android:textSize="15sp" />
@@ -271,11 +273,11 @@
                             android:background="@drawable/et_bg"
                             android:fontFamily="@font/roboto_light"
                             android:inputType="textPassword"
-                            android:paddingEnd="15dp"
                             android:paddingStart="15dp"
+                            android:paddingEnd="15dp"
                             android:textColor="@color/dirtyWhite"
                             android:textCursorDrawable="@drawable/dirty_white_cursor_drawable"
-                            android:textSize="15sp"/>
+                            android:textSize="15sp" />
 
                     </LinearLayout>
 
@@ -296,12 +298,12 @@
                     android:layout_height="40dp"
                     android:layout_below="@+id/register_linlay1"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="10dp"
                     android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp"
                     android:background="@drawable/btn_bg"
                     android:fontFamily="@font/roboto_light"
-                    android:paddingEnd="70dp"
                     android:paddingStart="70dp"
+                    android:paddingEnd="70dp"
                     android:text="@string/register_button_title"
                     android:textColor="@color/dirtyWhite"
                     android:textSize="16sp" />
@@ -312,12 +314,12 @@
                     android:layout_height="40dp"
                     android:layout_below="@+id/register_btn_submit"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="20dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginBottom="20dp"
                     android:background="@drawable/btn_bg"
                     android:fontFamily="@font/roboto_light"
-                    android:paddingEnd="70dp"
                     android:paddingStart="70dp"
+                    android:paddingEnd="70dp"
                     android:text="@string/register_button_back_to_login"
                     android:textColor="@color/dirtyWhite"
                     android:textSize="16sp" />
@@ -327,7 +329,6 @@
         </RelativeLayout>
 
     </ScrollView>
-
 
 
 </RelativeLayout>

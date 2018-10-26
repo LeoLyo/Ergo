@@ -11,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.washedup.anagnosti.ergo.R;
 import com.washedup.anagnosti.ergo.createEvent.CreateEventActivity;
+import com.washedup.anagnosti.ergo.otherHomePossibilities.ChooseEventForPerspectiveActivity;
 
 public class YHomeActivity extends Activity implements View.OnClickListener{
 
@@ -23,6 +24,9 @@ public class YHomeActivity extends Activity implements View.OnClickListener{
         setContentView(R.layout.activity_home);
         findViewById(R.id.home_log_out).setOnClickListener(this);
         findViewById(R.id.home_create_event).setOnClickListener(this);
+        findViewById(R.id.home_event_perspective).setOnClickListener(this);
+        findViewById(R.id.home_profile).setOnClickListener(this);
+        findViewById(R.id.home_join_event).setOnClickListener(this);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -62,6 +66,24 @@ public class YHomeActivity extends Activity implements View.OnClickListener{
 
                 startActivity(new Intent(this,CreateEventActivity.class));
 
+                break;
+
+            case R.id.home_event_perspective:
+
+                startActivity(new Intent(this,ChooseEventForPerspectiveActivity.class));
+
+                break;
+                
+            case R.id.home_profile:
+
+                Toast.makeText(this, "Profie", Toast.LENGTH_SHORT).show();
+                
+                break;
+                
+            case R.id.home_join_event:
+
+                Toast.makeText(this, "Join", Toast.LENGTH_SHORT).show();
+                
                 break;
         }
     }
