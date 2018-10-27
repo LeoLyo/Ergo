@@ -2,6 +2,7 @@ package com.washedup.anagnosti.ergo.authentication;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -39,7 +40,7 @@ public class YLoginActivity extends Activity implements View.OnClickListener{
         log_in_et_email = findViewById(R.id.log_in_et_email);
         log_in_et_password = findViewById(R.id.log_in_et_password);
         log_in_pb = findViewById(R.id.log_in_pb);
-
+        log_in_pb.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.dirtierWhite), PorterDuff.Mode.MULTIPLY);
         findViewById(R.id.log_in_btn_sign_up).setOnClickListener(this);
         findViewById(R.id.log_in_btn_log_in).setOnClickListener(this);
         findViewById(R.id.log_in_btn_forgot_password).setOnClickListener(this);

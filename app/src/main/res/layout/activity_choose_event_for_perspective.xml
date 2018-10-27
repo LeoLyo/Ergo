@@ -14,7 +14,7 @@
         android:layout_alignParentTop="true"
         android:paddingBottom="1dp" />
 
-    <TextView
+        <TextView
         android:id="@+id/activity_cefp_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -24,6 +24,35 @@
         android:textSize="30sp"
         android:text="@string/loading_events"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:layout_weight="1"
+            android:id="@+id/child_activity_choose_event_for_perspective_btn1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="from bottom" />
+
+        <Button
+            android:layout_weight="1"
+            android:id="@+id/child_activity_choose_event_for_perspective_btn2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="from right" />
+
+        <Button
+            android:layout_weight="1"
+            android:id="@+id/child_activity_choose_event_for_perspective_btn3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="random" />
+    </LinearLayout>
+
     <ProgressBar
         android:id="@+id/activity_cefp_pb"
         style="?android:attr/progressBarStyle"
@@ -31,6 +60,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/activity_cefp_tv"
         android:layout_centerHorizontal="true"
-        android:visibility="gone" />
+        android:visibility="gone"/>
 
 </RelativeLayout>

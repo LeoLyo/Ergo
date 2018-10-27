@@ -9,6 +9,7 @@ import android.graphics.ColorFilter;
 import android.graphics.LightingColorFilter;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -129,6 +130,7 @@ public class CreateEventActivity extends AppCompatActivity implements SliderInfo
                         CardView cardView = popUpDialog.findViewById(R.id.create_event_pop_up_dialog_card_view);
                         ImageView imageView = popUpDialog.findViewById(R.id.create_event_pop_up_dialog_image_view);
                         final ProgressBar progressBar = popUpDialog.findViewById(R.id.create_event_pop_up_dialog_pb);
+                        progressBar.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.dirtierWhite), PorterDuff.Mode.MULTIPLY);
                         if(singleton.uriEventImage!=null){
                             try {
 
@@ -257,12 +259,12 @@ public class CreateEventActivity extends AppCompatActivity implements SliderInfo
                 //Adding event picture to storage
 
                 String path = "events/"+eventId+"/event_images/current_event_image/"+singleton.eventName+timeOfUpload+".jpg";
-                String path1 = "events/"+singleton.eventName+timeOfUpload+".jpg";
-                String path2 = "events/testing1.jpg";
-                Toast.makeText(CreateEventActivity.this, "PATH : " + path, Toast.LENGTH_SHORT).show();
-                Toast.makeText(CreateEventActivity.this, "PATH 1: " + path1, Toast.LENGTH_SHORT).show();
+                //String path1 = "events/"+singleton.eventName+timeOfUpload+".jpg";
+                //String path2 = "events/testing1.jpg";
+                //Toast.makeText(CreateEventActivity.this, "PATH : " + path, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(CreateEventActivity.this, "PATH 1: " + path1, Toast.LENGTH_SHORT).show();
                 StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-                StorageReference eventImageRef = storageRef.child(path2);
+                StorageReference eventImageRef = storageRef.child(path);
                 Toast.makeText(CreateEventActivity.this, "AFSFA: " + singleton.uriEventImage, Toast.LENGTH_SHORT).show();
                 if(singleton.uriEventImage!=null){
                     eventImageRef.putFile(singleton.uriEventImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {

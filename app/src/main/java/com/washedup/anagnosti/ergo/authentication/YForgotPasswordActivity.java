@@ -2,6 +2,7 @@ package com.washedup.anagnosti.ergo.authentication;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -33,6 +34,7 @@ public class YForgotPasswordActivity extends Activity implements View.OnClickLis
 
         forgot_password_et_email = findViewById(R.id.forgot_password_et_email);
         forgot_password_pb = findViewById(R.id.forgot_password_pb);
+        forgot_password_pb.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.dirtierWhite), PorterDuff.Mode.MULTIPLY);
 
         mAuth=FirebaseAuth.getInstance();
     }

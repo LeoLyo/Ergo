@@ -2,6 +2,7 @@ package com.washedup.anagnosti.ergo.authentication;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -32,6 +33,7 @@ public class YNotVerifiedActivity extends Activity implements View.OnClickListen
         findViewById(R.id.email_verification_btn_verify).setOnClickListener(this);
 
         email_verification_pb = findViewById(R.id.email_verification_pb);
+        email_verification_pb.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.dirtierWhite), PorterDuff.Mode.MULTIPLY);
     }
 
     @Override

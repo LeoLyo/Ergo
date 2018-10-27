@@ -249,7 +249,7 @@ public class SliderDaysFragment extends Fragment {
                     singleton.currentEventDaysChanged = false;
 
                 } else {
-                    Toast.makeText(getContext(), R.string.vlada_je_peder, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Days haven't been changed.", Toast.LENGTH_SHORT).show();
                 }
             }
         });

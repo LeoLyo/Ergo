@@ -2,6 +2,7 @@ package com.washedup.anagnosti.ergo.authentication;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Patterns;
@@ -57,6 +58,7 @@ public class YRegisterActivity extends Activity implements View.OnClickListener{
         register_et_password = findViewById(R.id.register_et_pasword);
         register_et_confirm_password = findViewById(R.id.register_et_confirm_password);
         register_pb = findViewById(R.id.register_pb);
+        register_pb.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.dirtierWhite), PorterDuff.Mode.MULTIPLY);
 
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
