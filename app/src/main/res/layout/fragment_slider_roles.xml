@@ -24,7 +24,7 @@
         android:layout_marginBottom="8dp"
         android:clickable="true"
         android:focusable="true"
-        app:rippleColor="@color/dirtyWhite"
+        app:rippleColor="@color/card_background"
         app:srcCompat="@drawable/ic_add_circle_outline_dirty_white_24dp" />
 
 

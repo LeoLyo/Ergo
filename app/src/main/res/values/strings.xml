@@ -74,7 +74,7 @@
     <string name="accept">Accept</string>
     <string name="decline">Decline</string>
     <string name="no_invitations">You have not been invited to any events =(</string>
-    <string name="no_people">It seems no people are participating in this event somehow ¯\_('?')_/¯ </string>
+    <string name="no_people">It seems no people are participating in this event somehow ("?") </string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -12,6 +12,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.washedup.anagnosti.ergo.R;
 import com.washedup.anagnosti.ergo.createEvent.CreateEventActivity;
 import com.washedup.anagnosti.ergo.otherHomePossibilities.ChooseEventForPerspectiveActivity;
+import com.washedup.anagnosti.ergo.otherHomePossibilities.EventInvitationsActivity;
 
 public class YHomeActivity extends Activity implements View.OnClickListener{
 
@@ -82,8 +83,8 @@ public class YHomeActivity extends Activity implements View.OnClickListener{
                 
             case R.id.home_event_invitations:
 
-                Toast.makeText(this, "Invitation", Toast.LENGTH_SHORT).show();
-                
+                startActivity(new Intent(this,EventInvitationsActivity.class));
+
                 break;
         }
     }

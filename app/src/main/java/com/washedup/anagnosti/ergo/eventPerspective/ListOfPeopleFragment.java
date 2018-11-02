@@ -89,7 +89,9 @@ public class ListOfPeopleFragment extends Fragment {
                     people.add(person);
                 }
 
-                runAnimation(rv,rLayoutManager,1);
+                if(!people.isEmpty()){
+                    runAnimation(rv,rLayoutManager, 1);
+                }
 
                 pb.setVisibility(View.GONE);
 

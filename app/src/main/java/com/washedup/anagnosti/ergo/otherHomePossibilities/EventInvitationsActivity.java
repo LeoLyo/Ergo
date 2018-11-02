@@ -89,7 +89,9 @@ public class EventInvitationsActivity extends Activity {
                     }
                 }
 
-                runAnimation(rv,rLayoutManager, 1);
+                if(!events.isEmpty()){
+                    runAnimation(rv,rLayoutManager, 1);
+                }
 
                 pb.setVisibility(View.GONE);
 
