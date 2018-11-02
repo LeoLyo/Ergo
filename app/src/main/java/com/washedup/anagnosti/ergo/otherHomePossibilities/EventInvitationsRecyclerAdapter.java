@@ -5,9 +5,12 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,19 +19,25 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 import com.washedup.anagnosti.ergo.R;
 import com.washedup.anagnosti.ergo.eventPerspective.Event;
 import com.washedup.anagnosti.ergo.eventPerspective.EventPerspectiveActivity;
+import com.washedup.anagnosti.ergo.eventPerspective.Person;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class EventInvitationsRecyclerAdapter extends RecyclerView.Adapter<EventInvitationsRecyclerAdapter.EventInvitationsRecyclerViewHolder> {
+
+    private String TAG = "EventInvitationsRecyclerAdapter";
 
     private ArrayList<Event> events;
     private Context context;
@@ -73,6 +82,7 @@ public class EventInvitationsRecyclerAdapter extends RecyclerView.Adapter<EventI
                 child_activity_event_invitations_button_accept_pop_up = popUpDialog.findViewById(R.id.child_activity_event_invitations_button_accept_pop_up);
                 child_activity_event_invitations_button_decline_pop_up = popUpDialog.findViewById(R.id.child_activity_event_invitations_button_decline_pop_up);
                 child_activity_event_invitations_pb_pop_up = popUpDialog.findViewById(R.id.child_activity_event_invitations_pb_pop_up);
+                child_activity_event_invitations_pb_pop_up.getIndeterminateDrawable().setColorFilter(context.getResources().getColor(R.color.dirtierWhite), PorterDuff.Mode.MULTIPLY);
 
                 Picasso.with(context)
                         .load(tempEvent.getEvent_image_url())
@@ -91,11 +101,38 @@ public class EventInvitationsRecyclerAdapter extends RecyclerView.Adapter<EventI
                         db = FirebaseFirestore.getInstance();
                         mAuth = FirebaseAuth.getInstance();
                         String eventId = events.get(holder.getAdapterPosition()).getEvent_id();
-                        final DocumentReference eventRef = db.collection("events").document(eventId);
+                        DocumentReference eventRef = db.collection("events").document(eventId);
                         String userEmail = mAuth.getCurrentUser().getEmail();
 
                         eventRef.update("invited_users", FieldValue.arrayRemove(userEmail));
                         eventRef.update("accepted_users", FieldValue.arrayUnion(userEmail));
+
+                        final DocumentReference userRef =  eventRef.collection("people").document(userEmail);
+
+                        db.collection("Users").document(userEmail).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if(task.isSuccessful()){
+                                    DocumentSnapshot document = task.getResult();
+                                    Person userInfo = document.toObject(Person.class);
+                                    userRef.update(
+                                          "address",userInfo.getAddress(),
+                                            "email",userInfo.getEmail(),
+                                            "firstName",userInfo.getFirstName(),
+                                            "lastName",userInfo.getLastName(),
+                                            "nickname",userInfo.getNickname(),
+                                            "phoneNumber",userInfo.getPhoneNumber(),
+                                            "invitation_accepted", true
+                                    );
+
+                                    if(!userInfo.getProfileImageUrl().isEmpty())
+                                        userRef.update("profileImageUrl",userInfo.getProfileImageUrl());
+
+                                }else{
+                                    Log.d(TAG, "get failed with: ",task.getException());
+                                }
+                            }
+                        });
 
                         popUpDialog.dismiss();
                         child_activity_event_invitations_pb_pop_up.setVisibility(View.GONE);
@@ -113,7 +150,7 @@ public class EventInvitationsRecyclerAdapter extends RecyclerView.Adapter<EventI
                         db = FirebaseFirestore.getInstance();
                         mAuth = FirebaseAuth.getInstance();
                         String eventId = events.get(holder.getAdapterPosition()).getEvent_id();
-                        final DocumentReference eventRef = db.collection("events").document(eventId);
+                        DocumentReference eventRef = db.collection("events").document(eventId);
                         String userEmail = mAuth.getCurrentUser().getEmail();
 
                         eventRef.update("invited_users", FieldValue.arrayRemove(userEmail));

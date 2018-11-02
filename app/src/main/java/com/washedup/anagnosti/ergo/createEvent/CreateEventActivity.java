@@ -374,10 +374,10 @@ public class CreateEventActivity extends AppCompatActivity implements SliderInfo
                 for(int z=0;z<singleton.mCEPeople.size();z++){
                     final Map<String,Object> person = new HashMap<>();
                     person.put("superior",singleton.mCEPeople.get(z).getParentOfIndividual().getEmail());
-                    // person.put("email",singleton.mCEPeople.get(z).getEmail());
+                    person.put("email",singleton.mCEPeople.get(z).getEmail());
                     person.put("role",singleton.mCEPeople.get(z).getRoleOfIndividual().getName());
                     if(singleton.mCEPeople.get(z).getEmail().equals(userEmail)){
-                        //person.put("invitation_accepted",true);
+                        person.put("invitation_accepted",true);
                         db.collection("Users").document(userEmail).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {

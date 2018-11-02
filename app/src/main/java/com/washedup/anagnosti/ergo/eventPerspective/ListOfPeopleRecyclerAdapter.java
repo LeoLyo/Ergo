@@ -9,7 +9,9 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.squareup.picasso.Picasso;
 import com.washedup.anagnosti.ergo.R;
+import com.washedup.anagnosti.ergo.transformations.CircleTransform;
 
 import java.util.ArrayList;
 
@@ -34,6 +36,25 @@ public class ListOfPeopleRecyclerAdapter extends RecyclerView.Adapter<ListOfPeop
     @Override
     public void onBindViewHolder(ListOfPeopleRecyclerViewHolder holder, int position) {
 
+        final Person person = people.get(holder.getAdapterPosition());
+        String combinedName = person.getFirstName() + " " + person.getNickname() + " " + person.getLastName();
+        holder.fragment_child_ep_lop_et_name.setText(combinedName);
+        holder.fragment_child_ep_lop_et_role.setText(person.getRole());
+        if(!person.getProfileImageUrl().isEmpty()){
+            Picasso.with(context)
+                .load(person.getProfileImageUrl())
+                .fit()
+                .centerCrop()
+                .transform(new CircleTransform())
+                .into(holder.fragment_child_ep_lop_iv);
+        }
+
+        holder.fragment_child_ep_lop_cv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     @Override
