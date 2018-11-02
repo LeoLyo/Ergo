@@ -30,7 +30,7 @@
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground"
             app:cardBackgroundColor="@color/card_background"
-            app:cardCornerRadius="14dp"
+            app:cardCornerRadius="20dp"
             app:cardElevation="10dp">
 
             <LinearLayout
@@ -86,7 +86,7 @@
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground"
             app:cardBackgroundColor="@color/card_background"
-            app:cardCornerRadius="14dp"
+            app:cardCornerRadius="20dp"
             app:cardElevation="10dp">
 
             <LinearLayout
@@ -150,7 +150,7 @@
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground"
             app:cardBackgroundColor="@color/card_background"
-            app:cardCornerRadius="14dp"
+            app:cardCornerRadius="20dp"
             app:cardElevation="10dp">
 
             <LinearLayout
@@ -200,7 +200,7 @@
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground"
             app:cardBackgroundColor="@color/card_background"
-            app:cardCornerRadius="14dp"
+            app:cardCornerRadius="20dp"
             app:cardElevation="10dp">
 
             <LinearLayout
@@ -254,7 +254,7 @@
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
         app:cardBackgroundColor="@color/colorAccent"
-        app:cardCornerRadius="10dp"
+        app:cardCornerRadius="20dp"
         app:cardElevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

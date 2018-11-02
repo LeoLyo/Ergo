@@ -71,12 +71,13 @@ public class EventInvitationsActivity extends Activity {
         eventsRef.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
                 events.clear();
                 tv.setText(R.string.loading_invitations);
                 String userEmail = user.getEmail();
                 for(final QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
                     final Event event = documentSnapshot.toObject(Event.class);
-                    for(int i=0;i<events.size();i++){
+                    for(int i=0;i<event.getInvited_users().size();i++){
                         if(userEmail!=null){
                             if(event.getInvited_users().get(i).compareTo(userEmail)==0){
                                 event.setEvent_id(documentSnapshot.getId());

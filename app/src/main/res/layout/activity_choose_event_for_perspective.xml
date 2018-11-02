@@ -14,15 +14,16 @@
         android:layout_alignParentTop="true"
         android:paddingBottom="1dp" />
 
-        <TextView
+    <TextView
         android:id="@+id/activity_cefp_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:fontFamily="@font/roboto_light"
+        android:text="@string/loading_events"
+        android:textAlignment="center"
         android:textColor="@color/dirtyWhite"
-        android:textSize="30sp"
-        android:text="@string/loading_events"/>
+        android:textSize="30sp" />
 
 
     <ProgressBar
@@ -32,6 +33,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/activity_cefp_tv"
         android:layout_centerHorizontal="true"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
 </RelativeLayout>

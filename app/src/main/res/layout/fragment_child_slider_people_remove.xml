@@ -14,7 +14,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:cardBackgroundColor="@color/card_background"
-        app:cardCornerRadius="16dp">
+        app:cardCornerRadius="20dp">
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -27,7 +27,9 @@
                 android:id="@+id/child_slider_people_remove_launcher_icon"
                 android:layout_width="110dp"
                 android:layout_height="110dp"
+                android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/ic_launcher_logo" />
 

@@ -249,6 +249,7 @@ public class CreateEventActivity extends AppCompatActivity implements SliderInfo
         Collections.sort(singleton.dates);
         DateFormat df = new SimpleDateFormat("dd.mm");
 
+        singleton.mUsedEmails.remove(userEmail);
         final Map<String, Object> event = new HashMap<>();
         event.put("event_name", singleton.eventName);
         event.put("organiser_name",singleton.organiserName);
@@ -279,19 +280,31 @@ public class CreateEventActivity extends AppCompatActivity implements SliderInfo
                 //Toast.makeText(CreateEventActivity.this, "PATH 1: " + path1, Toast.LENGTH_SHORT).show();
                 StorageReference storageRef = FirebaseStorage.getInstance().getReference();
                 StorageReference eventImageRef = storageRef.child(path);
-                Toast.makeText(CreateEventActivity.this, "AFSFA: " + singleton.uriEventImage, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(CreateEventActivity.this, "AFSFA: " + singleton.uriEventImage, Toast.LENGTH_SHORT).show();
                 if(singleton.uriEventImage!=null){
                     eventImageRef.putFile(singleton.uriEventImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             //String eventImageName = singleton.eventName + timeOfUpload;
-                            DocumentReference thisEvent = db.collection("events").document(eventId);
-                            thisEvent.update("event_image_url",taskSnapshot.getMetadata().getReference().getDownloadUrl().toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            final DocumentReference thisEvent = db.collection("events").document(eventId);
+                            taskSnapshot.getMetadata().getReference().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    thisEvent.update("event_image_url",uri.toString());
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w(TAG, "Error updating event picture", e);
+                                    Toast.makeText(CreateEventActivity.this, "Error adding event image :(", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                           /* thisEvent.update("event_image_url",taskSnapshot.getMetadata().getReference().getDownloadUrl().toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     Log.d(TAG, "Event picture successfully updated!");
                                     //Toast.makeText(CreateEventActivity.this, "Event image added!", Toast.LENGTH_SHORT).show();
-
 
 
                                 }
@@ -301,7 +314,7 @@ public class CreateEventActivity extends AppCompatActivity implements SliderInfo
                                     Log.w(TAG, "Error updating event picture", e);
                                     Toast.makeText(CreateEventActivity.this, "Error adding event image :(", Toast.LENGTH_SHORT).show();
                                 }
-                            });
+                            });*/
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -377,13 +390,16 @@ public class CreateEventActivity extends AppCompatActivity implements SliderInfo
                     person.put("email",singleton.mCEPeople.get(z).getEmail());
                     person.put("role",singleton.mCEPeople.get(z).getRoleOfIndividual().getName());
                     if(singleton.mCEPeople.get(z).getEmail().equals(userEmail)){
+                        final int pointerTOZ = z;
                         person.put("invitation_accepted",true);
+                        //Toast.makeText(CreateEventActivity.this, "USER: " + userEmail + " | " + mAuth.getCurrentUser().getEmail(), Toast.LENGTH_SHORT).show();
                         db.collection("Users").document(userEmail).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                 if(task.isSuccessful()){
                                     DocumentSnapshot doc = task.getResult();
                                     if(doc.exists()){
+                                        //Toast.makeText(CreateEventActivity.this, "UDJOH", Toast.LENGTH_SHORT).show();
                                         Person currentUser = doc.toObject(Person.class);
                                         person.put("firstName",currentUser.getFirstName());
                                         person.put("lastName",currentUser.getLastName());
@@ -391,10 +407,24 @@ public class CreateEventActivity extends AppCompatActivity implements SliderInfo
                                         person.put("nickname",currentUser.getNickname());
                                         person.put("address",currentUser.getAddress());
                                         person.put("phoneNumber",currentUser.getPhoneNumber());
-                                        if(!currentUser.getProfileImageUrl().isEmpty()){
+                                        if(currentUser.getProfileImageUrl()!=null && !currentUser.getProfileImageUrl().isEmpty()){
                                             person.put("profileImageUrl",currentUser.getProfileImageUrl());
                                         }
                                         Log.d(TAG, "User data: " + doc.getData());
+                                        db.collection("events").document(eventId).collection("people").document(singleton.mCEPeople.get(pointerTOZ).getEmail()).set(person)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        //Toast.makeText(CreateEventActivity.this, "People successfully added", Toast.LENGTH_SHORT).show();
+                                                        Log.d(TAG,"Person successfully added into event! "+documentReference.getId());
+                                                    }
+                                                }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Toast.makeText(CreateEventActivity.this, "Error adding people", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+
 
                                     }else{
                                         Log.d(TAG,"No such user.");
@@ -404,22 +434,23 @@ public class CreateEventActivity extends AppCompatActivity implements SliderInfo
                                 }
                             }
                         });
-                    }/*else{
+                    }else{
                         person.put("invitation_accepted",false);
-                    }*/
-                    db.collection("events").document(eventId).collection("people").document(singleton.mCEPeople.get(z).getEmail()).set(person)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    //Toast.makeText(CreateEventActivity.this, "People successfully added", Toast.LENGTH_SHORT).show();
-                                    Log.d(TAG,"Person successfully added into event! "+documentReference.getId());
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(CreateEventActivity.this, "Error adding people", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                        db.collection("events").document(eventId).collection("people").document(singleton.mCEPeople.get(z).getEmail()).set(person)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        //Toast.makeText(CreateEventActivity.this, "People successfully added", Toast.LENGTH_SHORT).show();
+                                        Log.d(TAG,"Person successfully added into event! "+documentReference.getId());
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(CreateEventActivity.this, "Error adding people", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                    }
 
                    /* db.collection("events").document(eventId).collection("people").add(person).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override

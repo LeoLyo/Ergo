@@ -1,37 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
 
 
     <android.support.v7.widget.CardView
-        android:id="@+id/child_activity_event_invitations_cv"
+        android:id="@+id/fragment_child_ep_lop_cv_pop_up"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:layout_marginEnd="56dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="8dp"
         app:cardBackgroundColor="@color/card_background"
         app:cardCornerRadius="20dp">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="8dp"
-            android:paddingTop="8dp"
-            android:paddingEnd="8dp"
-            android:paddingBottom="8dp">
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/fragment_child_ep_lop_iv_pop_up"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:srcCompat="@drawable/ic_profile_picture_placeholder"
+                app:layout_constraintBottom_toTopOf="@+id/fragment_child_ep_lop_linlay1_pop_up"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
             <LinearLayout
-                android:id="@+id/child_activity_event_invitations_linlay1"
+                android:id="@+id/fragment_child_ep_lop_linlay1_pop_up"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="128dp"
                 android:layout_marginEnd="8dp"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -44,13 +51,13 @@
                     android:fontFamily="@font/roboto_light"
                     android:paddingStart="20dp"
                     android:paddingEnd="0dp"
-                    android:text="@string/slider_info_event_name"
+                    android:text="@string/person_name"
                     android:textColor="@color/dirtyWhite"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/child_activity_event_invitations_et_name"
+                    android:id="@+id/fragment_child_ep_lop_et_person_name_pop_up"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="@drawable/et_bg_2"
@@ -66,47 +73,55 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/child_activity_event_invitations_linlay2"
+                android:id="@+id/fragment_child_ep_lop_linlay2_pop_up"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:orientation="vertical"
+                android:weightSum="2"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/child_activity_event_invitations_linlay1">
+                app:layout_constraintTop_toBottomOf="@id/fragment_child_ep_lop_linlay1_pop_up">
 
-                <TextView
+                <Button
+                    android:id="@+id/fragment_child_ep_lop_button_call_pop_up"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_bg_bottom_left_call"
                     android:fontFamily="@font/roboto_light"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="0dp"
-                    android:text="@string/date"
                     android:textColor="@color/dirtyWhite"
-                    android:textSize="15sp" />
+                    android:textSize="16sp" />
 
-                <EditText
-                    android:id="@+id/child_activity_event_invitations_et_date"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="@drawable/et_bg"
-                    android:focusable="false"
+                <Button
+                    android:id="@+id/fragment_child_ep_lop_button_message_pop_up"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_bg_bottom_right_message"
                     android:fontFamily="@font/roboto_light"
-                    android:inputType="date"
-                    android:paddingStart="15dp"
-                    android:paddingEnd="15dp"
                     android:textColor="@color/dirtyWhite"
-                    android:textSize="15sp" />
-
+                    android:textSize="16sp" />
             </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/fragment_child_ep_lop_pb_pop_up"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="40dp"
+                android:layout_marginStart="40dp"
+                android:layout_below="@+id/fragment_child_ep_lop_linlay1_pop_up"
+                android:layout_centerHorizontal="true"
+                android:visibility="gone" />
+
 
         </android.support.constraint.ConstraintLayout>
 
     </android.support.v7.widget.CardView>
+
 
 
 </RelativeLayout>

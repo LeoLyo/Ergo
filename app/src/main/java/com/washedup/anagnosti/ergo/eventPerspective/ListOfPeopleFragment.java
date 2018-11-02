@@ -62,7 +62,7 @@ public class ListOfPeopleFragment extends Fragment {
         rLayoutManager = new LinearLayoutManager(rootView.getContext());
         rLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rv.setLayoutManager(rLayoutManager);
-        rAdapter = new ListOfPeopleRecyclerAdapter(people,getContext());
+        rAdapter = new ListOfPeopleRecyclerAdapter(people,getContext(),getActivity());
 
         refreshPeopleRV();
 
@@ -72,7 +72,7 @@ public class ListOfPeopleFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        refreshPeopleRV();
+        //refreshPeopleRV();
 
     }
 
@@ -109,7 +109,7 @@ public class ListOfPeopleFragment extends Fragment {
     private void runAnimation(final RecyclerView rv, final LinearLayoutManager llm, int type) {
         //Context context = rv.getContext();
         //LayoutAnimationController controller = null;
-        rAdapter = new ListOfPeopleRecyclerAdapter(people, rv.getContext());
+        rAdapter = new ListOfPeopleRecyclerAdapter(people, rv.getContext(), getActivity());
         rv.setAdapter(rAdapter);
         rv.setAlpha(0);
 

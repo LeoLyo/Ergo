@@ -14,7 +14,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:cardBackgroundColor="@color/card_background"
-        app:cardCornerRadius="16dp">
+        app:cardCornerRadius="20dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -120,7 +120,7 @@
                 android:fontFamily="@font/roboto_light"
                 android:text="@string/child_slider_roles_btn_subordinates"
                 android:textAllCaps="true"
-                android:textColor="@color/dirtyWhite"
+                android:textColor="@color/ergoBlue"
                 android:textSize="16sp" />
         </RelativeLayout>
 
