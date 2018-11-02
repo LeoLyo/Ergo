@@ -14,6 +14,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -35,18 +36,26 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.washedup.anagnosti.ergo.R;
 import com.washedup.anagnosti.ergo.authentication.YHomeActivity;
+import com.washedup.anagnosti.ergo.eventPerspective.Person;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,12 +75,15 @@ public class CreateEventActivity extends AppCompatActivity implements SliderInfo
 
     private CESingleton singleton = CESingleton.Instance();
     private FirebaseFirestore db;
-
+    private FirebaseAuth mAuth;
+    private boolean isUserEmailEntered=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event);
+        mAuth = FirebaseAuth.getInstance();
+        final String userEmail = mAuth.getCurrentUser().getEmail();
 
         final ViewPager create_event_vp = findViewById(R.id.create_event_vp);
         create_event_linlay = findViewById(R.id.create_event_linlay1);
@@ -103,13 +115,13 @@ public class CreateEventActivity extends AppCompatActivity implements SliderInfo
             public void onClick(View view) {
                 String compBtn = create_event_nextb.getText().toString();
                 //Toast.makeText(CreateEventActivity.this, "SingletonCheckDays: " + singleton.mCEDays.size(), Toast.LENGTH_SHORT).show();
-                for(int w=0;w<singleton.mCEDays.size();w++){
+                /*for(int w=0;w<singleton.mCEDays.size();w++){
                     //Toast.makeText(CreateEventActivity.this, "Every day check: " + singleton.mCEDays.get(w).toString(), Toast.LENGTH_SHORT).show();
-                }
-                String allz = "";
+                }*/
+               /* String allz = "";
                 for(int z=0;z<singleton.somethingDoneInEveryPart.length;z++){
                     allz+=singleton.somethingDoneInEveryPart[z] + ", ";
-                }
+                }*/
                 //Toast.makeText(CreateEventActivity.this, "[JEB]: " + allz, Toast.LENGTH_SHORT).show();
                 if (compBtn.matches("Finish")) {
                    //Toast.makeText(CreateEventActivity.this, "FINISHED", Toast.LENGTH_SHORT).show();
@@ -122,59 +134,58 @@ public class CreateEventActivity extends AppCompatActivity implements SliderInfo
                         }
 
                     }
-                    if(everythingOk){
+                    isUserEmailEntered=false;
+                    for(int i=0;i<singleton.mCEPeople.size();i++){
+                        if(singleton.mCEPeople.get(i).getEmail().equals(userEmail)){
+                            isUserEmailEntered=true;
+                            break;
+                        }
+                    }
+                    if(everythingOk&&isUserEmailEntered){
                         final Dialog popUpDialog = new Dialog(CreateEventActivity.this);
                         popUpDialog.setContentView(R.layout.pop_up_dialog_create_event);
                         TextView eventName = popUpDialog.findViewById(R.id.create_event_pop_up_dialog_event_name);
                         Button createButton = popUpDialog.findViewById(R.id.create_event_pop_up_dialog_button);
-                        CardView cardView = popUpDialog.findViewById(R.id.create_event_pop_up_dialog_card_view);
-                        ImageView imageView = popUpDialog.findViewById(R.id.create_event_pop_up_dialog_image_view);
+                        final CardView cardView = popUpDialog.findViewById(R.id.create_event_pop_up_dialog_card_view);
                         final ProgressBar progressBar = popUpDialog.findViewById(R.id.create_event_pop_up_dialog_pb);
                         progressBar.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.dirtierWhite), PorterDuff.Mode.MULTIPLY);
                         if(singleton.uriEventImage!=null){
                             try {
 
+
                                 Bitmap bm = MediaStore.Images.Media.getBitmap(getContentResolver(), singleton.uriEventImage);
 
-                                Bitmap drawableBitmap = bm.copy(Bitmap.Config.ARGB_8888, true);
+                                final Bitmap drawableBitmap = bm.copy(Bitmap.Config.ARGB_8888, true);
 
-                                Bitmap background = Bitmap.createBitmap(200 , 200,Bitmap.Config.ARGB_8888);
+                                final ViewTreeObserver observer= cardView.getViewTreeObserver();
+                                observer.addOnGlobalLayoutListener(
+                                        new ViewTreeObserver.OnGlobalLayoutListener() {
+                                            @Override
+                                            public void onGlobalLayout() {
 
-                                float originalWidth = drawableBitmap.getWidth();
-                                float originalHeight = drawableBitmap.getHeight();
+                                                Log.d("Log", "Height of CardView: " + cardView.getHeight());
+                                                Log.d("Log", "Width of CardView: " + cardView.getWidth());
 
-                                Canvas canvas = new Canvas(background);
+                                                ImageView imageView = popUpDialog.findViewById(R.id.create_event_pop_up_dialog_image_view);
 
-                                float scale = 200 / originalWidth;
+                                                int dimension = cardView.getWidth();
+                                                Bitmap changedDrawableBitmap  = ThumbnailUtils.extractThumbnail(drawableBitmap,dimension,dimension);
+                                                //drawableBitmap = ThumbnailUtils.extractThumbnail(drawableBitmap,dimension,dimension);
 
-                                float xTranslation = 0.0f;
-                                float yTranslation = (200 - originalHeight * scale) / 2.0f;
+                                                Bitmap darkened = darkenBitMap(changedDrawableBitmap);
+                                                RoundedBitmapDrawable dr = RoundedBitmapDrawableFactory.create(getResources(),darkened);
+                                                dr.setCornerRadius(16);
+                                                imageView.setBackground(dr);
+                                                cardView.setCardElevation(0);
+                                            }
+                                        });
 
-                                Matrix transformation = new Matrix();
-                                transformation.postTranslate(xTranslation,yTranslation);
-                                transformation.preScale(scale,scale);
-
-                                Paint paint = new Paint();
-                                paint.setFilterBitmap(true);
-
-                                canvas.drawBitmap(drawableBitmap, transformation, paint);
-                                canvas.setBitmap(drawableBitmap);
-
-                                Bitmap darkened = darkenBitMap(drawableBitmap);
-                                RoundedBitmapDrawable dr = RoundedBitmapDrawableFactory.create(getResources(),darkened);
-                                dr.setCornerRadius(16);
-                                imageView.setBackground(dr);
-                                cardView.setCardElevation(0);
 
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
 
-                            /*File f = new File(getRealPathFromURI(singleton.uriEventImage));
-                            if(f.exists()) {
-                                Drawable d = Drawable.createFromPath(f.getAbsolutePath());
-                                innerLayout.setBackground(d);
-                            }*/
+
                         }
                         eventName.setText(singleton.eventName);
                         createButton.setOnClickListener(new View.OnClickListener(){
@@ -182,16 +193,18 @@ public class CreateEventActivity extends AppCompatActivity implements SliderInfo
                             @Override
                             public void onClick(View view) {
                                 progressBar.setVisibility(View.VISIBLE);
-                                uploadAndCreateEvent(popUpDialog,progressBar);
+                                uploadAndCreateEvent(popUpDialog,progressBar,userEmail);
                             }
                         });
                         Objects.requireNonNull(popUpDialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                         popUpDialog.show();
-                    }else{
+                    }else if(!everythingOk){
                         notFilledParts="Parts "+notFilledParts;
                         notFilledParts=notFilledParts.substring(0,notFilledParts.length()-2);
                         notFilledParts+=" have not been filled. Please refer to the mentioned parts and complete the inputs.";
                         Toast.makeText(CreateEventActivity.this, notFilledParts, Toast.LENGTH_LONG).show();
+                    }else if(!isUserEmailEntered){
+                        Toast.makeText(CreateEventActivity.this, "You have not entered your email as one of the people that will be participating in the event. Please add yourself.", Toast.LENGTH_LONG).show();
                     }
                 }
 
@@ -206,6 +219,9 @@ public class CreateEventActivity extends AppCompatActivity implements SliderInfo
         });
     }
 
+    private int getSquareCropDimensionForBitmap(Bitmap bitmap) {
+        return Math.min(bitmap.getWidth(),bitmap.getHeight());
+    }
 
 
     private Bitmap darkenBitMap(Bitmap bm) {
@@ -220,33 +236,31 @@ public class CreateEventActivity extends AppCompatActivity implements SliderInfo
         return bm;
     }
 
-    //StackOverflow code
-    /*
-    * ZAJEBAVA DEO SA PRIKAZIVANJEM SLIKE U POZADINI KAD SE POTVRDJUJE KREIRANJE EVENT-A
-    *
-    *
-    private String getRealPathFromURI(Uri contentURI) {
-        Cursor cursor = getContentResolver().query(contentURI, null, null, null, null);
-        if (cursor == null) { // Source is Dropbox or other similar local file path
-            return contentURI.getPath();
-        } else {
-            cursor.moveToFirst();
-            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-            return cursor.getString(idx);
-        }
 
-    }*/
 
-    public void uploadAndCreateEvent(final Dialog popUpDialog, final ProgressBar progressBar){
+    public void uploadAndCreateEvent(final Dialog popUpDialog, final ProgressBar progressBar, final String userEmail){
+
         db=FirebaseFirestore.getInstance();
+        ArrayList<String>  user = new ArrayList<>();
+        user.add(userEmail);
+
+        //TESTING
+
+        Collections.sort(singleton.dates);
+        DateFormat df = new SimpleDateFormat("dd.mm");
+
         final Map<String, Object> event = new HashMap<>();
         event.put("event_name", singleton.eventName);
         event.put("organiser_name",singleton.organiserName);
         event.put("description_of_event",singleton.descriptionOfEvent);
-        event.put("location_coordinates",singleton.locationCoordinates);
+        event.put("location_coordinates",String.valueOf(singleton.locationCoordinates));
         event.put("location_address",singleton.locationAddress);
         event.put("location_name",singleton.locationName);
-        event.put("emails_of_people", singleton.mUsedEmails);
+        event.put("invited_users", singleton.mUsedEmails);
+        event.put("accepted_users",user);
+        event.put("date_start",df.format(singleton.dates.get(0)));
+        event.put("date_end",df.format(singleton.dates.get(singleton.dates.size()-1)));
+
 
         db.collection("events").add(event).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
@@ -270,13 +284,13 @@ public class CreateEventActivity extends AppCompatActivity implements SliderInfo
                     eventImageRef.putFile(singleton.uriEventImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            String eventImageName = singleton.eventName + timeOfUpload;
+                            //String eventImageName = singleton.eventName + timeOfUpload;
                             DocumentReference thisEvent = db.collection("events").document(eventId);
-                            thisEvent.update("current_event_image",eventImageName).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            thisEvent.update("event_image_url",taskSnapshot.getMetadata().getReference().getDownloadUrl().toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     Log.d(TAG, "Event picture successfully updated!");
-                                    Toast.makeText(CreateEventActivity.this, "Event image added!", Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(CreateEventActivity.this, "Event image added!", Toast.LENGTH_SHORT).show();
 
 
 
@@ -307,7 +321,7 @@ public class CreateEventActivity extends AppCompatActivity implements SliderInfo
                     db.collection("events").document(eventId).collection("days").add(day).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
-                            Toast.makeText(CreateEventActivity.this, "Days successfully added", Toast.LENGTH_SHORT).show();
+                           // Toast.makeText(CreateEventActivity.this, "Days successfully added", Toast.LENGTH_SHORT).show();
                             Log.d(TAG,"Day successfully added into event! "+documentReference.getId());
 
                         }
@@ -342,7 +356,7 @@ public class CreateEventActivity extends AppCompatActivity implements SliderInfo
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
                             Log.d(TAG,"Role successfully added into event! "+documentReference.getId());
-                            Toast.makeText(CreateEventActivity.this, "Roles successfully added", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(CreateEventActivity.this, "Roles successfully added", Toast.LENGTH_SHORT).show();
 
 
                         }
@@ -358,16 +372,46 @@ public class CreateEventActivity extends AppCompatActivity implements SliderInfo
                 //Adding people to event
 
                 for(int z=0;z<singleton.mCEPeople.size();z++){
-                    Map<String,Object> person = new HashMap<>();
-                    person.put("boss",singleton.mCEPeople.get(z).getParentOfIndividual().getEmail());
+                    final Map<String,Object> person = new HashMap<>();
+                    person.put("superior",singleton.mCEPeople.get(z).getParentOfIndividual().getEmail());
                     // person.put("email",singleton.mCEPeople.get(z).getEmail());
                     person.put("role",singleton.mCEPeople.get(z).getRoleOfIndividual().getName());
-                    person.put("invitation_accepted",false);
+                    if(singleton.mCEPeople.get(z).getEmail().equals(userEmail)){
+                        //person.put("invitation_accepted",true);
+                        db.collection("Users").document(userEmail).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if(task.isSuccessful()){
+                                    DocumentSnapshot doc = task.getResult();
+                                    if(doc.exists()){
+                                        Person currentUser = doc.toObject(Person.class);
+                                        person.put("firstName",currentUser.getFirstName());
+                                        person.put("lastName",currentUser.getLastName());
+                                        person.put("email",currentUser.getEmail());
+                                        person.put("nickname",currentUser.getNickname());
+                                        person.put("address",currentUser.getAddress());
+                                        person.put("phoneNumber",currentUser.getPhoneNumber());
+                                        if(!currentUser.getProfileImageUrl().isEmpty()){
+                                            person.put("profileImageUrl",currentUser.getProfileImageUrl());
+                                        }
+                                        Log.d(TAG, "User data: " + doc.getData());
+
+                                    }else{
+                                        Log.d(TAG,"No such user.");
+                                    }
+                                }else{
+                                    Log.d(TAG,"get failed with ", task.getException());
+                                }
+                            }
+                        });
+                    }/*else{
+                        person.put("invitation_accepted",false);
+                    }*/
                     db.collection("events").document(eventId).collection("people").document(singleton.mCEPeople.get(z).getEmail()).set(person)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    Toast.makeText(CreateEventActivity.this, "People successfully added", Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(CreateEventActivity.this, "People successfully added", Toast.LENGTH_SHORT).show();
                                     Log.d(TAG,"Person successfully added into event! "+documentReference.getId());
                                 }
                             }).addOnFailureListener(new OnFailureListener() {

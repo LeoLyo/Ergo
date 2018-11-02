@@ -25,110 +25,93 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.washedup.anagnosti.ergo.R;
+import com.washedup.anagnosti.ergo.eventPerspective.Day;
 import com.washedup.anagnosti.ergo.eventPerspective.Event;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class ChooseEventForPerspectiveActivity extends Activity{
+public class EventInvitationsActivity extends Activity {
 
     private RecyclerView rv;
     private LinearLayoutManager rLayoutManager;
-    private ChooseEventForPerspectiveRecyclerAdapter eRoleAdapter;
-    private FirebaseFirestore  db = FirebaseFirestore.getInstance();
+    private EventInvitationsRecyclerAdapter eRoleAdapter;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference eventsRef = db.collection("events");
     private ArrayList<Event> events = new ArrayList<>();
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseUser user = mAuth.getCurrentUser();
     private TextView tv;
     private ProgressBar pb;
+    private String TAG = "EventInvitationsActivity";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_choose_event_for_perspective);
+        setContentView(R.layout.activity_event_invitations);
 
+        tv = findViewById(R.id.activity_event_invitations_tv);
+        pb = findViewById(R.id.activity_event_invitations_pb);
 
-        tv = findViewById(R.id.activity_cefp_tv);
-        pb = findViewById(R.id.activity_cefp_pb);
+        pb.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.dirtierWhite),PorterDuff.Mode.MULTIPLY);
 
-        pb.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.dirtierWhite), PorterDuff.Mode.MULTIPLY);
-
-        rv = findViewById(R.id.activity_cefp_rv);
-        rLayoutManager = new LinearLayoutManager(ChooseEventForPerspectiveActivity.this);
+        rv = findViewById(R.id.activity_event_invitations_rv);
+        rLayoutManager = new LinearLayoutManager(this);
         rLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rv.setLayoutManager(rLayoutManager);
-        eRoleAdapter = new ChooseEventForPerspectiveRecyclerAdapter(events, ChooseEventForPerspectiveActivity.this);
+        eRoleAdapter = new EventInvitationsRecyclerAdapter(events,this, this);
         rv.setAdapter(eRoleAdapter);
 
-        refreshEventRV();
-
-
+        refreshInvitations();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        //refreshEventRV();
-    }
-
-
-    private void refreshEventRV(){
+    private void refreshInvitations() {
 
         pb.setVisibility(View.VISIBLE);
         eventsRef.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-
-                //StorageReference imagesRef = mStorageRef.child();
                 events.clear();
-                tv.setText(R.string.loading_events);
+                tv.setText(R.string.loading_invitations);
                 String userEmail = user.getEmail();
-                for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
-                    Event event = documentSnapshot.toObject(Event.class);
-                    for(int i=0; i<event.getAccepted_users().size();i++){
+                for(final QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+                    final Event event = documentSnapshot.toObject(Event.class);
+                    for(int i=0;i<events.size();i++){
                         if(userEmail!=null){
-                            if(event.getAccepted_users().get(i).compareTo(userEmail)==0){
+                            if(event.getInvited_users().get(i).compareTo(userEmail)==0){
                                 event.setEvent_id(documentSnapshot.getId());
                                 events.add(event);
                                 break;
                             }
                         }else{
-                            Toast.makeText(ChooseEventForPerspectiveActivity.this, "[YERROR]: Email is null", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(EventInvitationsActivity.this, "[YERROR]: Email is null", Toast.LENGTH_SHORT).show();
                         }
-
                     }
-
                 }
 
                 runAnimation(rv,rLayoutManager, 1);
 
                 pb.setVisibility(View.GONE);
 
-                //int resId = R.anim.layout_animation_from_right;
-                //LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(ChooseEventForPerspectiveActivity.this, resId);
-               //rv.setLayoutAnimation(animation);
-
 
                 if(events.isEmpty()){
-                    tv.setText(R.string.no_events_to_choose_from);
+                    tv.setText(R.string.no_invitations);
                     tv.setVisibility(View.VISIBLE);
                 }else{
                     tv.setVisibility(View.GONE);
-
                 }
             }
         });
     }
 
-
     private void runAnimation(final RecyclerView rv, final LinearLayoutManager llm, int type) {
         //Context context = rv.getContext();
         //LayoutAnimationController controller = null;
-        eRoleAdapter = new ChooseEventForPerspectiveRecyclerAdapter(events, rv.getContext());
+        eRoleAdapter = new EventInvitationsRecyclerAdapter(events, rv.getContext(), this);
         rv.setAdapter(eRoleAdapter);
         rv.setAlpha(0);
 
-            //controller = AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_fall_down);
+        //controller = AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_fall_down);
 
         if(type == 0){
             new Handler().postDelayed(new Runnable() {
@@ -306,9 +289,9 @@ public class ChooseEventForPerspectiveActivity extends Activity{
             }, 50);
         }
 
-            //rv.setLayoutAnimation(controller);
-            //rv.getAdapter().notifyDataSetChanged();
-            //rv.scheduleLayoutAnimation();
+        //rv.setLayoutAnimation(controller);
+        //rv.getAdapter().notifyDataSetChanged();
+        //rv.scheduleLayoutAnimation();
 
     }
 

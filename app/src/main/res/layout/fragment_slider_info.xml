@@ -8,130 +8,136 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="40dp"
-            android:layout_marginStart="40dp"
-            android:orientation="vertical">
-
+            android:layout_gravity="center_vertical">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_marginEnd="40dp"
+                android:layout_marginStart="40dp"
+                android:orientation="vertical"
+                android:gravity="center_vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto_light"
-                    android:paddingEnd="0dp"
-                    android:paddingStart="20dp"
-                    android:text="@string/slider_info_event_name"
-                    android:textColor="@color/dirtyWhite"
-                    android:textSize="15sp" />
-
-                <EditText
-                    android:id="@+id/slider_info_event_name"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="@drawable/et_bg"
-                    android:fontFamily="@font/roboto_light"
-                    android:inputType="textCapWords|textAutoCorrect"
-                    android:nextFocusForward="@+id/slider_info_organiser"
-                    android:paddingEnd="15dp"
-                    android:paddingStart="15dp"
-                    android:textColor="@color/dirtyWhite"
-                    android:textCursorDrawable="@drawable/dirty_white_cursor_drawable"
-                    android:textSize="15sp" />
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_light"
+                        android:paddingEnd="0dp"
+                        android:paddingStart="20dp"
+                        android:text="@string/slider_info_event_name"
+                        android:textColor="@color/dirtyWhite"
+                        android:textSize="15sp" />
+
+                    <EditText
+                        android:id="@+id/slider_info_event_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/et_bg"
+                        android:fontFamily="@font/roboto_light"
+                        android:inputType="textCapWords|textAutoCorrect"
+                        android:nextFocusForward="@+id/slider_info_organiser"
+                        android:paddingEnd="15dp"
+                        android:paddingStart="15dp"
+                        android:textColor="@color/dirtyWhite"
+                        android:textCursorDrawable="@drawable/dirty_white_cursor_drawable"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_light"
+                        android:paddingEnd="0dp"
+                        android:paddingStart="20dp"
+                        android:text="@string/slider_info_organiser"
+                        android:textColor="@color/dirtyWhite"
+                        android:textSize="15sp" />
+
+                    <EditText
+                        android:id="@+id/slider_info_organiser"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/et_bg"
+                        android:fontFamily="@font/roboto_light"
+                        android:inputType="textCapWords|textAutoCorrect"
+                        android:nextFocusForward="@+id/slider_info_description"
+                        android:paddingEnd="15dp"
+                        android:paddingStart="15dp"
+                        android:textColor="@color/dirtyWhite"
+                        android:textCursorDrawable="@drawable/dirty_white_cursor_drawable"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_light"
+                        android:paddingEnd="0dp"
+                        android:paddingStart="20dp"
+                        android:text="@string/slider_info_description"
+                        android:textColor="@color/dirtyWhite"
+                        android:textSize="15sp" />
+
+                    <EditText
+                        android:id="@+id/slider_info_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/et_bg"
+                        android:fontFamily="@font/roboto_light"
+                        android:inputType="textMultiLine|textCapSentences|textAutoCorrect"
+                        android:paddingEnd="15dp"
+                        android:paddingStart="15dp"
+                        android:textColor="@color/dirtyWhite"
+                        android:textCursorDrawable="@drawable/dirty_white_cursor_drawable"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:id="@+id/slider_info_btn_save"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/btn_bg"
+                        android:fontFamily="@font/roboto_light"
+                        android:paddingEnd="70dp"
+                        android:paddingStart="70dp"
+                        android:text="@string/slider_info_btn_save"
+                        android:textColor="@color/dirtyWhite"
+                        android:textSize="16sp" />
+
+                </RelativeLayout>
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto_light"
-                    android:paddingEnd="0dp"
-                    android:paddingStart="20dp"
-                    android:text="@string/slider_info_organiser"
-                    android:textColor="@color/dirtyWhite"
-                    android:textSize="15sp" />
-
-                <EditText
-                    android:id="@+id/slider_info_organiser"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="@drawable/et_bg"
-                    android:fontFamily="@font/roboto_light"
-                    android:inputType="textCapWords|textAutoCorrect"
-                    android:nextFocusForward="@+id/slider_info_description"
-                    android:paddingEnd="15dp"
-                    android:paddingStart="15dp"
-                    android:textColor="@color/dirtyWhite"
-                    android:textCursorDrawable="@drawable/dirty_white_cursor_drawable"
-                    android:textSize="15sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto_light"
-                    android:paddingEnd="0dp"
-                    android:paddingStart="20dp"
-                    android:text="@string/slider_info_description"
-                    android:textColor="@color/dirtyWhite"
-                    android:textSize="15sp" />
-
-                <EditText
-                    android:id="@+id/slider_info_description"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="@drawable/et_bg"
-                    android:fontFamily="@font/roboto_light"
-                    android:inputType="textMultiLine|textCapSentences|textAutoCorrect"
-                    android:paddingEnd="15dp"
-                    android:paddingStart="15dp"
-                    android:textColor="@color/dirtyWhite"
-                    android:textCursorDrawable="@drawable/dirty_white_cursor_drawable"
-                    android:textSize="15sp" />
-
-            </LinearLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <Button
-                    android:id="@+id/slider_info_btn_save"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/btn_bg"
-                    android:fontFamily="@font/roboto_light"
-                    android:paddingEnd="70dp"
-                    android:paddingStart="70dp"
-                    android:text="@string/slider_info_btn_save"
-                    android:textColor="@color/dirtyWhite"
-                    android:textSize="16sp" />
-
-            </RelativeLayout>
-
-        </LinearLayout>
+        </RelativeLayout>
 
 
     </ScrollView>

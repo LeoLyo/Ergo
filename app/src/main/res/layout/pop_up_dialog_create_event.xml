@@ -15,7 +15,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_centerInParent="true"
-        app:cardBackgroundColor="@color/colorAccent"
+        app:cardBackgroundColor="@color/card_background"
         app:cardCornerRadius="16dp">
 
         <RelativeLayout
@@ -26,11 +26,12 @@
 
             <ImageView
                 android:id="@+id/create_event_pop_up_dialog_image_view"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
-                android:scaleType="fitXY"/>
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"/>
 
 
             <TextView

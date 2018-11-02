@@ -26,7 +26,7 @@ public class YHomeActivity extends Activity implements View.OnClickListener{
         findViewById(R.id.home_create_event).setOnClickListener(this);
         findViewById(R.id.home_event_perspective).setOnClickListener(this);
         findViewById(R.id.home_profile).setOnClickListener(this);
-        findViewById(R.id.home_join_event).setOnClickListener(this);
+        findViewById(R.id.home_event_invitations).setOnClickListener(this);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -80,9 +80,9 @@ public class YHomeActivity extends Activity implements View.OnClickListener{
                 
                 break;
                 
-            case R.id.home_join_event:
+            case R.id.home_event_invitations:
 
-                Toast.makeText(this, "Join", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Invitation", Toast.LENGTH_SHORT).show();
                 
                 break;
         }

@@ -6,7 +6,7 @@
     <string name="create_event">Create Event</string>
     <string name="create_event_description">Create a new event\n(for organisers)</string>
     <string name="join_event">Join Event</string>
-    <string name="join_event_description">Join an event you have been invited to</string>
+    <string name="join_event_description">Choose and join an event you have been invited to</string>
     <string name="user_profile">Profile</string>
     <string name="user_profile_description">View your personal information</string>
     <string name="logout_button">Log out</string>
@@ -64,7 +64,16 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="no_events_to_choose_from">No events to choose from :(</string>
     <string name="loading_events">Loading events..</string>
-
+    <string name="loading_invitations">Loading invitations..</string>
+    <string name="loading_people">Loading people..</string>
+    <string name="name">Name</string>
+    <string name="role">Role</string>
+    <string name="event_invitations">Event Invitations</string>
+    <string name="date">Date</string>
+    <string name="description">Description</string>
+    <string name="accept">Accept</string>
+    <string name="decline">Decline</string>
+    <string name="no_invitations">You have not been invited to any events =(</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

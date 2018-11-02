@@ -24,6 +24,7 @@
         android:layout_marginBottom="8dp"
         android:clickable="true"
         android:focusable="true"
+        app:rippleColor="@color/dirtyWhite"
         app:srcCompat="@drawable/ic_date_range_black_24dp" />
 
     <android.support.design.widget.FloatingActionButton
@@ -36,6 +37,7 @@
         android:layout_marginBottom="8dp"
         android:clickable="true"
         android:focusable="true"
+        app:rippleColor="@color/dirtyWhite"
         app:srcCompat="@drawable/ic_refresh_dirty_white_24dp"/>
 
 
