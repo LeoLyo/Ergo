@@ -249,6 +249,7 @@ public class CreateEventActivity extends AppCompatActivity implements SliderInfo
         Collections.sort(singleton.dates);
         DateFormat df = new SimpleDateFormat("dd.mm");
 
+        ArrayList<String> reviews = new ArrayList<>();
         singleton.mUsedEmails.remove(userEmail);
         final Map<String, Object> event = new HashMap<>();
         event.put("event_name", singleton.eventName);
@@ -261,7 +262,7 @@ public class CreateEventActivity extends AppCompatActivity implements SliderInfo
         event.put("accepted_users",user);
         event.put("date_start",df.format(singleton.dates.get(0)));
         event.put("date_end",df.format(singleton.dates.get(singleton.dates.size()-1)));
-
+        event.put("live_reviews",reviews);
 
         db.collection("events").add(event).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override

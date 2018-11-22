@@ -79,4 +79,18 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="pending">PENDING</string>
     <string name="person_name">Person name</string>
+    <string name="nav_my_obligations">My Obligations</string>
+    <string name="nav_event_schedule">Event Schedule</string>
+    <string name="nav_list_of_people">List Of People</string>
+    <string name="nav_break_centre">Break Centre</string>
+    <string name="nav_about_event">About Event</string>
+    <string name="nav_assign_obligations">Assign Obligations</string>
+    <string name="nav_extra">Extra</string>
+    <string name="nav_contact_superior">Contact Superior</string>
+    <string name="nav_review_app">Review App</string>
+    <string name="send_review">Send Review</string>
+    <string name="your_review">Your Review</string>
+    <string name="review_char_counter">0</string>
+    <string name="review_char_counter_max">/500</string>
+
 </resources>

@@ -20,12 +20,15 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 import com.washedup.anagnosti.ergo.R;
 import com.washedup.anagnosti.ergo.eventPerspective.Event;
@@ -102,7 +105,7 @@ public class EventInvitationsRecyclerAdapter extends RecyclerView.Adapter<EventI
                         mAuth = FirebaseAuth.getInstance();
                         String eventId = events.get(holder.getAdapterPosition()).getEvent_id();
                         DocumentReference eventRef = db.collection("events").document(eventId);
-                        String userEmail = mAuth.getCurrentUser().getEmail();
+                        final String userEmail = mAuth.getCurrentUser().getEmail();
 
                         eventRef.update("invited_users", FieldValue.arrayRemove(userEmail));
                         eventRef.update("accepted_users", FieldValue.arrayUnion(userEmail));
@@ -125,12 +128,28 @@ public class EventInvitationsRecyclerAdapter extends RecyclerView.Adapter<EventI
                                             "invitation_accepted", true
                                     );
 
-                                    if(!userInfo.getProfileImageUrl().isEmpty())
+                                    if(userInfo.getProfileImageUrl()!=null && !userInfo.getProfileImageUrl().isEmpty())
                                         userRef.update("profileImageUrl",userInfo.getProfileImageUrl());
 
                                 }else{
                                     Log.d(TAG, "get failed with: ",task.getException());
                                 }
+                            }
+                        });
+
+                        eventRef.collection("people").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                            @Override
+                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                ArrayList<String> userSubordinates = new ArrayList<>();
+                                for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+                                    Person currentPerson = documentSnapshot.toObject(Person.class);
+                                    if(currentPerson.getSuperior().equals(userEmail)){
+                                        userSubordinates.add(currentPerson.getEmail());
+                                    }
+                                }
+                                userRef.update(
+                                  "subordinates",userSubordinates
+                                );
                             }
                         });
 
