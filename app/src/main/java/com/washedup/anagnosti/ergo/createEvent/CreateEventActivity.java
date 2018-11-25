@@ -142,6 +142,14 @@ public class CreateEventActivity extends AppCompatActivity implements SliderInfo
                         }
                     }
                     if(everythingOk&&isUserEmailEntered){
+
+                        /*TESTING DATES
+
+                        Collections.sort(singleton.dates);
+                        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                        String dateStart = df.format(singleton.dates.get(0));
+                        Toast.makeText(CreateEventActivity.this, "TEST: " + dateStart, Toast.LENGTH_SHORT).show();
+                        //DONE WITH TESTING DATES*/
                         final Dialog popUpDialog = new Dialog(CreateEventActivity.this);
                         popUpDialog.setContentView(R.layout.pop_up_dialog_create_event);
                         TextView eventName = popUpDialog.findViewById(R.id.create_event_pop_up_dialog_event_name);
@@ -247,7 +255,7 @@ public class CreateEventActivity extends AppCompatActivity implements SliderInfo
         //TESTING
 
         Collections.sort(singleton.dates);
-        DateFormat df = new SimpleDateFormat("dd.mm");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
         ArrayList<String> reviews = new ArrayList<>();
         singleton.mUsedEmails.remove(userEmail);
@@ -390,6 +398,13 @@ public class CreateEventActivity extends AppCompatActivity implements SliderInfo
                     person.put("superior",singleton.mCEPeople.get(z).getParentOfIndividual().getEmail());
                     person.put("email",singleton.mCEPeople.get(z).getEmail());
                     person.put("role",singleton.mCEPeople.get(z).getRoleOfIndividual().getName());
+                    ArrayList<String> personSubordinates = new ArrayList<>();
+                    for(int q=0;q<singleton.mCEPeople.size();q++){
+                        if(singleton.mCEPeople.get(q).getParentOfIndividual().getEmail().equals(singleton.mCEPeople.get(z).getEmail())){
+                            personSubordinates.add(singleton.mCEPeople.get(q).getEmail());
+                        }
+                    }
+                    person.put("subordinates",personSubordinates);
                     if(singleton.mCEPeople.get(z).getEmail().equals(userEmail)){
                         final int pointerTOZ = z;
                         person.put("invitation_accepted",true);
