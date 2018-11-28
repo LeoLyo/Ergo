@@ -1,20 +1,26 @@
 package com.washedup.anagnosti.ergo.eventPerspective;
 
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.view.animation.DecelerateInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,6 +35,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 import com.washedup.anagnosti.ergo.R;
 import com.washedup.anagnosti.ergo.transformations.CircleTransform;
@@ -150,7 +158,7 @@ class AssignObligationsRecyclerAdapter extends RecyclerView.Adapter<AssignObliga
 
                     @Override
                     public void onClick(View view) {
-                        if (subordinate.getBusy_obligation_count()>=5) {
+                        if (subordinate.getBusy_obligation_count() >= 5) {
                             Toast.makeText(context, "This subordinate already has " + subordinate.getBusy_obligation_count() + " obligations pending for completion. Please assign the task ato another subordinate.", Toast.LENGTH_LONG).show();
                         } else {
 
@@ -217,7 +225,25 @@ class AssignObligationsRecyclerAdapter extends RecyclerView.Adapter<AssignObliga
                                                 .add(obligation).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                             @Override
                                             public void onSuccess(DocumentReference documentReference) {
+
                                                 Log.d(TAG, "Obligation " + documentReference.getId() + "successfully added for subordinate " + subordinate.getEmail());
+                                                String obId = documentReference.getId();
+
+                                                db.collection("events").document(eventId).collection("people")
+                                                        .document(subordinate.getEmail()).collection("obligations")
+                                                        .document(obId).update("obligation_id", obId).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        Log.d(TAG, "Obligation id successfully registered!");
+                                                    }
+                                                })
+                                                        .addOnFailureListener(new OnFailureListener() {
+                                                            @Override
+                                                            public void onFailure(@NonNull Exception e) {
+                                                                Log.w(TAG, "Error registering obligation id ", e);
+                                                            }
+                                                        });
+
                                                 db.collection("events").document(eventId).collection("people")
                                                         .document(subordinate.getEmail()).update("status", "pending_obligation").addOnSuccessListener(new OnSuccessListener<Void>() {
                                                     @Override
@@ -231,8 +257,10 @@ class AssignObligationsRecyclerAdapter extends RecyclerView.Adapter<AssignObliga
                                                                 Log.w(TAG, "Error updating Subordinate status ", e);
                                                             }
                                                         });
-                                                int c = subordinate.getBusy_obligation_count()+1;
+
+                                                int c = subordinate.getBusy_obligation_count() + 1;
                                                 subordinate.setBusy_obligation_count(c);
+
                                                 db.collection("events").document(eventId).collection("people")
                                                         .document(subordinate.getEmail()).update("busy_obligation_count", c).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                     @Override
@@ -278,10 +306,258 @@ class AssignObligationsRecyclerAdapter extends RecyclerView.Adapter<AssignObliga
                     TextView fragment_child_ep_ao_view_sub_ops_tv_user_email, fragment_child_ep_ao_view_sub_ops_tv;
                     RecyclerView fragment_child_ep_ao_view_sub_ops_rv;
                     ProgressBar fragment_child_ep_ao_view_sub_ops_pb;
+                    private LinearLayoutManager obs_rLayoutManager;
+                    private CollectionReference obs_obligationsRef;
+                    private ArrayList<Obligation> obs_obligations = new ArrayList<>();
+
 
                     @Override
                     public void onClick(View view) {
                         popUpDialogChoice.dismiss();
+
+                        popUpDialogSubObs.setContentView(R.layout.fragment_child_event_perspective_assign_obligations_view_sub_obs);
+
+                        fragment_child_ep_ao_view_sub_ops_iv_person = popUpDialogSubObs.findViewById(R.id.fragment_child_ep_ao_view_sub_ops_iv_person);
+                        fragment_child_ep_ao_view_sub_ops_tv_user_email = popUpDialogSubObs.findViewById(R.id.fragment_child_ep_ao_view_sub_ops_tv_user_email);
+                        fragment_child_ep_ao_view_sub_ops_tv = popUpDialogSubObs.findViewById(R.id.fragment_child_ep_ao_view_sub_ops_tv);
+                        fragment_child_ep_ao_view_sub_ops_rv = popUpDialogSubObs.findViewById(R.id.fragment_child_ep_ao_view_sub_ops_rv);
+                        fragment_child_ep_ao_view_sub_ops_pb = popUpDialogSubObs.findViewById(R.id.fragment_child_ep_ao_view_sub_ops_pb);
+                        fragment_child_ep_ao_view_sub_ops_pb.getIndeterminateDrawable().setColorFilter(context.getResources().getColor(R.color.dirtierWhite),PorterDuff.Mode.MULTIPLY);
+
+                        obs_obligationsRef = db.collection("events").document(eventId).collection("people")
+                                .document(subordinate.getEmail()).collection("obligations");
+
+                        obs_rLayoutManager = new LinearLayoutManager(popUpDialogChoice.getContext());
+                        obs_rLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+                        fragment_child_ep_ao_view_sub_ops_rv.setLayoutManager(obs_rLayoutManager);
+
+                        if (subordinate.getProfileImageUrl() != null && !subordinate.getProfileImageUrl().isEmpty()) {
+                            Picasso.with(context)
+                                    .load(subordinate.getProfileImageUrl())
+                                    .fit()
+                                    .centerCrop()
+                                    .into(fragment_child_ep_ao_view_sub_ops_iv_person);
+                        }
+                        
+                        fragment_child_ep_ao_view_sub_ops_tv_user_email.setText(subordinate.getEmail());
+                        obs_refreshObligationsRV();
+                        Objects.requireNonNull(popUpDialogSubObs.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        popUpDialogSubObs.show();
+                    }
+
+                    private void obs_refreshObligationsRV() {
+                        fragment_child_ep_ao_view_sub_ops_pb.setVisibility(View.VISIBLE);
+                        obs_obligationsRef.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                            @Override
+                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                obs_obligations.clear();
+                                fragment_child_ep_ao_view_sub_ops_tv.setText(R.string.loading_obligations_of_subordinate);
+                                for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+                                    Obligation y_obligation = documentSnapshot.toObject(Obligation.class);
+                                    obs_obligations.add(y_obligation);
+                                }
+                                if (!obs_obligations.isEmpty())
+                                    runAnimation(fragment_child_ep_ao_view_sub_ops_rv, obs_rLayoutManager, 1);
+                                fragment_child_ep_ao_view_sub_ops_pb.setVisibility(View.GONE);
+
+                                if (obs_obligations.isEmpty()) {
+                                    fragment_child_ep_ao_view_sub_ops_tv.setText(R.string.no_obligations);
+                                    fragment_child_ep_ao_view_sub_ops_tv.setVisibility(View.VISIBLE);
+                                } else {
+                                    fragment_child_ep_ao_view_sub_ops_tv.setVisibility(View.GONE);
+
+                                }
+                            }
+
+                        });
+                    }
+                    private void runAnimation(final RecyclerView rv, final LinearLayoutManager llm, int type) {
+                        //Context context = rv.getContext();
+                        //LayoutAnimationController controller = null;
+                        AssignObligationsSubOpsRecyclerAdapter rAdapter = new AssignObligationsSubOpsRecyclerAdapter(obs_obligations, rv.getContext(), activity, db, eventId);
+                        rv.setAdapter(rAdapter);
+                        rv.setAlpha(0);
+
+                        //controller = AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_fall_down);
+
+                        if (type == 0) {
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+
+                                    // This will give me the initial first and last visible element's position.
+                                    // This is required as only this elements needs to be animated
+                                    // Start will be always zero in this case as we are calling in onCreate
+                                    int start = llm.findFirstVisibleItemPosition();
+                                    int end = llm.findLastVisibleItemPosition();
+
+                                    Log.i("Start: ", start + "");
+                                    Log.i("End: ", end + "");
+
+                                    // Multiplication factor
+                                    int DELAY = 50;
+
+                                    // Loop through all visible element
+                                    for (int i = start; i <= end; i++) {
+                                        Log.i("Animatining: ", i + "");
+
+                                        // Get View
+                                        View v = rv.findViewHolderForAdapterPosition(i).itemView;
+
+                                        // Hide that view initially
+                                        v.setAlpha(0);
+
+                                        // Setting animations: slide and alpha 0 to 1
+                                        DisplayMetrics displayMetrics = new DisplayMetrics();
+                                        activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+                                        //int height = displayMetrics.heightPixels;
+                                        int width = displayMetrics.widthPixels;
+
+
+                                        PropertyValuesHolder slide = PropertyValuesHolder.ofFloat(View.TRANSLATION_X, -width, 0);
+                                        PropertyValuesHolder alpha = PropertyValuesHolder.ofFloat(View.ALPHA, 0, 1);
+                                        ObjectAnimator a = ObjectAnimator.ofPropertyValuesHolder(v, slide, alpha);
+                                        a.setDuration(300);
+
+                                        // It will set delay. As loop progress it will increment
+                                        // And it will look like items are appearing one by one.
+                                        // Not all at a time
+                                        a.setStartDelay(i * DELAY);
+
+                                        a.setInterpolator(new DecelerateInterpolator());
+
+                                        a.start();
+
+                                    }
+
+                                    // Set Recycler View visible as all visible are now hidden
+                                    // Animation will start, so set it visible
+                                    rv.setAlpha(1);
+
+                                }
+                            }, 50);
+                        } else if (type == 1) {
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+
+                                    // This will give me the initial first and last visible element's position.
+                                    // This is required as only this elements needs to be animated
+                                    // Start will be always zero in this case as we are calling in onCreate
+                                    int start = llm.findFirstVisibleItemPosition();
+                                    int end = llm.findLastVisibleItemPosition();
+
+                                    Log.i("Start: ", start + "");
+                                    Log.i("End: ", end + "");
+
+                                    // Multiplication factor
+                                    int DELAY = 50;
+
+                                    // Loop through all visible element
+                                    for (int i = start; i <= end; i++) {
+                                        Log.i("Animatining: ", i + "");
+
+                                        // Get View
+                                        View v = rv.findViewHolderForAdapterPosition(i).itemView;
+
+                                        // Hide that view initially
+                                        v.setAlpha(0);
+
+                                        // Setting animations: slide and alpha 0 to 1
+                                        DisplayMetrics displayMetrics = new DisplayMetrics();
+                                        activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+                                        //int height = displayMetrics.heightPixels;
+                                        int width = displayMetrics.widthPixels;
+
+                                        //int screenWidth = getApplicationContext().getResources().getDisplayMetrics().widthPixels;
+                                        //int screenHeight = getApplicationContext().getResources().getDisplayMetrics().heightPixels;
+
+                                        PropertyValuesHolder slide = PropertyValuesHolder.ofFloat(View.TRANSLATION_X, width, 0);
+                                        PropertyValuesHolder alpha = PropertyValuesHolder.ofFloat(View.ALPHA, 0, 1);
+                                        ObjectAnimator a = ObjectAnimator.ofPropertyValuesHolder(v, slide, alpha);
+                                        a.setDuration(300);
+
+                                        // It will set delay. As loop progress it will increment
+                                        // And it will look like items are appearing one by one.
+                                        // Not all at a time
+                                        a.setStartDelay(i * DELAY);
+
+                                        a.setInterpolator(new DecelerateInterpolator());
+
+                                        a.start();
+
+                                    }
+
+                                    // Set Recycler View visible as all visible are now hidden
+                                    // Animation will start, so set it visible
+                                    rv.setAlpha(1);
+
+                                }
+                            }, 50);
+                        } else if (type == 2) {
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+
+                                    // This will give me the initial first and last visible element's position.
+                                    // This is required as only this elements needs to be animated
+                                    // Start will be always zero in this case as we are calling in onCreate
+                                    int start = llm.findFirstVisibleItemPosition();
+                                    int end = llm.findLastVisibleItemPosition();
+
+                                    Log.i("Start: ", start + "");
+                                    Log.i("End: ", end + "");
+
+                                    // Multiplication factor
+                                    int DELAY = 50;
+
+                                    // Loop through all visible element
+                                    for (int i = start; i <= end; i++) {
+                                        Log.i("Animatining: ", i + "");
+
+                                        // Get View
+                                        View v = rv.findViewHolderForAdapterPosition(i).itemView;
+
+                                        // Hide that view initially
+                                        v.setAlpha(0);
+
+                                        // Setting animations: slide and alpha 0 to 1
+                                        DisplayMetrics displayMetrics = new DisplayMetrics();
+                                        activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+                                        //int height = displayMetrics.heightPixels;
+                                        //int width = displayMetrics.widthPixels;
+
+                                        //int screenWidth = getApplicationContext().getResources().getDisplayMetrics().widthPixels;
+                                        //int screenHeight = getApplicationContext().getResources().getDisplayMetrics().heightPixels;
+
+
+                                        PropertyValuesHolder slide = PropertyValuesHolder.ofFloat(View.TRANSLATION_Y, 0, 0);
+                                        PropertyValuesHolder alpha = PropertyValuesHolder.ofFloat(View.ALPHA, 0, 1);
+                                        ObjectAnimator a = ObjectAnimator.ofPropertyValuesHolder(v, slide, alpha);
+                                        a.setDuration(300);
+
+                                        // It will set delay. As loop progress it will increment
+                                        // And it will look like items are appearing one by one.
+                                        // Not all at a time
+                                        a.setStartDelay(i * DELAY);
+
+                                        a.setInterpolator(new DecelerateInterpolator());
+
+                                        a.start();
+
+                                    }
+
+                                    // Set Recycler View visible as all visible are now hidden
+                                    // Animation will start, so set it visible
+                                    rv.setAlpha(1);
+
+                                }
+                            }, 50);
+                        }
+
+                        //rv.setLayoutAnimation(controller);
+                        //rv.getAdapter().notifyDataSetChanged();
+                        //rv.scheduleLayoutAnimation();
 
                     }
                 });

@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import java.util.Date;
 
 public class Obligation implements Parcelable{
+    private String obligation_id;
     private String date;
     private String what;
     private String where;
@@ -17,7 +18,8 @@ public class Obligation implements Parcelable{
     public Obligation() {
     }
 
-    public Obligation(String date, String what, String where, String details, String obligation_superior, String obligation_subordinate, int status) {
+    public Obligation(String obligation_id, String date, String what, String where, String details, String obligation_superior, String obligation_subordinate, int status) {
+        this.obligation_id = obligation_id;
         this.date = date;
         this.what = what;
         this.where = where;
@@ -28,6 +30,7 @@ public class Obligation implements Parcelable{
     }
 
     protected Obligation(Parcel in) {
+        obligation_id = in.readString();
         date = in.readString();
         what = in.readString();
         where = in.readString();
@@ -48,6 +51,14 @@ public class Obligation implements Parcelable{
             return new Obligation[size];
         }
     };
+
+    public String getObligation_id() {
+        return obligation_id;
+    }
+
+    public void setObligation_id(String obligation_id) {
+        this.obligation_id = obligation_id;
+    }
 
     public String getDate() {
         return date;
@@ -113,6 +124,7 @@ public class Obligation implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(obligation_id);
         parcel.writeString(date);
         parcel.writeString(what);
         parcel.writeString(where);

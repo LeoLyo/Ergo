@@ -2,6 +2,7 @@ package com.washedup.anagnosti.ergo.eventPerspective;
 
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -57,6 +58,7 @@ public class ListOfPeopleFragment extends Fragment {
         peopleRef = db.collection("events").document(eventId).collection("people");
 
         pb = rootView.findViewById(R.id.fragment_ep_lop_pb);
+        pb.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.dirtierWhite),PorterDuff.Mode.MULTIPLY);
         tv = rootView.findViewById(R.id.fragment_ep_lop_tv);
         rv = rootView.findViewById(R.id.fragment_ep_lop_rv);
         rLayoutManager = new LinearLayoutManager(rootView.getContext());

@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.support.v7.widget.CardView;
@@ -102,6 +103,7 @@ public class ListOfPeopleRecyclerAdapter extends RecyclerView.Adapter<ListOfPeop
                 fragment_child_ep_lop_button_call_pop_up = popUpDialog.findViewById(R.id.fragment_child_ep_lop_button_call_pop_up);
                 fragment_child_ep_lop_button_message_pop_up = popUpDialog.findViewById(R.id.fragment_child_ep_lop_button_message_pop_up);
                 pb = popUpDialog.findViewById(R.id.fragment_child_ep_lop_pb_pop_up);
+                pb.getIndeterminateDrawable().setColorFilter(context.getResources().getColor(R.color.dirtierWhite),PorterDuff.Mode.MULTIPLY);
 
                 if (person.getProfileImageUrl() != null && !person.getProfileImageUrl().isEmpty()) {
                     Picasso.with(context)

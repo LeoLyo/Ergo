@@ -2,6 +2,7 @@ package com.washedup.anagnosti.ergo.eventPerspective;
 
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -38,6 +39,7 @@ public class MyObligationsFragment extends Fragment {
     private CollectionReference obligationsRef;
     private ArrayList<Obligation> obligations = new ArrayList<>();
     private String eventId;
+    private double busy_ob_count;
 
     @Nullable
     @Override
@@ -60,6 +62,7 @@ public class MyObligationsFragment extends Fragment {
                 .document(userEmail).collection("obligations");
 
         pb = rootView.findViewById(R.id.fragment_ep_mo_pb);
+        pb.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.dirtierWhite),PorterDuff.Mode.MULTIPLY);
         tv = rootView.findViewById(R.id.fragment_ep_mo_tv);
         rv = rootView.findViewById(R.id.fragment_ep_mo_rv);
         rLayoutManager = new LinearLayoutManager(rootView.getContext());
@@ -78,9 +81,13 @@ public class MyObligationsFragment extends Fragment {
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
 
                 obligations.clear();
+                busy_ob_count=0;
                 tv.setText(R.string.loading_obligations);
                 for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                     Obligation obligation = documentSnapshot.toObject(Obligation.class);
+                    if(obligation.getStatus()==2||obligation.getStatus()==3){
+                        busy_ob_count++;
+                    }
                     obligations.add(obligation);
                 }
 
@@ -104,7 +111,7 @@ public class MyObligationsFragment extends Fragment {
     private void runAnimation(final RecyclerView rv, final LinearLayoutManager llm, int type) {
         //Context context = rv.getContext();
         //LayoutAnimationController controller = null;
-        MyObligationsRecyclerAdapter rAdapter = new MyObligationsRecyclerAdapter(obligations, rv.getContext(), getActivity(), db, eventId);
+        MyObligationsRecyclerAdapter rAdapter = new MyObligationsRecyclerAdapter(obligations, rv.getContext(), getActivity(), db, eventId, busy_ob_count);
         rv.setAdapter(rAdapter);
         rv.setAlpha(0);
 
