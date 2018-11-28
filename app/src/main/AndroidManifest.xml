@@ -18,6 +18,7 @@
         <activity
             android:name=".authentication.YLoginActivity"
             android:isScrollContainer="true"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,10 +27,19 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".authentication.YForgotPasswordActivity"/>
-        <activity android:name=".authentication.YHomeActivity"/>
-        <activity android:name=".authentication.YRegisterActivity"/>
-        <activity android:name=".authentication.YNotVerifiedActivity"/>
+        <activity
+            android:name=".authentication.YForgotPasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".authentication.YHomeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".authentication.YRegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".authentication.YNotVerifiedActivity"
+            android:screenOrientation="portrait" />
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
@@ -38,11 +48,20 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/api_key" />
 
-        <activity android:name=".createEvent.CreateEventActivity"/>
-        <activity android:name=".otherHomePossibilities.ChooseEventForPerspectiveActivity" />
-        <activity android:name=".eventPerspective.EventPerspectiveActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".otherHomePossibilities.EventInvitationsActivity" />
+        <activity
+            android:name=".createEvent.CreateEventActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".otherHomePossibilities.ChooseEventForPerspectiveActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".eventPerspective.EventPerspectiveActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".otherHomePossibilities.EventInvitationsActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

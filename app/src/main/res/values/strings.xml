@@ -92,5 +92,18 @@
     <string name="your_review">Your Review</string>
     <string name="review_char_counter">0</string>
     <string name="review_char_counter_max">/500</string>
+    <string name="details">Details</string>
+    <string name="what">What</string>
+    <string name="where">Where</string>
+    <string name="dummy_text">Talicni Tom</string>
+    <string name="loading_obligations">Loading obligations..</string>
+    <string name="no_subordinates">You\'ve got no subordinates, friend.</string>
+    <string name="choice_message">Superior Choice:\nChoose what action to take\n</string>
+    <string name="assign_obligation">Assign\nObligation</string>
+    <string name="view_subordinate_obligations">View\nSubordinate\nObligations</string>
+    <string name="loading_obligations_of_subordinate">Loading subordinate\'s obligations..</string>
+    <string name="complete">Complete</string>
+    <string name="start">Start</string>
+    <string name="no_obligations">You haven\'t got any obligations yet.</string>
 
 </resources>

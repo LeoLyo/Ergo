@@ -35,44 +35,48 @@ public class ListOfPeopleRecyclerAdapter extends RecyclerView.Adapter<ListOfPeop
     private Context context;
     private Activity activity;
 
-    public ListOfPeopleRecyclerAdapter(ArrayList<Person> people, Context context, Activity activity){
-        this.people=people;
-        this.context=context;
-        this.activity=activity;
+    public ListOfPeopleRecyclerAdapter() {
+    }
+
+    public ListOfPeopleRecyclerAdapter(ArrayList<Person> people, Context context, Activity activity) {
+        this.people = people;
+        this.context = context;
+        this.activity = activity;
     }
 
 
     @Override
     public ListOfPeopleRecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_child_event_perspective_list_of_people,parent,false);
-        itemView.setLayoutParams(new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT,RecyclerView.LayoutParams.WRAP_CONTENT));
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_child_event_perspective_list_of_people, parent, false);
+        itemView.setLayoutParams(new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.WRAP_CONTENT));
         return new ListOfPeopleRecyclerViewHolder(itemView);
     }
+
+
 
     @Override
     public void onBindViewHolder(ListOfPeopleRecyclerViewHolder holder, int position) {
 
         final Person person = people.get(holder.getAdapterPosition());
         final String combinedName = person.getFirstName() + " " + person.getNickname() + " " + person.getLastName();
-        if(person.getInvitation_accepted()){
+        if (person.getInvitation_accepted()) {
             holder.fragment_child_ep_lop_tv_pending.setVisibility(View.GONE);
             holder.fragment_child_ep_lop_et_name.setText(combinedName);
-        }
-        else{
+        } else {
             holder.fragment_child_ep_lop_tv_pending.setVisibility(View.VISIBLE);
             holder.fragment_child_ep_lop_et_name.setText(person.getEmail());
-            RotateAnimation rotate = (RotateAnimation)AnimationUtils.loadAnimation(context,R.anim.rotate45animation);
-            holder.fragment_child_ep_lop_tv_pending.setAnimation(rotate);
+            //RotateAnimation rotate = (RotateAnimation) AnimationUtils.loadAnimation(context, R.anim.rotate45animation);
+            //holder.fragment_child_ep_lop_tv_pending.setAnimation(rotate);
             holder.fragment_child_ep_lop_cv.setClickable(false);
         }
         holder.fragment_child_ep_lop_et_role.setText(person.getRole());
-        if(person.getProfileImageUrl()!=null && !person.getProfileImageUrl().isEmpty()){
+        if (person.getProfileImageUrl() != null && !person.getProfileImageUrl().isEmpty()) {
             Picasso.with(context)
-                .load(person.getProfileImageUrl())
-                .fit()
-                .centerCrop()
-                .transform(new CircleTransform())
-                .into(holder.fragment_child_ep_lop_iv);
+                    .load(person.getProfileImageUrl())
+                    .fit()
+                    .centerCrop()
+                    .transform(new CircleTransform())
+                    .into(holder.fragment_child_ep_lop_iv);
         }
 
         holder.fragment_child_ep_lop_cv.setOnClickListener(new View.OnClickListener() {
@@ -87,7 +91,7 @@ public class ListOfPeopleRecyclerAdapter extends RecyclerView.Adapter<ListOfPeop
             @Override
             public void onClick(View view) {
 
-                if(!person.getInvitation_accepted()){
+                if (!person.getInvitation_accepted()) {
                     Toast.makeText(context, "User hasn't accepted the event invitation", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -99,7 +103,7 @@ public class ListOfPeopleRecyclerAdapter extends RecyclerView.Adapter<ListOfPeop
                 fragment_child_ep_lop_button_message_pop_up = popUpDialog.findViewById(R.id.fragment_child_ep_lop_button_message_pop_up);
                 pb = popUpDialog.findViewById(R.id.fragment_child_ep_lop_pb_pop_up);
 
-                if(person.getProfileImageUrl()!=null && !person.getProfileImageUrl().isEmpty()) {
+                if (person.getProfileImageUrl() != null && !person.getProfileImageUrl().isEmpty()) {
                     Picasso.with(context)
                             .load(person.getProfileImageUrl())
                             .fit()
@@ -108,6 +112,7 @@ public class ListOfPeopleRecyclerAdapter extends RecyclerView.Adapter<ListOfPeop
                 }
 
                 fragment_child_ep_lop_et_person_name_pop_up.setText(combinedName);
+
                 fragment_child_ep_lop_button_call_pop_up.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

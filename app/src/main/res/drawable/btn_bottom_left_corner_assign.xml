@@ -1,0 +1,24 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:left="0dp"
+        android:right="0dp">
+        <shape
+            android:shape="rectangle">
+            <corners
+                android:bottomLeftRadius="20dp"/>
+            <stroke
+                android:width="1dp"
+                android:color="@color/dirtyWhite" />
+            <solid
+                android:color="@color/colorAccent"/>
+
+        </shape>
+    </item>
+    <item
+        android:bottom="5dp"
+        android:left="5dp"
+        android:right="5dp"
+        android:top="5dp"
+        android:drawable="@drawable/ic_assign_obligations_no_alpha"
+        android:gravity="center"/>
+</layer-list>

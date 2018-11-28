@@ -3,6 +3,8 @@ package com.washedup.anagnosti.ergo.eventPerspective;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+
 public class Person implements Parcelable {
 
     private String address;
@@ -15,12 +17,16 @@ public class Person implements Parcelable {
     private String superior;
     private String role;
     private Boolean invitation_accepted;
+    private ArrayList<String> subordinates;
+    private ArrayList<Obligation> obligations;
+    private String status;
+    private int busy_obligation_count;
 
-    public Person(){
+    public Person() {
 
     }
 
-    public Person(String address, String email, String firstName, String lastName, String nickname, String phoneNumber, String profileImageUrl, String superior, String role, Boolean invitation_accepted){
+    public Person(String address, String email, String firstName, String lastName, String nickname, String phoneNumber, String profileImageUrl, String superior, String role, Boolean invitation_accepted, ArrayList<String> subordinates, int busy_obligation_count) {
         this.address = address;
         this.email = email;
         this.firstName = firstName;
@@ -31,6 +37,10 @@ public class Person implements Parcelable {
         this.superior = superior;
         this.role = role;
         this.invitation_accepted = invitation_accepted;
+        this.subordinates = subordinates;
+        this.obligations = new ArrayList<>();
+        this.status = "free";
+        this.busy_obligation_count=0;
     }
 
     protected Person(Parcel in) {
@@ -45,6 +55,10 @@ public class Person implements Parcelable {
         role = in.readString();
         byte tmpInvitation_accepted = in.readByte();
         invitation_accepted = tmpInvitation_accepted == 0 ? null : tmpInvitation_accepted == 1;
+        subordinates = in.createStringArrayList();
+        obligations = in.createTypedArrayList(Obligation.CREATOR);
+        status = in.readString();
+        busy_obligation_count = in.readInt();
     }
 
     public static final Creator<Person> CREATOR = new Creator<Person>() {
@@ -58,6 +72,15 @@ public class Person implements Parcelable {
             return new Person[size];
         }
     };
+
+
+    public int getBusy_obligation_count() {
+        return busy_obligation_count;
+    }
+
+    public void setBusy_obligation_count(int busy_obligation_count) {
+        this.busy_obligation_count = busy_obligation_count;
+    }
 
     public String getAddress() {
         return address;
@@ -139,6 +162,30 @@ public class Person implements Parcelable {
         this.invitation_accepted = invitation_accepted;
     }
 
+    public ArrayList<String> getSubordinates() {
+        return subordinates;
+    }
+
+    public void setSubordinates(ArrayList<String> subordinates) {
+        this.subordinates = subordinates;
+    }
+
+    public ArrayList<Obligation> getObligations() {
+        return obligations;
+    }
+
+    public void setObligations(ArrayList<Obligation> obligations) {
+        this.obligations = obligations;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "Person{" +
@@ -152,6 +199,10 @@ public class Person implements Parcelable {
                 ", superior='" + superior + '\'' +
                 ", role='" + role + '\'' +
                 ", invitation_accepted=" + invitation_accepted +
+                ", subordinates=" + subordinates +
+                ", obligations=" + obligations +
+                ", status='" + status + '\'' +
+                ", busy_obligation_count=" + busy_obligation_count +
                 '}';
     }
 
@@ -172,5 +223,9 @@ public class Person implements Parcelable {
         parcel.writeString(superior);
         parcel.writeString(role);
         parcel.writeByte((byte) (invitation_accepted == null ? 0 : invitation_accepted ? 1 : 2));
+        parcel.writeStringList(subordinates);
+        parcel.writeTypedList(obligations);
+        parcel.writeString(status);
+        parcel.writeInt(busy_obligation_count);
     }
 }

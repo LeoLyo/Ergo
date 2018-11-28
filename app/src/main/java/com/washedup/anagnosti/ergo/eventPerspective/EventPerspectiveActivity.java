@@ -88,7 +88,7 @@ public class EventPerspectiveActivity extends AppCompatActivity implements Navig
 
     }
 
-    //WE GOTTA FINISH THE JOIN EVENT PART
+    //WE GOTTA FINISH THE JOIN EVENT PART ???
     private void loadUser(final String eventId) {
 
         DocumentReference userRef = db.collection("events").document(eventId).collection("people").document(mAuth.getCurrentUser().getEmail());
@@ -149,6 +149,15 @@ public class EventPerspectiveActivity extends AppCompatActivity implements Navig
                             });
 
                         }
+
+                        if(user.getSubordinates()!=null && !user.getSubordinates().isEmpty()){
+                            Menu navMenu = navigationView.getMenu();
+                            navMenu.findItem(R.id.nav_assign_obligations).setVisible(true);
+                        }else{
+                            Menu navMenu = navigationView.getMenu();
+                            navMenu.findItem(R.id.nav_assign_obligations).setVisible(false);
+                        }
+
 
                     }else{
                         Log.d(TAG,"No such user.");

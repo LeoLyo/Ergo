@@ -5,13 +5,14 @@
     android:layout_height="match_parent">
 
     <android.support.v7.widget.CardView
-        android:id="@+id/fragment_child_ep_ao_cv"
+        android:id="@+id/fragment_child_ep_mo_cv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:alpha="0.88"
         app:cardBackgroundColor="@color/card_background"
         app:cardCornerRadius="20dp">
 
@@ -24,26 +25,19 @@
             android:paddingBottom="8dp">
 
             <ImageView
-                android:id="@+id/fragment_child_ep_ao_iv_person"
+                android:id="@+id/fragment_child_ep_mo_iv"
                 android:layout_width="72dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="8dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/fragment_child_ep_ao_linlay_main"
-                app:srcCompat="@drawable/ic_profile_picture_placeholder" />
-
-            <ImageView
-                android:id="@+id/fragment_child_ep_ao_iv_status"
-                android:layout_width="72dp"
-                android:layout_height="0dp"
+                android:layout_height="72dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:srcCompat="@drawable/ic_yes" />
+                app:layout_constraintTop_toTopOf="@+id/fragment_child_ep_mo_linlay_main"
+                app:srcCompat="@drawable/ic_jebale_te_3_tacke" />
 
             <LinearLayout
-                android:id="@+id/fragment_child_ep_ao_linlay_main"
+                android:id="@+id/fragment_child_ep_mo_linlay_main"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -53,11 +47,11 @@
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/fragment_child_ep_ao_iv_person"
+                app:layout_constraintStart_toEndOf="@+id/fragment_child_ep_mo_iv"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <LinearLayout
-                    android:id="@+id/fragment_child_ep_ao_linlay1"
+                    android:id="@+id/fragment_child_ep_mo_linlay1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -72,12 +66,12 @@
                         android:fontFamily="@font/roboto_light"
                         android:paddingStart="20dp"
                         android:paddingEnd="0dp"
-                        android:text="@string/name"
+                        android:text="@string/what"
                         android:textColor="@color/dirtyWhite"
                         android:textSize="15sp" />
 
                     <EditText
-                        android:id="@+id/fragment_child_ep_ao_et_name"
+                        android:id="@+id/fragment_child_ep_mo_et_what"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:background="@drawable/et_bg"
@@ -92,7 +86,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/fragment_child_ep_ao_linlay2"
+                    android:id="@+id/fragment_child_ep_mo_linlay2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -110,12 +104,12 @@
                         android:fontFamily="@font/roboto_light"
                         android:paddingStart="20dp"
                         android:paddingEnd="0dp"
-                        android:text="@string/role"
+                        android:text="@string/where"
                         android:textColor="@color/dirtyWhite"
                         android:textSize="15sp" />
 
                     <EditText
-                        android:id="@+id/fragment_child_ep_ao_et_role"
+                        android:id="@+id/fragment_child_ep_mo_et_where"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:background="@drawable/et_bg"
@@ -130,26 +124,6 @@
                 </LinearLayout>
 
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/fragment_child_ep_ao_tv_pending"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:fontFamily="@font/roboto_light"
-                android:text="@string/pending"
-                android:textSize="56sp"
-                android:textColor="@color/dirtyWhite"
-                android:textStyle="italic"
-                android:textAlignment="center"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
         </android.support.constraint.ConstraintLayout>
 

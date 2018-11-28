@@ -1,13 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".eventPerspective.AssignObligationsFragment">
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/fragment_ep_ao_rv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:paddingBottom="1dp" />
 
     <TextView
+        android:id="@+id/fragment_ep_ao_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="Assign Obligations"
+        android:fontFamily="@font/roboto_light"
+        android:text="@string/loading_people"
+        android:textAlignment="center"
+        android:textColor="@color/dirtyWhite"
         android:textSize="30sp" />
+
+
+    <ProgressBar
+        android:id="@+id/fragment_ep_ao_pb"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fragment_ep_ao_tv"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone" />
+
 
 </RelativeLayout>
