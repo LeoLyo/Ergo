@@ -309,7 +309,7 @@ class AssignObligationsRecyclerAdapter extends RecyclerView.Adapter<AssignObliga
                     private LinearLayoutManager obs_rLayoutManager;
                     private CollectionReference obs_obligationsRef;
                     private ArrayList<Obligation> obs_obligations = new ArrayList<>();
-
+                    View v;
 
                     @Override
                     public void onClick(View view) {
@@ -322,7 +322,8 @@ class AssignObligationsRecyclerAdapter extends RecyclerView.Adapter<AssignObliga
                         fragment_child_ep_ao_view_sub_ops_tv = popUpDialogSubObs.findViewById(R.id.fragment_child_ep_ao_view_sub_ops_tv);
                         fragment_child_ep_ao_view_sub_ops_rv = popUpDialogSubObs.findViewById(R.id.fragment_child_ep_ao_view_sub_ops_rv);
                         fragment_child_ep_ao_view_sub_ops_pb = popUpDialogSubObs.findViewById(R.id.fragment_child_ep_ao_view_sub_ops_pb);
-                        fragment_child_ep_ao_view_sub_ops_pb.getIndeterminateDrawable().setColorFilter(context.getResources().getColor(R.color.dirtierWhite),PorterDuff.Mode.MULTIPLY);
+                        fragment_child_ep_ao_view_sub_ops_pb.getIndeterminateDrawable().setColorFilter(context.getResources().getColor(R.color.dirtierWhite), PorterDuff.Mode.MULTIPLY);
+                        //v = popUpDialogSubObs.findViewById(R.id.fragment_child_ep_ao_view_sub_ops_v);
 
                         obs_obligationsRef = db.collection("events").document(eventId).collection("people")
                                 .document(subordinate.getEmail()).collection("obligations");
@@ -331,15 +332,15 @@ class AssignObligationsRecyclerAdapter extends RecyclerView.Adapter<AssignObliga
                         obs_rLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
                         fragment_child_ep_ao_view_sub_ops_rv.setLayoutManager(obs_rLayoutManager);
 
-                        if (subordinate.getProfileImageUrl() != null && !subordinate.getProfileImageUrl().isEmpty()) {
+                        /*if (subordinate.getProfileImageUrl() != null && !subordinate.getProfileImageUrl().isEmpty()) {
                             Picasso.with(context)
                                     .load(subordinate.getProfileImageUrl())
                                     .fit()
                                     .centerCrop()
                                     .into(fragment_child_ep_ao_view_sub_ops_iv_person);
                         }
-                        
-                        fragment_child_ep_ao_view_sub_ops_tv_user_email.setText(subordinate.getEmail());
+
+                        fragment_child_ep_ao_view_sub_ops_tv_user_email.setText(subordinate.getEmail());*/
                         obs_refreshObligationsRV();
                         Objects.requireNonNull(popUpDialogSubObs.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                         popUpDialogSubObs.show();
@@ -352,7 +353,7 @@ class AssignObligationsRecyclerAdapter extends RecyclerView.Adapter<AssignObliga
                             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                                 obs_obligations.clear();
                                 fragment_child_ep_ao_view_sub_ops_tv.setText(R.string.loading_obligations_of_subordinate);
-                                for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+                                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                                     Obligation y_obligation = documentSnapshot.toObject(Obligation.class);
                                     obs_obligations.add(y_obligation);
                                 }
@@ -371,6 +372,7 @@ class AssignObligationsRecyclerAdapter extends RecyclerView.Adapter<AssignObliga
 
                         });
                     }
+
                     private void runAnimation(final RecyclerView rv, final LinearLayoutManager llm, int type) {
                         //Context context = rv.getContext();
                         //LayoutAnimationController controller = null;

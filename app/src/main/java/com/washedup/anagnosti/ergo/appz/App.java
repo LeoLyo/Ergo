@@ -5,10 +5,12 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.os.Build;
 
+import com.washedup.anagnosti.ergo.R;
+
 public class App extends Application {
 
-    public static final String  CHANNEL_OBLIGATIONS = "obligations_channel";
-    public static final String CHANNEL_BREAKS = "breaks_channel";
+    public static final String  CHANNEL_OBLIGATIONS = "obligations_channel_624";
+    public static final String CHANNEL_BREAKS = "breaks_channel_224";
     //public static final String CHANNEL_INVITATIONS = "invitations_channel";
 
     @Override

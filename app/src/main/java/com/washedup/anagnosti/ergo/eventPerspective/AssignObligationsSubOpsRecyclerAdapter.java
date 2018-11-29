@@ -56,8 +56,19 @@ public class AssignObligationsSubOpsRecyclerAdapter extends RecyclerView.Adapter
             holder.fragment_child_ep_ao_sub_ops_iv.setImageResource(R.drawable.ic_profile_picture_placeholder);
 
         holder.fragment_child_ep_ao_sub_ops_et_what.setText(obligation.getWhat());
+        holder.fragment_child_ep_ao_sub_ops_et_what.setKeyListener( null );
+        holder.fragment_child_ep_ao_sub_ops_et_what.setFocusable( false );
+        holder.fragment_child_ep_ao_sub_ops_et_what.setCursorVisible(false);
+
         holder.fragment_child_ep_ao_sub_ops_et_where.setText(obligation.getWhere());
+        holder.fragment_child_ep_ao_sub_ops_et_where.setKeyListener( null );
+        holder.fragment_child_ep_ao_sub_ops_et_where.setFocusable( false );
+        holder.fragment_child_ep_ao_sub_ops_et_where.setCursorVisible(false);
+
         holder.fragment_child_ep_ao_sub_ops_et_details.setText(obligation.getDetails());
+        holder.fragment_child_ep_ao_sub_ops_et_details.setKeyListener( null );
+        holder.fragment_child_ep_ao_sub_ops_et_details.setFocusable( false );
+        holder.fragment_child_ep_ao_sub_ops_et_details.setCursorVisible(false);
 
     }
 

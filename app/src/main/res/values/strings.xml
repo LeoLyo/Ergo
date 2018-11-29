@@ -105,5 +105,13 @@
     <string name="complete">Complete</string>
     <string name="start">Start</string>
     <string name="no_obligations">You haven\'t got any obligations yet.</string>
+    <string name="data_type">data_type</string>
+    <string name="obligation_message">obligation_message</string>
+    <string name="break_message">break_message</string>
+    <string name="data_title">data_title</string>
+    <string name="data_message">data_message</string>
+    <string name="data_message_id">data_message_id</string>
+    <string name="obligations_channel_id">obligations_channel_624</string>
+    <string name="breaks_channel_id">breaks_channel_224</string>
 
 </resources>

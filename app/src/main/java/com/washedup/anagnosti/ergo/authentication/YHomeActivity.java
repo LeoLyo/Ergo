@@ -4,11 +4,16 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.washedup.anagnosti.ergo.R;
 import com.washedup.anagnosti.ergo.createEvent.CreateEventActivity;
 import com.washedup.anagnosti.ergo.otherHomePossibilities.ChooseEventForPerspectiveActivity;
@@ -16,6 +21,7 @@ import com.washedup.anagnosti.ergo.otherHomePossibilities.EventInvitationsActivi
 
 public class YHomeActivity extends Activity implements View.OnClickListener{
 
+    private static final String TAG = "YHomeActivity";
     FirebaseAuth mAuth;
 
 
@@ -31,6 +37,28 @@ public class YHomeActivity extends Activity implements View.OnClickListener{
 
         mAuth = FirebaseAuth.getInstance();
 
+        initFCM();
+
+
+    }
+
+    private void sendRegistrationToServer(String token) {
+        Log.d(TAG, "sendRegistrationToServer: sending token to server: " + token);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String userEmail = mAuth.getCurrentUser().getEmail();
+        db.collection("Users").document(userEmail).update("messaging_token",token);
+    }
+
+
+    private void initFCM() {
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
+            @Override
+            public void onSuccess(InstanceIdResult instanceIdResult) {
+                String deviceToken = instanceIdResult.getToken();
+                Log.d(TAG, "initFCM: token: " + deviceToken);
+                sendRegistrationToServer(deviceToken);
+            }
+        });
     }
 
     @Override
@@ -48,6 +76,7 @@ public class YHomeActivity extends Activity implements View.OnClickListener{
                 startActivity(new Intent(this, YNotVerifiedActivity.class));
                 finish();
 
+            }else{
             }
         }
     }

@@ -31,6 +31,7 @@ public class YNotVerifiedActivity extends Activity implements View.OnClickListen
         mAuth = FirebaseAuth.getInstance();
 
         findViewById(R.id.email_verification_btn_verify).setOnClickListener(this);
+        findViewById(R.id.email_verification_btn_back_to_login).setOnClickListener(this);
 
         email_verification_pb = findViewById(R.id.email_verification_pb);
         email_verification_pb.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.dirtierWhite), PorterDuff.Mode.MULTIPLY);
@@ -42,6 +43,12 @@ public class YNotVerifiedActivity extends Activity implements View.OnClickListen
             case R.id.email_verification_btn_verify:
 
                 sendVerificationEmail();
+
+                break;
+            case R.id.email_verification_btn_back_to_login:
+
+                startActivity(new Intent(this, YLoginActivity.class));
+                finish();
 
                 break;
 

@@ -6,6 +6,7 @@ import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
@@ -14,13 +15,18 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.washedup.anagnosti.ergo.R;
 
 public class YLoginActivity extends Activity implements View.OnClickListener{
 
+    private static final String TAG = "YLoginActivity";
     FirebaseAuth mAuth;
 
     private Handler handler;
@@ -140,6 +146,7 @@ public class YLoginActivity extends Activity implements View.OnClickListener{
                 //Toast.makeText(YLoginActivity.this, "JEBO MATER VISE", Toast.LENGTH_SHORT).show();
                 if(task.isSuccessful()){
 
+
                     Toast.makeText(YLoginActivity.this, "Logging in...", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(YLoginActivity.this,YHomeActivity.class);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -156,4 +163,5 @@ public class YLoginActivity extends Activity implements View.OnClickListener{
             
         });
     }
+
 }

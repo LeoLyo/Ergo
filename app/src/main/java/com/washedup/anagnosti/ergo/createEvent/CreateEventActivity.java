@@ -1,6 +1,8 @@
 package com.washedup.anagnosti.ergo.createEvent;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -588,5 +590,19 @@ public class CreateEventActivity extends AppCompatActivity implements SliderInfo
 
     public int getmCurrentPage() {
         return mCurrentPage;
+    }
+
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setTitle("Really Exit?")
+                .setMessage("Are you sure you want to exit the Create Event page? All your data will be lost.")
+                .setNegativeButton(android.R.string.no, null)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        CreateEventActivity.super.onBackPressed();
+                    }
+                }).create().show();
     }
 }

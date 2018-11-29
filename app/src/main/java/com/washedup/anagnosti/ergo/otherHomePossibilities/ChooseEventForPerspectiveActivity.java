@@ -24,6 +24,8 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.washedup.anagnosti.ergo.R;
 import com.washedup.anagnosti.ergo.eventPerspective.Event;
 
@@ -31,6 +33,7 @@ import java.util.ArrayList;
 
 public class ChooseEventForPerspectiveActivity extends Activity{
 
+    private static final String TAG = "ChooseEFPActivity";
     private RecyclerView rv;
     private LinearLayoutManager rLayoutManager;
     private ChooseEventForPerspectiveRecyclerAdapter eRoleAdapter;
@@ -61,6 +64,7 @@ public class ChooseEventForPerspectiveActivity extends Activity{
         rv.setAdapter(eRoleAdapter);
 
         refreshEventRV();
+
 
 
     }
