@@ -51,6 +51,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.washedup.anagnosti.ergo.R;
 import com.washedup.anagnosti.ergo.authentication.YHomeActivity;
+import com.washedup.anagnosti.ergo.eventPerspective.Break;
 import com.washedup.anagnosti.ergo.eventPerspective.Person;
 
 import java.io.IOException;
@@ -257,7 +258,7 @@ public class CreateEventActivity extends AppCompatActivity implements SliderInfo
         //TESTING
 
         Collections.sort(singleton.dates);
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat df = new SimpleDateFormat("hh:mm dd/MM/yyyy");
 
         ArrayList<String> reviews = new ArrayList<>();
         singleton.mUsedEmails.remove(userEmail);
@@ -396,10 +397,14 @@ public class CreateEventActivity extends AppCompatActivity implements SliderInfo
                 //Adding people to event
 
                 for(int z=0;z<singleton.mCEPeople.size();z++){
+                    ArrayList<Break> breaks = new ArrayList<>();
                     final Map<String,Object> person = new HashMap<>();
                     person.put("superior",singleton.mCEPeople.get(z).getParentOfIndividual().getEmail());
                     person.put("email",singleton.mCEPeople.get(z).getEmail());
                     person.put("role",singleton.mCEPeople.get(z).getRoleOfIndividual().getName());
+                    person.put("status","free");
+                    person.put("busy_obligation_count",0);
+                    person.put("breaks",breaks);
                     ArrayList<String> personSubordinates = new ArrayList<>();
                     for(int q=0;q<singleton.mCEPeople.size();q++){
                         if(singleton.mCEPeople.get(q).getParentOfIndividual().getEmail().equals(singleton.mCEPeople.get(z).getEmail())){
@@ -425,6 +430,7 @@ public class CreateEventActivity extends AppCompatActivity implements SliderInfo
                                         person.put("nickname",currentUser.getNickname());
                                         person.put("address",currentUser.getAddress());
                                         person.put("phoneNumber",currentUser.getPhoneNumber());
+
                                         if(currentUser.getProfileImageUrl()!=null && !currentUser.getProfileImageUrl().isEmpty()){
                                             person.put("profileImageUrl",currentUser.getProfileImageUrl());
                                         }

@@ -3,19 +3,23 @@ package com.washedup.anagnosti.ergo.authentication;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.washedup.anagnosti.ergo.R;
 import com.washedup.anagnosti.ergo.createEvent.CreateEventActivity;
+import com.washedup.anagnosti.ergo.eventPerspective.Person;
 import com.washedup.anagnosti.ergo.otherHomePossibilities.ChooseEventForPerspectiveActivity;
 import com.washedup.anagnosti.ergo.otherHomePossibilities.EventInvitationsActivity;
 
@@ -23,7 +27,7 @@ public class YHomeActivity extends Activity implements View.OnClickListener{
 
     private static final String TAG = "YHomeActivity";
     FirebaseAuth mAuth;
-
+    String privileges;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -94,7 +98,37 @@ public class YHomeActivity extends Activity implements View.OnClickListener{
 
             case R.id.home_create_event:
 
-                startActivity(new Intent(this,CreateEventActivity.class));
+                if(privileges==null){
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                    db.collection("Users").document(mAuth.getCurrentUser().getEmail()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            if(documentSnapshot.exists()){
+                                Log.d(TAG, "Getting user privileges.");
+                                privileges = documentSnapshot.getString("privileges");
+                                if(privileges.equals("basic")){
+                                    Toast.makeText(YHomeActivity.this, "You don't have the privileges to create an event.", Toast.LENGTH_SHORT).show();
+                                }
+                                else if(privileges.equals("creator")||privileges.equals("admin")){
+                                    startActivity(new Intent(YHomeActivity.this ,CreateEventActivity.class));
+                                }
+                            }
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.e(TAG,"Failure when getting user privileges on create event.");
+                        }
+                    });
+                }else{
+
+                    if(privileges.equals("basic")){
+                        Toast.makeText(YHomeActivity.this, "You don't have the privileges to create an event.", Toast.LENGTH_SHORT).show();
+                    }
+                    else if(privileges.equals("creator")||privileges.equals("admin")){
+                        startActivity(new Intent(YHomeActivity.this ,CreateEventActivity.class));
+                    }
+                }
 
                 break;
 

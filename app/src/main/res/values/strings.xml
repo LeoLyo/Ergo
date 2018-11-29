@@ -113,5 +113,23 @@
     <string name="data_message_id">data_message_id</string>
     <string name="obligations_channel_id">obligations_channel_624</string>
     <string name="breaks_channel_id">breaks_channel_224</string>
+    <string name="default_break_time">00:00</string>
+    <string name="time_until_break_ends">Time until break ends:</string>
+    <string name="request_break">Request Break</string>
+    <string name="subordinate_break_requests">Subordinate\nBreak Requests</string>
+    <string name="loading_all_breaks">Loading all breaks..</string>
+    <string name="no_break">You\'re not on a break atm</string>
+    <string name="fetching_active_break">Fetching active break:</string>
+    <string name="no_breaks">You\'ve never asked for a break yet.</string>
+    <string name="duration">Duration in minutes</string>
+    <string name="status">Status</string>
+    <string name="error_date_status">No status</string>
+    <string name="break_pending">Pending approval</string>
+    <string name="break_on_break">Currently on this break</string>
+    <string name="break_ended">Break ended</string>
+    <string name="self_time_message">Pick your break duration in minutes:</string>
+    <string name="default_duration_time">Example: 15</string>
+    <string name="fetching_break_requests">Fetching subordinates with break requests:</string>
+    <string name="break_declined">Break declined</string>
 
 </resources>

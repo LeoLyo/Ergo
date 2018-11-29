@@ -66,7 +66,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/content/ic_send_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/content/ic_reply_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -76,13 +76,10 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="ebebeb" />
-                            <entry key="height" value="72" />
-                            <entry key="outputName" value="ic_sukurac_pauza" />
+                            <entry key="outputName" value="ic_reply_dirty_white_24dp" />
                             <entry key="overrideSize" value="true" />
                             <entry key="sourceFile" value="F:\Downloads\Sukurac pauza.svg" />
-                            <entry key="width" value="72" />
                           </map>
                         </option>
                       </PersistentState>

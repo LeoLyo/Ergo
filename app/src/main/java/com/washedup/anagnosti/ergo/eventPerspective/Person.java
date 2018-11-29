@@ -19,14 +19,15 @@ public class Person implements Parcelable {
     private Boolean invitation_accepted;
     private ArrayList<String> subordinates;
     private ArrayList<Obligation> obligations;
-    private String status;
+    private ArrayList<Break> breaks;
+    private String status; // "free", "declined", "working", "pending_obligation","on_break";
     private int busy_obligation_count;
 
     public Person() {
 
     }
 
-    public Person(String address, String email, String firstName, String lastName, String nickname, String phoneNumber, String profileImageUrl, String superior, String role, Boolean invitation_accepted, ArrayList<String> subordinates, int busy_obligation_count) {
+    public Person(String address, String email, String firstName, String lastName, String nickname, String phoneNumber, String profileImageUrl, String superior, String role, Boolean invitation_accepted, ArrayList<String> subordinates) {
         this.address = address;
         this.email = email;
         this.firstName = firstName;
@@ -39,8 +40,9 @@ public class Person implements Parcelable {
         this.invitation_accepted = invitation_accepted;
         this.subordinates = subordinates;
         this.obligations = new ArrayList<>();
+        this.breaks = new ArrayList<>();
         this.status = "free";
-        this.busy_obligation_count=0;
+        this.busy_obligation_count = 0;
     }
 
     protected Person(Parcel in) {
@@ -57,6 +59,7 @@ public class Person implements Parcelable {
         invitation_accepted = tmpInvitation_accepted == 0 ? null : tmpInvitation_accepted == 1;
         subordinates = in.createStringArrayList();
         obligations = in.createTypedArrayList(Obligation.CREATOR);
+        breaks = in.createTypedArrayList(Break.CREATOR);
         status = in.readString();
         busy_obligation_count = in.readInt();
     }
@@ -81,6 +84,15 @@ public class Person implements Parcelable {
     public void setBusy_obligation_count(int busy_obligation_count) {
         this.busy_obligation_count = busy_obligation_count;
     }
+
+    public ArrayList<Break> getBreaks() {
+        return breaks;
+    }
+
+    public void setBreaks(ArrayList<Break> breaks) {
+        this.breaks = breaks;
+    }
+
 
     public String getAddress() {
         return address;
@@ -201,6 +213,7 @@ public class Person implements Parcelable {
                 ", invitation_accepted=" + invitation_accepted +
                 ", subordinates=" + subordinates +
                 ", obligations=" + obligations +
+                ", breaks=" + breaks +
                 ", status='" + status + '\'' +
                 ", busy_obligation_count=" + busy_obligation_count +
                 '}';
@@ -225,6 +238,7 @@ public class Person implements Parcelable {
         parcel.writeByte((byte) (invitation_accepted == null ? 0 : invitation_accepted ? 1 : 2));
         parcel.writeStringList(subordinates);
         parcel.writeTypedList(obligations);
+        parcel.writeTypedList(breaks);
         parcel.writeString(status);
         parcel.writeInt(busy_obligation_count);
     }

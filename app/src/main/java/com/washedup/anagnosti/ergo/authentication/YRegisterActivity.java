@@ -181,6 +181,7 @@ public class YRegisterActivity extends Activity implements View.OnClickListener{
         unauthenticatedUser.put(LAST_NAME_KEY,lastName);
         unauthenticatedUser.put(ADDRESS_KEY,address);
         unauthenticatedUser.put(PHONE_NUMBER_KEY,phoneNumber);
+        unauthenticatedUser.put("privileges","basic");
         //unauthenticatedUser.put(PASSWORD_KEY,password);
         FirebaseFirestore.setLoggingEnabled(true);
 
