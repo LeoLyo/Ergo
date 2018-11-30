@@ -2,16 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
 android:layout_height="match_parent">
 
 <android.support.v7.widget.CardView
     android:id="@+id/fragment_child_ep_bc_sub_brs_card_cv"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="64dp"
+    android:layout_marginStart="16dp"
     android:layout_marginTop="8dp"
-    android:layout_marginEnd="64dp"
+    android:layout_marginEnd="16dp"
     android:layout_marginBottom="8dp"
     app:cardBackgroundColor="@color/card_background"
     app:cardCornerRadius="20dp">
@@ -33,46 +33,44 @@ android:layout_height="match_parent">
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <LinearLayout
-                android:id="@+id/fragment_child_ep_bc_sub_brs_card_linlay1"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/fragment_child_ep_bc_sub_brs_card_et_name"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
-                android:orientation="vertical">
+                android:layout_gravity="center"
+                android:fontFamily="@font/roboto_light"
+                android:text="@string/dummy_name"
+                android:textAlignment="center"
+                android:textColor="@color/dirtyWhite"
+                android:textSize="22sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto_light"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="0dp"
-                    android:text="@string/name"
-                    android:textColor="@color/dirtyWhite"
-                    android:textSize="15sp" />
+            <TextView
+                android:id="@+id/fragment_child_ep_bc_sub_brs_card_et_statistics"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_light"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:text="@string/dummy_text"
+                android:textColor="@color/dirtyWhite"
+                android:textSize="18sp" />
 
-                <EditText
-                    android:id="@+id/fragment_child_ep_bc_sub_brs_card_et_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="@drawable/et_bg"
-                    android:focusable="false"
-                    android:fontFamily="@font/roboto_light"
-                    android:inputType="none"
-                    android:paddingStart="15dp"
-                    android:paddingEnd="15dp"
-                    android:textColor="@color/dirtyWhite"
-                    android:textSize="15sp" />
-
-            </LinearLayout>
+            <View
+                android:id="@+id/fragment_child_ep_bc_sub_brs_card_v"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="8dp"
+                android:layout_gravity="center"
+                android:background="@color/dirtyWhite" />
 
             <LinearLayout
                 android:id="@+id/fragment_child_ep_bc_sub_brs_card_linlay2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
@@ -85,7 +83,11 @@ android:layout_height="match_parent">
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_light"
-                    android:paddingStart="20dp"
+                    android:textAlignment="center"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:paddingStart="0dp"
                     android:paddingEnd="0dp"
                     android:text="@string/duration"
                     android:textColor="@color/dirtyWhite"
@@ -96,11 +98,13 @@ android:layout_height="match_parent">
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="@drawable/et_bg"
-                    android:focusable="false"
+                    android:hint="@string/default_duration_time"
+                    android:textColorHint="@color/dirtierWhite"
                     android:fontFamily="@font/roboto_light"
-                    android:inputType="none"
+                    android:inputType="number"
                     android:paddingStart="15dp"
                     android:paddingEnd="15dp"
+                    android:textCursorDrawable="@drawable/dirty_white_cursor_drawable"
                     android:textColor="@color/dirtyWhite"
                     android:textSize="15sp" />
 
@@ -142,6 +146,18 @@ android:layout_height="match_parent">
                 android:textColor="@color/dirtyWhite"
                 android:textSize="16sp" />
         </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/fragment_child_ep_bc_sub_brs_card_pb"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
     </android.support.constraint.ConstraintLayout>
 

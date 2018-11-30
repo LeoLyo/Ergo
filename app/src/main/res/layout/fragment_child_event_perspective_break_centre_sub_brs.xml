@@ -4,7 +4,6 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-
     <android.support.v7.widget.CardView
         android:id="@+id/fragment_child_ep_bc_sub_brs_cv"
         android:layout_width="match_parent"
@@ -89,10 +88,9 @@
                 style="?android:attr/progressBarStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/fragment_ep_lop_tv"
                 android:layout_centerHorizontal="true"
                 android:visibility="gone"
-                app:layout_anchor="@id/fragment_ep_bc_rv"
+                app:layout_anchor="@id/fragment_child_ep_bc_sub_brs_rv"
                 app:layout_anchorGravity="center" />
 
         </android.support.design.widget.CoordinatorLayout>

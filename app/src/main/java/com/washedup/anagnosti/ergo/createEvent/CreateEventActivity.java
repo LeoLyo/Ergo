@@ -397,14 +397,15 @@ public class CreateEventActivity extends AppCompatActivity implements SliderInfo
                 //Adding people to event
 
                 for(int z=0;z<singleton.mCEPeople.size();z++){
-                    ArrayList<Break> breaks = new ArrayList<>();
                     final Map<String,Object> person = new HashMap<>();
                     person.put("superior",singleton.mCEPeople.get(z).getParentOfIndividual().getEmail());
                     person.put("email",singleton.mCEPeople.get(z).getEmail());
                     person.put("role",singleton.mCEPeople.get(z).getRoleOfIndividual().getName());
                     person.put("status","free");
                     person.put("busy_obligation_count",0);
-                    person.put("breaks",breaks);
+                    person.put("breakRequestId","no_request_yet");
+                    person.put("breaks_today",0);
+                    person.put("breaks_whole",0);
                     ArrayList<String> personSubordinates = new ArrayList<>();
                     for(int q=0;q<singleton.mCEPeople.size();q++){
                         if(singleton.mCEPeople.get(q).getParentOfIndividual().getEmail().equals(singleton.mCEPeople.get(z).getEmail())){

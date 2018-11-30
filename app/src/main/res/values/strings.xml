@@ -131,5 +131,7 @@
     <string name="default_duration_time">Example: 15</string>
     <string name="fetching_break_requests">Fetching subordinates with break requests:</string>
     <string name="break_declined">Break declined</string>
+    <string name="no_break_requests">Nobody\'s requesting a break atm.</string>
+    <string name="minute_format_warning">Please type how long a break you want to give your subordinate.</string>
 
 </resources>

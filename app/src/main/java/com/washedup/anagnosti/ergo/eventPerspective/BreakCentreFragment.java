@@ -170,6 +170,16 @@ public class BreakCentreFragment extends Fragment {
 
             @Override
             public void onClick(View view) {
+
+                fragment_ep_bc_fab_reply_to_subordinate_break_requests.startAnimation(fab_close);
+                fragment_ep_bc_fab_request_break.startAnimation(fab_close);
+                fragment_ep_bc_tv_subordinate_break_requests.startAnimation(fab_close);
+                fragment_ep_bc_tv_request_break.startAnimation(fab_close);
+                fragment_ep_bc_fab_main.startAnimation(fab_rotate_counter_clockwise);
+                fragment_ep_bc_fab_reply_to_subordinate_break_requests.setClickable(false);
+                fragment_ep_bc_fab_request_break.setClickable(false);
+                isFabMenuOpen = false;
+
                 popUpDialog.setContentView(R.layout.fragment_child_event_perspective_break_centre_sub_brs);
                 fragment_child_ep_bc_sub_brs_message_tv = popUpDialog.findViewById(R.id.fragment_child_ep_bc_sub_brs_message_tv);
                 fragment_child_ep_bc_sub_brs_rv = popUpDialog.findViewById(R.id.fragment_child_ep_bc_sub_brs_rv);
@@ -197,18 +207,18 @@ public class BreakCentreFragment extends Fragment {
                         for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                             Person sub = documentSnapshot.toObject(Person.class);
                             for (String cur_sub : subordinatesEmails) {
-                                if (sub.getEmail().equals(cur_sub) && !(sub.getBreaks().isEmpty())) {
+                                if (sub.getEmail().equals(cur_sub) && !(sub.getBreakRequestId().equals("no_request_yet"))) {
                                     subsWithBreakRequests.add(sub);
                                 }
                             }
                         }
 
                         if (!subsWithBreakRequests.isEmpty())
-                            runLocalAnimation(fragment_child_ep_bc_sub_brs_rv, obs_rLayoutManager, 1);
+                            runLocalAnimation(popUpDialog,fragment_child_ep_bc_sub_brs_rv, obs_rLayoutManager, 1);
                         fragment_child_ep_bc_sub_brs_pb.setVisibility(View.GONE);
 
                         if (subsWithBreakRequests.isEmpty()) {
-                            fragment_child_ep_bc_sub_brs_message_tv.setText(R.string.no_obligations);
+                            fragment_child_ep_bc_sub_brs_message_tv.setText(R.string.no_break_requests);
                             fragment_child_ep_bc_sub_brs_message_tv.setVisibility(View.VISIBLE);
                         } else {
                             fragment_child_ep_bc_sub_brs_message_tv.setVisibility(View.GONE);
@@ -220,11 +230,11 @@ public class BreakCentreFragment extends Fragment {
                 });
             }
 
-            private void runLocalAnimation(final RecyclerView rv, final LinearLayoutManager llm, int type) {
+            private void runLocalAnimation(Dialog popUpDialog, final RecyclerView rv, final LinearLayoutManager llm, int type) {
 
                 //Context context = rv.getContext();
                 //LayoutAnimationController controller = null;
-                BreakCentreSubBrsRecyclerAdapter rAdapter = new BreakCentreSubBrsRecyclerAdapter(subsWithBreakRequests, rv.getContext(), getActivity(), db, eventId);
+                BreakCentreSubBrsRecyclerAdapter rAdapter = new BreakCentreSubBrsRecyclerAdapter(popUpDialog, subsWithBreakRequests, rv.getContext(), getActivity(), db, eventId);
                 rv.setAdapter(rAdapter);
                 rv.setAlpha(0);
 
@@ -415,11 +425,30 @@ public class BreakCentreFragment extends Fragment {
         fragment_ep_bc_fab_request_break.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!currentUser.getBreaks().isEmpty()) {
+
+                if (!currentUser.getBreakRequestId().equals("no_request_yet")) {
                     Toast.makeText(getContext(), "You already have a break that's pending for approval. Wait for your superior to approve or decline it.", Toast.LENGTH_LONG).show();
                 } else if (count > 0) {
                     Toast.makeText(getContext(), "You are already on a break!", Toast.LENGTH_SHORT).show();
                 } else {
+
+                    if (currentUser.getSubordinates().isEmpty()) {
+                        fragment_ep_bc_fab_request_break.startAnimation(fab_close);
+                        fragment_ep_bc_tv_request_break.startAnimation(fab_close);
+                        fragment_ep_bc_fab_main.startAnimation(fab_rotate_counter_clockwise);
+                        fragment_ep_bc_fab_request_break.setClickable(false);
+                        isFabMenuOpen = false;
+                    }else{
+                        fragment_ep_bc_fab_reply_to_subordinate_break_requests.startAnimation(fab_close);
+                        fragment_ep_bc_fab_request_break.startAnimation(fab_close);
+                        fragment_ep_bc_tv_subordinate_break_requests.startAnimation(fab_close);
+                        fragment_ep_bc_tv_request_break.startAnimation(fab_close);
+                        fragment_ep_bc_fab_main.startAnimation(fab_rotate_counter_clockwise);
+                        fragment_ep_bc_fab_reply_to_subordinate_break_requests.setClickable(false);
+                        fragment_ep_bc_fab_request_break.setClickable(false);
+                        isFabMenuOpen = false;
+                    }
+
                     if (currentUser.getSuperior().equals("nobody@nonono.com")) {
                         final Dialog popUpDialog = new Dialog(getContext());
                         popUpDialog.setContentView(R.layout.fragment_child_event_perspective_break_centre_pop_up);
@@ -464,8 +493,8 @@ public class BreakCentreFragment extends Fragment {
                                     }).addOnFailureListener(new OnFailureListener() {
                                         @Override
                                         public void onFailure(@NonNull Exception e) {
-                                            Log.w(TAG, "Error adding break request to your breaks ", e);
-                                            Toast.makeText(getContext(), "Error adding break request to your breaks: " + e, Toast.LENGTH_LONG).show();
+                                            Log.w(TAG, "Error adding new personal break request ", e);
+                                            Toast.makeText(getContext(), "Error adding new personal break request: " + e, Toast.LENGTH_LONG).show();
                                         }
                                     });
                                 }
@@ -488,7 +517,7 @@ public class BreakCentreFragment extends Fragment {
                                 String breakId = documentReference.getId();
                                 breaksRef.document(breakId).update("break_id", breakId);
                                 new_break.put("break_id",breakId);
-                                db.collection("events").document(eventId).collection("people").document(userEmail).update("breaks", FieldValue.arrayUnion(new_break));
+                                db.collection("events").document(eventId).collection("people").document(userEmail).update("breakRequestId", breakId);
                                 Log.d(TAG, "Break request " + documentReference.getId() + "successfully added for user " + currentUser.getEmail());
                                 Toast.makeText(getContext(), "Break request successfully sent.", Toast.LENGTH_SHORT).show();
                                 refreshBrakesRV();
@@ -496,8 +525,8 @@ public class BreakCentreFragment extends Fragment {
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Log.w(TAG, "Error adding break request to user's breaks ", e);
-                                Toast.makeText(getContext(), "Error adding break request to user's breaks: " + e, Toast.LENGTH_LONG).show();
+                                Log.w(TAG, "Error adding break request id to user's breakRequestId ", e);
+                                Toast.makeText(getContext(), "Error adding break request id to user's breakRequestId: " + e, Toast.LENGTH_LONG).show();
                             }
                         });
                     }
@@ -550,6 +579,9 @@ public class BreakCentreFragment extends Fragment {
                         } else {
                             db.collection("events").document(eventId).collection("people").document(currentUser.getEmail()).update("status", "free");
                         }
+                        int bw = currentUser.getBreaks_whole();
+                        bw++;
+                        db.collection("events").document(eventId).collection("people").document(userEmail).update("breaks_whole", bw);
                         refreshBrakesRV();
                         startStop();
                     }
