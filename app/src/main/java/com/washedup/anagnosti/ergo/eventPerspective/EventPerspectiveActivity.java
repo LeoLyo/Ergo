@@ -55,10 +55,13 @@ public class EventPerspectiveActivity extends AppCompatActivity implements Navig
     private Dialog popUpDialog, popUpDialogReview;
     private  Person superior;
     private NavigationView navigationView;
+    private int here = -1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        here = -1;
+
         setContentView(R.layout.activity_event_perspective);
         popUpDialog = new Dialog(this);
         popUpDialogReview = new Dialog(this);
@@ -188,6 +191,14 @@ public class EventPerspectiveActivity extends AppCompatActivity implements Navig
         }else {
             super.onBackPressed();
         }
+    }
+
+    public int getHere() {
+        return this.here;
+    }
+
+    public void setHere(int here) {
+        this.here = here;
     }
 
     @Override

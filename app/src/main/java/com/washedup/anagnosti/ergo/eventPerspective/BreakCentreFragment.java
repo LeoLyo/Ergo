@@ -71,6 +71,7 @@ public class BreakCentreFragment extends Fragment {
     private boolean timeRunning;
     private String breakId;
     private int count = 0;
+    int this_here;
 
     @Nullable
     @Override
@@ -79,6 +80,8 @@ public class BreakCentreFragment extends Fragment {
 
         currentEvent = ((EventPerspectiveActivity) this.getActivity()).getCurrentEvent();
         currentUser = ((EventPerspectiveActivity) this.getActivity()).getCurrentUser();
+        this_here = ((EventPerspectiveActivity) this.getActivity()).getHere();
+        ((EventPerspectiveActivity) this.getActivity()).setHere(2);
         db = FirebaseFirestore.getInstance();
 
         eventId = currentEvent.getEvent_id();
@@ -613,6 +616,7 @@ public class BreakCentreFragment extends Fragment {
         timeRunning = false;
     }
 
+
     private void refreshBrakesRV() {
         fragment_ep_bc_message_tv.setText(R.string.fetching_active_break);
         pb.setVisibility(View.VISIBLE);
@@ -654,8 +658,11 @@ public class BreakCentreFragment extends Fragment {
                     fragment_ep_bc_countdown_tv.setVisibility(View.VISIBLE);
                 }
 
-                if (!breaks.isEmpty())
-                    runAnimation(rv, rLayoutManager, 1);
+                if (!breaks.isEmpty()){
+                    setUserVisibleHint(getUserVisibleHint());
+                    if(this_here==2)
+                        runAnimation(rv, rLayoutManager, 1);
+                }
                 pb.setVisibility(View.GONE);
 
                 if (breaks.isEmpty()) {

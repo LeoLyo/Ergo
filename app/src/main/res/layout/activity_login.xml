@@ -64,7 +64,6 @@
                         android:nextFocusForward="@+id/log_in_et_password"
                         android:paddingEnd="15dp"
                         android:paddingStart="15dp"
-                        android:text="rakomir.utvarodizach@gmail.com"
                         android:textColor="@color/dirtyWhite"
                         android:textCursorDrawable="@drawable/dirty_white_cursor_drawable"
                         android:textSize="15sp" />
@@ -96,7 +95,6 @@
                         android:inputType="textPassword"
                         android:paddingEnd="15dp"
                         android:paddingStart="15dp"
-                        android:text="ergo5678"
                         android:textColor="@color/dirtyWhite"
                         android:textCursorDrawable="@drawable/dirty_white_cursor_drawable"
                         android:textSize="15sp" />

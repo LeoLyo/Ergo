@@ -83,8 +83,34 @@ public class LatestFirebaseMessagingService extends FirebaseMessagingService {
             String title = remoteMessage.getData().get(getString(R.string.data_title));
             String message = remoteMessage.getData().get(getString(R.string.data_message));
             //String messageId = remoteMessage.getData().get(getString(R.string.data_message_id));
-            sendObligationMessageNotification(title, message);
+            sendBreakMessageNotification(title, message);
         }
+
+    }
+
+    private void sendBreakMessageNotification(String title, String message) {
+        Log.d(TAG, "sendObligationMessageNotification: building a chat message notification");
+
+        //get the notification id
+        int notificationId = buildNotificationId(title);
+
+        //Instantiate a builder object
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, getString(R.string.breaks_channel_id));
+
+        builder.setSmallIcon(R.drawable.ic_launcher_logo)
+                .setLargeIcon(BitmapFactory.decodeResource(getApplicationContext().getResources(),R.mipmap.ic_launcher))
+                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                .setContentTitle(title)
+                .setColor(Color.parseColor("#1FAFDC"))
+                .setAutoCancel(true)
+                .setSubText(message)
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
+                .setOnlyAlertOnce(true);
+
+        //builder.setContentIntent(notifyPendingIntent);
+        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        mNotificationManager.notify(notificationId, builder.build());
 
     }
 
@@ -103,7 +129,7 @@ public class LatestFirebaseMessagingService extends FirebaseMessagingService {
         //Instantiate a builder object
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, getString(R.string.obligations_channel_id));
 
-        //Creates an Intent for the Activity
+        //Cr eates an Intent for the Activity
         Intent pendingIntent = new Intent(this, ChooseEventForPerspectiveActivity.class);
 
         //Sets the Activity to start in a new, empty task
@@ -127,7 +153,7 @@ public class LatestFirebaseMessagingService extends FirebaseMessagingService {
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
                 .setOnlyAlertOnce(true);
 
-        builder.setContentIntent(notifyPendingIntent);
+        //builder.setContentIntent(notifyPendingIntent);
         NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         mNotificationManager.notify(notificationId, builder.build());

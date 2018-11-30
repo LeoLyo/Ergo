@@ -14,6 +14,7 @@ public class EventScheduleFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        ((EventPerspectiveActivity) this.getActivity()).setHere(3);
         return inflater.inflate(R.layout.fragment_event_perspective_event_schedule, container,false);
     }
 }

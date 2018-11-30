@@ -14,6 +14,7 @@ public class AboutEventFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        ((EventPerspectiveActivity) this.getActivity()).setHere(0);
         return inflater.inflate(R.layout.fragment_event_perspective_about_event, container, false);
     }
 }
