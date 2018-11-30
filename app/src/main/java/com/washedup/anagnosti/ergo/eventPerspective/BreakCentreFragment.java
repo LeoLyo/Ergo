@@ -80,8 +80,9 @@ public class BreakCentreFragment extends Fragment {
 
         currentEvent = ((EventPerspectiveActivity) this.getActivity()).getCurrentEvent();
         currentUser = ((EventPerspectiveActivity) this.getActivity()).getCurrentUser();
-        this_here = ((EventPerspectiveActivity) this.getActivity()).getHere();
         ((EventPerspectiveActivity) this.getActivity()).setHere(2);
+        this_here = ((EventPerspectiveActivity) this.getActivity()).getHere();
+
         db = FirebaseFirestore.getInstance();
 
         eventId = currentEvent.getEvent_id();
@@ -217,7 +218,7 @@ public class BreakCentreFragment extends Fragment {
                         }
 
                         if (!subsWithBreakRequests.isEmpty())
-                            runLocalAnimation(popUpDialog,fragment_child_ep_bc_sub_brs_rv, obs_rLayoutManager, 1);
+                            runLocalAnimation(popUpDialog, fragment_child_ep_bc_sub_brs_rv, obs_rLayoutManager, 1);
                         fragment_child_ep_bc_sub_brs_pb.setVisibility(View.GONE);
 
                         if (subsWithBreakRequests.isEmpty()) {
@@ -441,7 +442,7 @@ public class BreakCentreFragment extends Fragment {
                         fragment_ep_bc_fab_main.startAnimation(fab_rotate_counter_clockwise);
                         fragment_ep_bc_fab_request_break.setClickable(false);
                         isFabMenuOpen = false;
-                    }else{
+                    } else {
                         fragment_ep_bc_fab_reply_to_subordinate_break_requests.startAnimation(fab_close);
                         fragment_ep_bc_fab_request_break.startAnimation(fab_close);
                         fragment_ep_bc_tv_subordinate_break_requests.startAnimation(fab_close);
@@ -519,7 +520,7 @@ public class BreakCentreFragment extends Fragment {
                             public void onSuccess(DocumentReference documentReference) {
                                 String breakId = documentReference.getId();
                                 breaksRef.document(breakId).update("break_id", breakId);
-                                new_break.put("break_id",breakId);
+                                new_break.put("break_id", breakId);
                                 db.collection("events").document(eventId).collection("people").document(userEmail).update("breakRequestId", breakId);
                                 Log.d(TAG, "Break request " + documentReference.getId() + "successfully added for user " + currentUser.getEmail());
                                 Toast.makeText(getContext(), "Break request successfully sent.", Toast.LENGTH_SHORT).show();
@@ -562,9 +563,9 @@ public class BreakCentreFragment extends Fragment {
                 //Toast.makeText(getContext(), "<=0", Toast.LENGTH_SHORT).show();
                 fragment_ep_bc_message_tv.setText(R.string.no_break);
                 fragment_ep_bc_countdown_tv.setVisibility(View.GONE);
-                timeLeftInMilliseconds=0;
-                count=0;
-                breakId="";
+                timeLeftInMilliseconds = 0;
+                count = 0;
+                breakId = "";
                 db.collection("events").document(eventId).collection("people").document(currentUser.getEmail()).collection("obligations").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -641,10 +642,10 @@ public class BreakCentreFragment extends Fragment {
                     breaks.add(cbreak);
                 }
 
-                if(testingTimeLeftInMilliseconds!=0 && !(testingBreakId.equals("")) && testingCount!=0){
-                    timeLeftInMilliseconds=testingTimeLeftInMilliseconds;
-                    breakId=testingBreakId;
-                    count=testingCount;
+                if (testingTimeLeftInMilliseconds != 0 && !(testingBreakId.equals("")) && testingCount != 0) {
+                    timeLeftInMilliseconds = testingTimeLeftInMilliseconds;
+                    breakId = testingBreakId;
+                    count = testingCount;
                 }
 
                 if (count < 1) {
@@ -652,16 +653,15 @@ public class BreakCentreFragment extends Fragment {
                     fragment_ep_bc_message_tv.setText(R.string.no_break);
                     fragment_ep_bc_countdown_tv.setVisibility(View.GONE);
 
-                } else if(count == 1){
+                } else if (count == 1) {
                     startStop();
                     fragment_ep_bc_message_tv.setText(R.string.time_until_break_ends);
                     fragment_ep_bc_countdown_tv.setVisibility(View.VISIBLE);
                 }
 
-                if (!breaks.isEmpty()){
-                    setUserVisibleHint(getUserVisibleHint());
-                    if(this_here==2)
-                        runAnimation(rv, rLayoutManager, 1);
+                if (!breaks.isEmpty()) {
+                    //if(((EventPerspectiveActivity) getActivity()).getHere()==2)//??
+                    runAnimation(rv, rLayoutManager, 1);
                 }
                 pb.setVisibility(View.GONE);
 
