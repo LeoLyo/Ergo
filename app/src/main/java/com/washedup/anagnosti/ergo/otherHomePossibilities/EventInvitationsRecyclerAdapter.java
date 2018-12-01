@@ -18,8 +18,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -104,11 +106,9 @@ public class EventInvitationsRecyclerAdapter extends RecyclerView.Adapter<EventI
                         db = FirebaseFirestore.getInstance();
                         mAuth = FirebaseAuth.getInstance();
                         String eventId = events.get(holder.getAdapterPosition()).getEvent_id();
-                        DocumentReference eventRef = db.collection("events").document(eventId);
+                        final DocumentReference eventRef = db.collection("events").document(eventId);
                         final String userEmail = mAuth.getCurrentUser().getEmail();
 
-                        eventRef.update("invited_users", FieldValue.arrayRemove(userEmail));
-                        eventRef.update("accepted_users", FieldValue.arrayUnion(userEmail));
 
                         final DocumentReference userRef =  eventRef.collection("people").document(userEmail);
 
@@ -116,7 +116,7 @@ public class EventInvitationsRecyclerAdapter extends RecyclerView.Adapter<EventI
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                 if(task.isSuccessful()){
-                                    DocumentSnapshot document = task.getResult();
+                                    final DocumentSnapshot document = task.getResult();
                                     Person userInfo = document.toObject(Person.class);
                                     userRef.update(
                                           "address",userInfo.getAddress(),
@@ -125,40 +125,84 @@ public class EventInvitationsRecyclerAdapter extends RecyclerView.Adapter<EventI
                                             "lastName",userInfo.getLastName(),
                                             "nickname",userInfo.getNickname(),
                                             "phoneNumber",userInfo.getPhoneNumber(),
-                                            "invitation_accepted", true
-                                    );
+                                            "invitation_accepted", true,
+                                            "privileges",userInfo.getPrivileges()
+                                    ).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+
+                                            eventRef.collection("people").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                                @Override
+                                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                                    final ArrayList<String> userSubordinates = new ArrayList<>();
+                                                    for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+                                                        Person currentPerson = documentSnapshot.toObject(Person.class);
+                                                        if(currentPerson.getSuperior().equals(userEmail)){
+                                                            userSubordinates.add(currentPerson.getEmail());
+                                                        }
+                                                    }
+                                                    userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                                        @Override
+                                                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                            Log.d(TAG,"Get user before inviting successful!");
+                                                            Person currentCurrentPerson = documentSnapshot.toObject(Person.class);
+                                                            if(currentCurrentPerson.getSubordinates()!=null){
+                                                                userSubordinates.addAll(currentCurrentPerson.getSubordinates());
+                                                            }
+                                                            userRef.update(
+                                                                    "subordinates",userSubordinates
+                                                            );
+                                                            eventRef.update("invited_users", FieldValue.arrayRemove(userEmail));
+                                                            eventRef.update("accepted_users", FieldValue.arrayUnion(userEmail));
+                                                            Log.d(TAG,"Updating user " + userEmail + " successful!");
+                                                            Toast.makeText(context, "Updating user " + userEmail + " successful!", Toast.LENGTH_SHORT).show();
+                                                            popUpDialog.dismiss();
+                                                            child_activity_event_invitations_pb_pop_up.setVisibility(View.GONE);
+                                                            Intent intent = new Intent(context,EventPerspectiveActivity.class);
+                                                            intent.putExtra("current_event",tempEvent);
+                                                            context.startActivity(intent);
+                                                            activity.finish();
+                                                        }
+                                                    }).addOnFailureListener(new OnFailureListener() {
+                                                        @Override
+                                                        public void onFailure(@NonNull Exception e) {
+                                                            Log.e(TAG,"Get user before inviting failed: ",e);
+                                                        }
+                                                    });
+
+                                                }
+                                            });
+
+
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.e(TAG,"Updating user " + userEmail + " failed!");
+                                            Toast.makeText(context, "Updating user " + userEmail + " failed!", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                    Toast.makeText(context, "Completed inviting user " + userEmail, Toast.LENGTH_SHORT).show();
+                                    Log.d(TAG, "get succeeded with: ",task.getException());
 
                                     if(userInfo.getProfileImageUrl()!=null && !userInfo.getProfileImageUrl().isEmpty())
                                         userRef.update("profileImageUrl",userInfo.getProfileImageUrl());
 
                                 }else{
-                                    Log.d(TAG, "get failed with: ",task.getException());
+                                    Toast.makeText(context, "Failed inviting user " + userEmail, Toast.LENGTH_SHORT).show();
+
+                                    Log.e(TAG, "get failed with: ",task.getException());
                                 }
                             }
-                        });
-
-                        eventRef.collection("people").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        }).addOnFailureListener(new OnFailureListener() {
                             @Override
-                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                ArrayList<String> userSubordinates = new ArrayList<>();
-                                for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
-                                    Person currentPerson = documentSnapshot.toObject(Person.class);
-                                    if(currentPerson.getSuperior().equals(userEmail)){
-                                        userSubordinates.add(currentPerson.getEmail());
-                                    }
-                                }
-                                userRef.update(
-                                  "subordinates",userSubordinates
-                                );
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(context, "Failed inviting user " + userEmail, Toast.LENGTH_SHORT).show();
+                                Log.e(TAG, "get failed with: ",e);
                             }
                         });
 
-                        popUpDialog.dismiss();
-                        child_activity_event_invitations_pb_pop_up.setVisibility(View.GONE);
-                        Intent intent = new Intent(context,EventPerspectiveActivity.class);
-                        intent.putExtra("current_event",tempEvent);
-                        context.startActivity(intent);
-                        activity.finish();
+
                     }
                 });
 

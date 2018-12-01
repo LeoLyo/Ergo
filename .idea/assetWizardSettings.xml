@@ -66,7 +66,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/content/ic_reply_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/social/ic_person_add_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -77,7 +77,7 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="ebebeb" />
-                            <entry key="outputName" value="ic_reply_dirty_white_24dp" />
+                            <entry key="outputName" value="ic_person_add_dirty_white_with_alpha_24dp" />
                             <entry key="overrideSize" value="true" />
                             <entry key="sourceFile" value="F:\Downloads\Sukurac pauza.svg" />
                           </map>

@@ -188,7 +188,6 @@ class AssignObligationsRecyclerAdapter extends RecyclerView.Adapter<AssignObliga
 
                                 @Override
                                 public void onClick(View view) {
-                                    fragment_child_ep_ao_pb_pop_up.setVisibility(View.VISIBLE);
                                     final String what = fragment_child_ep_ao_et_what_pop_up.getText().toString().trim();
                                     final String where = fragment_child_ep_ao_et_where_pop_up.getText().toString().trim();
                                     final String details = fragment_child_ep_ao_et_details_pop_up.getText().toString().trim();
@@ -204,6 +203,7 @@ class AssignObligationsRecyclerAdapter extends RecyclerView.Adapter<AssignObliga
                                         fragment_child_ep_ao_et_details_pop_up.requestFocus();
                                     } else {
 
+                                        fragment_child_ep_ao_pb_pop_up.setVisibility(View.VISIBLE);
                                         //Date
                                         long yourmilliseconds = System.currentTimeMillis();
                                         SimpleDateFormat sdf = new SimpleDateFormat("MMM dd,yyyy HH:mm");

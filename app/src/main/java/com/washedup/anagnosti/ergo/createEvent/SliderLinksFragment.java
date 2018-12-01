@@ -50,7 +50,7 @@ public class SliderLinksFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private static final int PLACE_PICKER_REQUEST = 101;
+    private static final int PLACE_PICKER_REQUEST = 1;
     private static final int CHOOSE_IMAGE_REQUEST = 102;
 
     private String firstDayDateArray;

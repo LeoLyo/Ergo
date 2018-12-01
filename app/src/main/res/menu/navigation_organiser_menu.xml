@@ -49,6 +49,11 @@
                 android:id="@+id/nav_review_app"
                 android:icon="@drawable/ic_review_app"
                 android:title="@string/nav_review_app"/>
+
+            <item
+                android:id="@+id/nav_invite_new_person"
+                android:icon="@drawable/ic_person_add_dirty_white_with_alpha_24dp"
+                android:title="@string/nav_invite_new_person"/>
         </menu>
     </item>
 

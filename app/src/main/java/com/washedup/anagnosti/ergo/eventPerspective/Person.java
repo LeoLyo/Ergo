@@ -24,6 +24,7 @@ public class Person implements Parcelable {
     private int breaks_today;
     private int breaks_whole;
     private String breakRequestId;
+    private String privileges;
 
     public Person() {
 
@@ -47,6 +48,7 @@ public class Person implements Parcelable {
         this.breaks_today = 0;
         this.breaks_whole = 0;
         this.breakRequestId = "no_request_yet";
+        privileges = "basic";
     }
 
     protected Person(Parcel in) {
@@ -68,6 +70,7 @@ public class Person implements Parcelable {
         breaks_today = in.readInt();
         breaks_whole = in.readInt();
         breakRequestId = in.readString();
+        privileges = in.readString();
     }
 
     public static final Creator<Person> CREATOR = new Creator<Person>() {
@@ -82,6 +85,14 @@ public class Person implements Parcelable {
         }
     };
 
+
+    public String getPrivileges() {
+        return privileges;
+    }
+
+    public void setPrivileges(String privileges) {
+        this.privileges = privileges;
+    }
 
     public String getBreakRequestId() {
         return breakRequestId;
@@ -241,6 +252,7 @@ public class Person implements Parcelable {
                 ", breaks_today=" + breaks_today +
                 ", breaks_whole=" + breaks_whole +
                 ", breakRequestId='" + breakRequestId + '\'' +
+                ", privileges='" + privileges + '\'' +
                 '}';
     }
 
@@ -268,5 +280,6 @@ public class Person implements Parcelable {
         parcel.writeInt(breaks_today);
         parcel.writeInt(breaks_whole);
         parcel.writeString(breakRequestId);
+        parcel.writeString(privileges);
     }
 }

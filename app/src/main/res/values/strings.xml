@@ -133,5 +133,16 @@
     <string name="break_declined">Break declined</string>
     <string name="no_break_requests">Nobody\'s requesting a break atm.</string>
     <string name="minute_format_warning">Please type how long a break you want to give your subordinate.</string>
+    <string name="nav_invite_new_person">Invite New Person</string>
+    <string name="invite_new_person_message">Who and what will the new person be?</string>
+    <string name="example_email">Example: newperson@gmail.com</string>
+    <string name="email">Email</string>
+    <string name="subordinates">Subordinates</string>
+    <string name="example_role">Example: Superior</string>
+    <string name="example_superior_name">Example: my_superior@gmail.com</string>
+    <string name="example_subordinates">List all subordinates\' emails</string>
+    <string name="invite_new_person_hint">*Separate all subordinates with a blank space (\" \")</string>
+    <string name="superior_email">Superior email</string>
+    <string name="invite_new_person_no_superior_hint">*If your invitee shouldn\'t have a superior, write \'nobody@nonono.com\' as the superior email.</string>
 
 </resources>
