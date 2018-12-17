@@ -50,7 +50,6 @@ public class AssignObligationsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_event_perspective_assign_obligations, container, false);
         currentEvent = ((EventPerspectiveActivity) this.getActivity()).getCurrentEvent();
         currentUser = ((EventPerspectiveActivity) this.getActivity()).getCurrentUser();
-        ((EventPerspectiveActivity) this.getActivity()).setHere(1);
         db = FirebaseFirestore.getInstance();
 
         String e = currentUser.getEmail();

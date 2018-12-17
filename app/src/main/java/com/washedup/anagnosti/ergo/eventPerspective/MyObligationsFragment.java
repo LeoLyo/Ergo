@@ -48,7 +48,6 @@ public class MyObligationsFragment extends Fragment {
 
         Event currentEvent = ((EventPerspectiveActivity) this.getActivity()).getCurrentEvent();
         Person currentUser = ((EventPerspectiveActivity) this.getActivity()).getCurrentUser();
-        ((EventPerspectiveActivity) this.getActivity()).setHere(5);
         db = FirebaseFirestore.getInstance();
 
         eventId = currentEvent.getEvent_id();

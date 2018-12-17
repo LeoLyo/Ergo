@@ -12,7 +12,9 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -71,7 +73,7 @@ public class BreakCentreFragment extends Fragment {
     private boolean timeRunning;
     private String breakId;
     private int count = 0;
-    int this_here;
+    private NavigationView nv;
 
     @Nullable
     @Override
@@ -80,8 +82,7 @@ public class BreakCentreFragment extends Fragment {
 
         currentEvent = ((EventPerspectiveActivity) this.getActivity()).getCurrentEvent();
         currentUser = ((EventPerspectiveActivity) this.getActivity()).getCurrentUser();
-        ((EventPerspectiveActivity) this.getActivity()).setHere(2);
-        this_here = ((EventPerspectiveActivity) this.getActivity()).getHere();
+        nv = ((EventPerspectiveActivity) this.getActivity()).getNavView();
 
         db = FirebaseFirestore.getInstance();
 
@@ -120,7 +121,7 @@ public class BreakCentreFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (currentUser.getSubordinates().isEmpty()) {
-                    fragment_ep_bc_fab_reply_to_subordinate_break_requests.setVisibility(View.GONE);
+                    fragment_ep_bc_fab_reply_to_subordinate_break_requests.hide();
                     fragment_ep_bc_tv_subordinate_break_requests.setVisibility(View.GONE);
 
                     if (isFabMenuOpen) {
@@ -660,8 +661,10 @@ public class BreakCentreFragment extends Fragment {
                 }
 
                 if (!breaks.isEmpty()) {
+                    if(nv.getCheckedItem().getItemId() == R.id.nav_break_centre){
+                        runAnimation(rv, rLayoutManager, 1);
+                    }
                     //if(((EventPerspectiveActivity) getActivity()).getHere()==2)//??
-                    runAnimation(rv, rLayoutManager, 1);
                 }
                 pb.setVisibility(View.GONE);
 

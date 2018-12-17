@@ -1,7 +1,6 @@
 package com.washedup.anagnosti.ergo.eventPerspective;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -44,8 +43,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 import com.washedup.anagnosti.ergo.R;
-import com.washedup.anagnosti.ergo.createEvent.CreateEventActivity;
-import com.washedup.anagnosti.ergo.transformations.CircleTransform;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -213,12 +210,8 @@ public class EventPerspectiveActivity extends AppCompatActivity implements Navig
         }
     }
 
-    public int getHere() {
-        return this.here;
-    }
-
-    public void setHere(int here) {
-        this.here = here;
+    public NavigationView getNavView() {
+        return this.navigationView;
     }
 
     @Override

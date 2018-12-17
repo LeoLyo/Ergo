@@ -50,7 +50,6 @@ public class ListOfPeopleFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_event_perspective_list_of_people, container,false);
         currentEvent = ((EventPerspectiveActivity)this.getActivity()).getCurrentEvent();
-        ((EventPerspectiveActivity) this.getActivity()).setHere(4);
         //Toast.makeText(getContext(), "TESTING INSIDE LIST ocv: " + currentEvent.toString(), Toast.LENGTH_SHORT).show();
         //TextView tv = rootView.findViewById(R.id.fep_list_of_people_tv);
         //tv.setText(currentEvent.getEvent_name());
